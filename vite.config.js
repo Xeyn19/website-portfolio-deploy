@@ -8,5 +8,6 @@ export default defineConfig({
   plugins: [tailwindcss(),react()],
   server: {
     port:3000,
-  }
+  },
+  base: process.env.VITE_BASE_PATH || "/website-portfolio-deploy",
 })
