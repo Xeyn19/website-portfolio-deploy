@@ -1,0 +1,70 @@
+[
+    {
+        "id": 1,
+        "title": "Amazon Website Clone",
+        "description": "I developed an Amazon website clone as a personal project, utilizing HTML and Tailwind CSS v4 for the design and layout to replicate the aesthetic and structure of the original site. For functionality, I used React.js v19, ensuring interactive elements like product selection, cart updates, and smooth navigation. The product data is stored in a JSON file, which I fetched on the front end to dynamically render product details and manage cart functionality. The website is fully responsive, adapting seamlessly to different screen sizes, making it accessible on all devices, from mobile phones to desktop computers. This project allowed me to apply and enhance my front-end development skills while focusing on creating a user-friendly and visually appealing experience.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "image": "/project1.png"
+      },
+
+      {
+        "id": 2,
+        "title": "Nike Website Clone",
+        "description": "I developed a Nike website clone using React.js v19 and Tailwind CSS, creating a modern and responsive user interface. Tailwind CSS was used to design a clean and visually appealing layout, while React.js powered the dynamic functionality, including product display, cart management, and seamless state updates. The product data is stored in a JSON file, which I fetched on the front end to dynamically render product details and manage cart functionality. The project features an interactive shopping experience, allowing users to add and remove items from the cart, view product details, and navigate smoothly across the site. This project enhanced my front-end development skills and deepened my understanding of component-based architecture, state management, and data fetching.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "image": "/project2.png"
+      },
+      {
+        "id": 3,
+        "title": "React Jobs Website",
+        "description": "I developed a React-based jobs website using React.js v19 and Tailwind CSS v4, creating a responsive and user-friendly platform for job listings. Tailwind CSS was used to design a clean and modern layout, ensuring the website adapts seamlessly to all devices, from desktops to smartphones. I stored the job data in a JSON file and fetched it on the front end, allowing dynamic rendering of job listings. React Router was implemented to enable smooth navigation between different pages, providing an intuitive browsing experience. This project strengthened my skills in component-based development, state management, and client-side routing.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "image": "/project3.png"
+      },
+      {
+        
+        "id": 4,
+        "title": "Movies Website API",
+        "description": "I developed a dynamic movie website using React.js that fetches movie data from an external API and displays it on the front end. The project includes a fully responsive design, ensuring seamless viewing across all devices. I used React.js not only for designing and layout but also to implement key functionalities, such as a debounced search feature for smooth and efficient searching. The website efficiently handles API data, providing users with real-time movie information and an intuitive user experience. This project showcases my ability to combine front-end design with functional logic, delivering a professional and responsive web application.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "image": "/project4.png"
+      },
+      {
+        "id": 5,
+        "title": "Simple Todo-List React JS",
+        "description": "I developed a Simple To-Do List application using React.js for functionality and Tailwind CSS for styling and design. The app allows users to add, edit, delete, and, with all data being saved in local storage to preserve tasks even after refreshing the page. The use of Tailwind CSS ensures a clean and modern design, while React.js efficiently manages state and user interactions. This project showcases my ability to build functional and visually appealing applications using modern front-end technologies with persistent data handling.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "image": "/project7.png"
+      },{
+        "id": 9,
+        "title": "Simple Rock Paper Scissor Game",
+        "description": "I developed a Simple Rock Paper Scissors Game using HTML for the structure, pure CSS for clean and simple designs, and Vanilla JavaScript for functionality. The game allows players to choose their moves, while the computer generates a random move. The scores and game records are saved in local storage, allowing users to track their progress even after refreshing the page. I also implemented an auto-play feature that can be toggled by pressing 'A' to start and 'P' to stop, or by clicking a button. This project demonstrates my ability to create interactive and responsive web applications using core front-end technologies.",
+        "technologies": ["/html.png","/CSS.png","/JS.jpg"],
+        "image": "/project9.png"
+      },
+      {
+        "id": 8,
+        "title": "GYM Website UI and Functionality",
+        "description": "I developed the UI for our System Analysis and Design project during my 3rd year, 1st semester as a Bachelor of Science in Information Systems (BSIS) student. I used pure HTML for structuring and CSS for styling and layout, ensuring the design is fully responsive across all devices through CSS media queries. The interface is clean and user-friendly, providing a consistent and smooth experience on desktops, tablets, and mobile devices. Additionally, I implemented functional buttons and modals using JavaScript, enhancing user interaction and improving the overall user experience. This project reflects my ability to create responsive, interactive, and well-organized layouts using core front-end technologies.",
+        "technologies": ["/html.png","/CSS.png","/JS.jpg"],
+        "image": "/project8.png"
+      },
+      {
+        
+          "id": 7,
+          "title": "Instagram Clone UI",
+          "description": "I created an Instagram clone using HTML for structuring the layout and pure CSS for styling and design. The project replicates the core design and user interface of Instagram, including the feed layout, profile section, and navigation bar. It is fully responsive, ensuring a consistent and smooth experience across all devices, from desktops to mobile phones. This project demonstrates my ability to create clean, modern designs and responsive layouts using only HTML and CSS, highlighting my front-end development skills.",
+          "technologies": ["/html.png","/CSS.png"],
+          "image": "/project5.png"
+      },
+     {
+      "id": 6,
+      "title": "Facebook Login Clone UI",
+      "description": "I developed a Facebook Login UI Clone using HTML for the structure and pure CSS for styling and design. The clone replicates the look and feel of the official Facebook login page, including the login form, branding, and overall layout. The design is fully responsive across all devices, achieved through CSS media queries to ensure a consistent and smooth user experience on desktops, tablets, and mobile phones. This project demonstrates my ability to create responsive and visually accurate web interfaces using only HTML and CSS.",
+      "technologies": ["/html.png","/CSS.png"],
+      "image": "/project6.png"
+    }
+      
+]
+
+  
