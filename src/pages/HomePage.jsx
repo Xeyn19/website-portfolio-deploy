@@ -7,7 +7,7 @@ import linkedin from '/linkedin.png'
 const HomePage = () => {
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen space-x-10
+      <div className="flex justify-center items-center lg:min-h-screen space-x-10 
          max-md:flex-col max-md:space-x-0 max-md:p-10 max-xl:flex-col">
         <div className="max-md:order-2 max-md:mt-8">
           <img
