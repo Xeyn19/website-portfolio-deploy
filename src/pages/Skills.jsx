@@ -4,7 +4,7 @@ import tech from '../assets/techdata.json'
 const Skills = () => {
   return (
     <div className="flex min-h-screen flex-col items-center px-10 pt-10 pb-40 max-md:px-5 text-center max-md:pt-0">
-      <h1 className='block text-4xl font-bold'>Skills</h1>
+      <h1 className='block text-4xl font-bold tracking-wider'>Skills</h1>
       <h3 className='mt-7 mb-10'>
         I’m a skilled front-end developer with expertise in HTML5, CSS, JavaScript, <br />
         Tailwind CSS, and React.js, creating responsive and user-friendly web interfaces.

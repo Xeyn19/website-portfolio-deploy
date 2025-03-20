@@ -10,6 +10,6 @@ export default defineConfig(({ mode }) => {
     },
     base: mode === 'production'
       ? process.env.VITE_BASE_PATH || '/website-portfolio-deploy'
-      : '/', // Use '/' for local development
+      : '/', 
   }
 })
