@@ -1,12 +1,37 @@
 import React from 'react';
 import projectdata from '../assets/data.json';
+import { useState , useEffect } from 'react';
+import Spinner from '../components/Spinner';
 
 const Projects = () => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try{
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setData(projectdata)
+      } catch (error) {
+        console.error('Fetch data error', error)
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+
+  }, []);
+
+  if(loading){
+    return <Spinner /> 
+  }
+  
   return (
     <div className="flex min-h-screen">
       <div className="w-full h-full px-40 py-20 max-md:px-5 max-xl:p-0 max-xl:text-center">
         <h1 className="font-bold text-4xl tracking-wider block">Projects</h1>
-        {projectdata.map((project) => (
+        {data.map((project) => (
           <div key={project.id} className="flex space-x-30 mt-10 mb-40 max-md:flex-col max-md:mt-4 max-md:mb-10 max-xl:flex-col">
       
             <div className="w-[50%] space-y-4 max-md:w-[100%] self-center max-md:self-start max-xl:w[100%] max-xl:m-auto">
