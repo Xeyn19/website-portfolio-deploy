@@ -10,15 +10,18 @@ import SkillsLayout from './layout/SkillsLayout'
 import Skills from './pages/Skills'
 import ContactLayout from './layout/ContactLayout'
 import Contact from './pages/Contact'
+import Page404 from './components/Page404'
+import UnderWorkPage from './components/UnderWorkPage'
 
 const App = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<MainLayout />}>
+        <Route path='*' element={<Page404 />} /> 
         <Route index element={<HomePage />}/> 
         <Route path='resume' element={<ResumeLayout />}>
-          <Route index element ={<Resume />}/> 
+          <Route index element ={<UnderWorkPage />}/> 
         </Route>
         <Route path='projects' element={<ProjectsLayout />}>
           <Route index element ={<Projects />}/> 
