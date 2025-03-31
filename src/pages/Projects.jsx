@@ -68,7 +68,7 @@ const Projects = () => {
     
         <div className="relative inline-block my-6 max-md:px-20">
           <button 
-            className="py-2 px-4 bg-yellow-600 text-white font-medium rounded-md cursor-pointer 
+            className="py-2 px-4 bg-yellow-600 text-white max-md:text-[12px] font-medium rounded-md cursor-pointer 
             hover:bg-yellow-700 transition-all duration-300 ease-in-out flex items-center"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
@@ -91,7 +91,7 @@ const Projects = () => {
               {['all', '2025', '2024', '2023'].map((year) => (
                 <li
                   key={year}
-                  className="px-4 py-2 cursor-pointer hover:bg-yellow-600 hover:text-white transition-all duration-200"
+                  className="px-4 py-2 max-md:text-[12px] cursor-pointer hover:bg-yellow-600 hover:text-white transition-all duration-200"
                   onClick={() => handleRecentProjectsFiltered(year)}
                 >
                   {year === 'all' 
