@@ -1,60 +1,103 @@
-import React from 'react'
-import tech from '../assets/techdata.json'
-import { useState, useEffect } from 'react'
-import Spinner from '../components/Spinner'
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import tech from '../assets/techdata.json';
+import Spinner from '../components/Spinner';
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
 
 const Skills = () => {
   const [loading, setLoading] = useState(false);
   const [techData, setTechData] = useState([]);
+  
 
   useEffect(() => {
     setLoading(true);
-  
     const fetchData = async () => {
       try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-        setTechData(tech)
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setTechData(tech);
       } catch (error) {
         console.error('Fetch data error', error);
       } finally {
         setLoading(false);
       }
-    }
+    };
     fetchData();
+  }, []);
 
-  } , []);
-
-  if(loading){
-    return <Spinner />
+  if (loading) {
+    return <Spinner />;
   }
 
   return (
     <div className="flex min-h-screen flex-col items-center px-10 pt-10 pb-40 max-md:px-5 text-center max-md:pt-0">
-      <h1 className='block text-4xl font-bold tracking-wider'>Skills</h1>
-      <h3 className='mt-7 mb-10'>
+      
+      <motion.h1
+        className="block text-4xl font-bold tracking-wider"
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+      >
+        Skills
+      </motion.h1>
+
+      <motion.h3
+        className="mt-7 mb-10"
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+      >
         I’m a skilled front-end developer with expertise in HTML5, CSS, JavaScript, <br />
         Tailwind CSS, and React.js, creating responsive and user-friendly web interfaces.
-      </h3>
-      <div className="grid grid-cols-3 gap-20 max-md:gap-10 max-lg:gap-15 max-lg:grid-cols-2 max-sm:grid-cols-1 mt-10">
+      </motion.h3>
+
+      <motion.div
+        className="grid grid-cols-3 gap-20 max-md:gap-10 max-lg:gap-15 max-lg:grid-cols-2 max-sm:grid-cols-1 mt-10"
+      >
         {techData.map((data) => (
-          <div key={data.id} className="flex items-center justify-center space-x-6 bg-white w-80 h-40 shadow-md rounded-lg p-6">
-            <img src={data.image} alt={data.tech} className='w-20 h-20 rounded-lg object-contain' />
+          <motion.div
+            key={data.id}
+            className="flex items-center justify-center space-x-6 bg-white w-80 h-40 shadow-md rounded-lg p-6 cursor-pointer"
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <img
+              src={data.image}
+              alt={data.tech}
+              className="w-20 h-20 rounded-lg object-contain"
+            />
+
             <div className="space-y-2 text-left">
               <h2>
-                <span className='font-bold text-lg'>Tech:</span> <span className='text-md text-gray-600'>{data.techname}</span>
+                <span className="font-bold text-lg">Tech:</span>{' '}
+                <span className="text-md text-gray-600">{data.techname}</span>
               </h2>
-              <h2 className='text-lg'>
-                <span className='font-bold text-lg'>Experience:</span> <span className='text-md text-gray-600'>{data.experience}</span>
+              <h2 className="text-lg">
+                <span className="font-bold text-lg">Experience:</span>{' '}
+                <span className="text-md text-gray-600">{data.experience}</span>
               </h2>
-              <a href={data.techlink} target='_blank' className="text-blue-500 transition-all duration-300 border-b-2 border-transparent hover:border-blue-700">
+              <a
+                href={data.techlink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 transition-all duration-300 border-b-2 border-transparent hover:border-blue-700"
+              >
                 Learn more
               </a>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Skills
+export default Skills;
