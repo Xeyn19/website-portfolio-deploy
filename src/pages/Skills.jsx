@@ -52,8 +52,12 @@ const Skills = () => {
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
       >
-        I’m a skilled front-end developer with expertise in HTML5, CSS, JavaScript, <br />
-        Tailwind CSS, and React.js, creating responsive and user-friendly web interfaces.
+     <span className="block max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1000px]">
+  I am a proficient front-end developer with expertise in HTML5, CSS, JavaScript, Tailwind CSS, React.js, DaisyUI, and Vercel, specializing in the creation of responsive and intuitive web interfaces. I utilize DaisyUI components to ensure consistent and visually cohesive designs, deploy applications efficiently with Vercel for optimal performance and reliability, and employ Git and GitHub for version control and seamless collaboration on development projects.
+</span>
+
+
+
       </motion.h3>
 
       <motion.div

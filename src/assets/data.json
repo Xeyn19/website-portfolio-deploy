@@ -1,9 +1,17 @@
-[
+[   
+    {
+        "id": 0.1,
+        "title": "Amazon Website Clone",
+        "description": "I developed a personal coffee shop website using HTML, Tailwind CSS v4 with DaisyUI, and React.js v19 to create a clean, modern, and fully responsive user interface. The design was styled using Tailwind CSS and DaisyUI components for a polished, consistent layout. React.js powered the dynamic functionality, including an “Add to Basket” feature that allows users to select and manage products in real-time. I fetched product data from a local JSON file using useEffect with async/await, along with try-catch-finally to handle loading states and potential errors gracefully, enhancing the user experience with a loading spinner during data retrieval. The site adapts smoothly across all screen sizes, ensuring a seamless experience on both desktop and mobile devices. I deployed the project using Vercel, making it accessible online and production-ready. This project strengthened my front-end development skills in component structure, state management, data fetching, and responsive design.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","daisyUI.png"],
+        "image": "/projectcoffee.png",
+        "date":2025
+    },
     {
         "id": 1,
         "title": "Amazon Website Clone",
-        "description": "I developed an Amazon website clone as a personal project, utilizing HTML and Tailwind CSS v4 for the design and layout to replicate the aesthetic and structure of the original site. For functionality, I used React.js v19, ensuring interactive elements like product selection, cart updates, and smooth navigation. The product data is stored in a JSON file, which I fetched on the front end to dynamically render product details and manage cart functionality. The website is fully responsive, adapting seamlessly to different screen sizes, making it accessible on all devices, from mobile phones to desktop computers. This project allowed me to apply and enhance my front-end development skills while focusing on creating a user-friendly and visually appealing experience.",
-        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "description": "I developed an Amazon website clone as a personal project using HTML and Tailwind CSS v4 to replicate the design and layout of the original site. For the interactive functionality, I used Vanilla JavaScript to implement features such as product selection, dynamic cart updates, and smooth navigation between sections. The product data is stored in a JSON file, which I fetched on the front end to dynamically render product listings and manage the cart state without the use of any frameworks. The website is fully responsive, adapting seamlessly to various screen sizes, from mobile phones to desktop computers. This project allowed me to strengthen my front-end development skills by focusing on clean code structure, effective DOM manipulation, and delivering a user-friendly and visually consistent experience using just HTML, CSS, and JavaScript.",
+        "technologies": ["/html.png","/tailwindcss.png","/JS.jpg"],
         "image": "/project1.png",
         "date":2024
       },
@@ -11,8 +19,8 @@
       {
         "id": 2,
         "title": "Nike Website Clone",
-        "description": "I developed a Nike website clone using React.js v19 and Tailwind CSS, creating a modern and responsive user interface. Tailwind CSS was used to design a clean and visually appealing layout, while React.js powered the dynamic functionality, including product display, cart management, and seamless state updates. The product data is stored in a JSON file, which I fetched on the front end to dynamically render product details and manage cart functionality. The project features an interactive shopping experience, allowing users to add and remove items from the cart, view product details, and navigate smoothly across the site. This project enhanced my front-end development skills and deepened my understanding of component-based architecture, state management, and data fetching.",
-        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "description": "I developed a Nike website clone using HTML, Tailwind CSS, DaisyUI, and Vanilla JavaScript to create a modern, responsive user interface. Tailwind CSS and DaisyUI were used to craft a clean and visually appealing layout, with DaisyUI components enhancing the UI for a more polished and consistent design. Vanilla JavaScript handled the dynamic functionality, including product display, cart management, and real-time updates to the interface. Product data is stored in a JSON file and fetched on the front end to render product details dynamically and manage the shopping cart experience. The site offers interactive features such as adding or removing items from the cart, viewing detailed product information, and smooth navigation throughout the interface. This project allowed me to deepen my front-end development skills by focusing on DOM manipulation, data handling, and building a fully responsive and engaging shopping experience without relying on any frameworks.",
+        "technologies": ["/html.png","/tailwindcss.png","/JS.jpg","daisyUI.png"],
         "image": "/project2.png",
         "date":2024
       },

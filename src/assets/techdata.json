@@ -23,7 +23,7 @@
     {
         "id":4,
         "techname": "Tailwind CSS",
-        "experience":"1 year",
+        "experience":"2 years",
         "techlink": "https://tailwindcss.com/",
         "image": "/tailwindcss.png"
     },
@@ -41,5 +41,27 @@
         "experience":"3 years",
         "techlink": "https://www.w3schools.com/whatis/whatis_frontenddev.asp",
         "image": "/front.png"
+    },
+    {
+        "id":7,
+        "techname": "Daisy UI",
+        "experience":"2 years",
+        "techlink": "https://daisyui.com/",
+        "image": "/daisyUISkills.svg"
+    },
+    {
+        "id":8,
+        "techname": "Github",
+        "experience":"1 year",
+        "techlink": "https://github.com",
+        "image": "/github.png"
+    },
+    {
+        "id":9,
+        "techname": "Git",
+        "experience":"1 year",
+        "techlink": "https://git-scm.com/",
+        "image": "/git.png"
     }
+
 ]

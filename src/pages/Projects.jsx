@@ -126,7 +126,28 @@ const Projects = () => {
               >
                 <h2 className="font-bold text-lg max-xl:text-xl">{project.title}</h2>
                 <p className="text-gray-600 text-sm max-xl:text-md">{project.description}</p>
+                <motion.div
+                  className="flex mt-3 max-md:justify-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  viewport={{ once: false, amount: 0.2 }}
+                >
+                  <span className='font-bold'>Tech Stack:</span>
+                  {project.technologies.slice(0, 5).map((techImg, i) => (
+                    <>
+                    <img
+                      key={i}
+                      src={techImg}
+                      alt={`Tech ${i}`}
+                      className="w-8 h-8 mx-1 object-contain rounded-md max-md:w-6 "
+                    />
+                    </>
+                  ))}
+                </motion.div>
+
               </motion.div>
+              
 
             
               <motion.div 
