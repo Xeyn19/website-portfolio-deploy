@@ -6,6 +6,7 @@ import fb from '/facebook.png';
 import ig from '/instagram.png';
 import linkedin from '/linkedin.png';
 import email from '/email.png';
+import github from '/github.png'
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -99,6 +100,14 @@ const Contact = () => {
                   whileHover={{ scale: 1.1 }}
                 >
                   <img src={linkedin} alt="LinkedIn" className="w-7 h-7" />
+                </motion.a>
+                <motion.a
+                  href="https://github.com/Xeyn19"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <img src={github} alt="Github" className="w-7 h-7" />
                 </motion.a>
               </div>
             </div>

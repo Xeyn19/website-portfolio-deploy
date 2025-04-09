@@ -4,6 +4,7 @@ import edgarprofile from '/edgar prof.jpg';
 import facebook from '/facebook.png';
 import instagram from '/instagram.png';
 import linkedin from '/linkedin.png';
+import github from '/github.png'
 
 const HomePage = () => {
   return (
@@ -68,7 +69,8 @@ const HomePage = () => {
           {[ 
             { img: facebook, link: "https://www.facebook.com/edgar.orosa.9/" }, 
             { img: linkedin, link: "https://www.linkedin.com/in/edgar-orosa-a43a15333/" }, 
-            { img: instagram, link: "https://www.instagram.com/c_stor_/" }
+            { img: instagram, link: "https://www.instagram.com/c_stor_/" },
+            { img: github, link: "https://github.com/Xeyn19" }
           ].map((item, index) => (
             <motion.a
               key={index}
