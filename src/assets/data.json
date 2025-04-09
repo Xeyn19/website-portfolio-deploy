@@ -1,7 +1,7 @@
 [   
     {
         "id": 0.1,
-        "title": "Amazon Website Clone",
+        "title": "Coffee Shop Website",
         "description": "I developed a personal coffee shop website using HTML, Tailwind CSS v4 with DaisyUI, and React.js v19 to create a clean, modern, and fully responsive user interface. The design was styled using Tailwind CSS and DaisyUI components for a polished, consistent layout. React.js powered the dynamic functionality, including an “Add to Basket” feature that allows users to select and manage products in real-time. I fetched product data from a local JSON file using useEffect with async/await, along with try-catch-finally to handle loading states and potential errors gracefully, enhancing the user experience with a loading spinner during data retrieval. The site adapts smoothly across all screen sizes, ensuring a seamless experience on both desktop and mobile devices. I deployed the project using Vercel, making it accessible online and production-ready. This project strengthened my front-end development skills in component structure, state management, data fetching, and responsive design.",
         "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","daisyUI.png"],
         "image": "/projectcoffee.png",
