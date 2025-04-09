@@ -45,8 +45,8 @@
       {
         "id": 5,
         "title": "Simple Todo-List React JS",
-        "description": "I developed a Simple To-Do List application using React.js for functionality and Tailwind CSS for styling and design. The app allows users to add, edit, delete, and, with all data being saved in local storage to preserve tasks even after refreshing the page. The use of Tailwind CSS ensures a clean and modern design, while React.js efficiently manages state and user interactions. This project showcases my ability to build functional and visually appealing applications using modern front-end technologies with persistent data handling.",
-        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "description": "I developed a simple To-Do List application using Vanilla JavaScript for functionality and Tailwind CSS for styling and design. The app allows users to add, edit, and delete tasks, with all data being saved in localStorage to preserve tasks even after refreshing the page. The use of Tailwind CSS ensures a clean and modern design, while Vanilla JavaScript efficiently manages the state, user interactions, and local storage operations. This project showcases my ability to build functional and visually appealing applications using modern front-end technologies with persistent data handling.",
+        "technologies": ["/html.png","/tailwindcss.png","/JS.jpg"],
         "image": "/project7.png",
         "date":2023
       },{
