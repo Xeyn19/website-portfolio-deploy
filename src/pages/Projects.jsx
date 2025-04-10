@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import projectdata from '../assets/data.json';
 import Spinner from '../components/Spinner';
+import { useNavigate } from 'react-router-dom';
 
 const Projects = () => {
   const [loading, setLoading] = useState(false);
@@ -11,6 +12,8 @@ const Projects = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollDirection, setScrollDirection] = useState('down');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -127,7 +130,7 @@ const Projects = () => {
                 <h2 className="font-bold text-lg max-xl:text-xl">{project.title}</h2>
                 <p className="text-gray-600 text-sm max-xl:text-md">{project.description}</p>
                 <motion.div
-                  className="flex mt-3 max-md:justify-center"
+                  className="flex mt-3 max-md:justify-center max-xl:justify-center"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -145,7 +148,10 @@ const Projects = () => {
                     </>
                   ))}
                 </motion.div>
-
+                <span><button onClick={() => project.link && window.open(project.link, "_blank")} 
+                disabled={!project.link}
+                className='text-slate-700 font-medium cursor-pointer 
+                hover:text-yellow-600 transition-all duration-300 hover:underline'>• Live Preview</button></span>
               </motion.div>
               
 
