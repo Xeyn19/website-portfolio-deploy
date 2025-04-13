@@ -5,6 +5,8 @@ import facebook from '/facebook.png';
 import instagram from '/instagram.png';
 import linkedin from '/linkedin.png';
 import github from '/github.png'
+import { Typewriter } from 'react-simple-typewriter';
+
 
 const HomePage = () => {
   return (
@@ -32,15 +34,26 @@ const HomePage = () => {
 
 
       <motion.div
-        className="w-[460px] self-start mt-35 space-y-6 mr-7 max-md:m-0
+        className="w-[500px] self-start mt-40 space-y-6 mr-7 max-md:m-0
              max-md:w-full max-md:text-left max-md:px-2 max-xl:m-auto max-xl:mt-15"
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <h1 className="font-bold text-4xl max-md:text-xl">
-          <span>Hello, I'm</span> <br /> Front-End React Developer.
-        </h1>
+      <h1 className="font-bold text-4xl max-md:text-xl leading-snug whitespace-pre-line w-full">
+  <Typewriter
+    words={["Hello, I'm \nFront-End React Developer."]}
+    loop={0} 
+    cursor
+    cursorStyle="|"
+    typeSpeed={70}
+    deleteSpeed={50}
+    delaySpeed={1000}
+  />
+</h1>
+
+
+
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
