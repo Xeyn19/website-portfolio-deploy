@@ -41,7 +41,8 @@
         "description": "I developed a dynamic movie website using React.js that fetches movie data from an external API and displays it on the front end. The project includes a fully responsive design, ensuring seamless viewing across all devices. I used React.js not only for designing and layout but also to implement key functionalities, such as a debounced search feature for smooth and efficient searching. The website efficiently handles API data, providing users with real-time movie information and an intuitive user experience. This project showcases my ability to combine front-end design with functional logic, delivering a professional and responsive web application.",
         "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
         "image": "/project4.png",
-        "date":2025
+        "date":2025,
+        "link": "https://movie-website-amber.vercel.app/"
       },
       {
         "id": 5,
