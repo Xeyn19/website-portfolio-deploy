@@ -10,7 +10,7 @@ const Resume = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="bg-white px-10 py-10 w-[700px] h-[900px] shadow-md rounded-lg max-md:h-full max-md:text-sm"
+          className="bg-white px-10 py-10 w-[700px] h-[910px] shadow-md rounded-lg max-md:h-full max-md:text-sm"
         >
           <div className="flex flex-col items-center space-y-2 w-full">
             <h1 className='text-3xl font-medium'>Edgar Orosa</h1>
