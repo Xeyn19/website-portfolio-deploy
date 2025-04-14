@@ -11,10 +11,11 @@
     {
         "id": 1,
         "title": "Amazon Website Clone",
-        "description": "I developed an Amazon website clone as a personal project using HTML and Tailwind CSS v4 to replicate the design and layout of the original site. For the interactive functionality, I used Vanilla JavaScript to implement features such as product selection, dynamic cart updates, and smooth navigation between sections. The product data is stored in a JSON file, which I fetched on the front end to dynamically render product listings and manage the cart state without the use of any frameworks. The website is fully responsive, adapting seamlessly to various screen sizes, from mobile phones to desktop computers. This project allowed me to strengthen my front-end development skills by focusing on clean code structure, effective DOM manipulation, and delivering a user-friendly and visually consistent experience using just HTML, CSS, and JavaScript.",
+        "description": "I developed an Amazon website clone as a personal project using HTML, Tailwind CSS v4, and Vanilla JavaScript to replicate the design, layout, and core functionality of the original site without any frameworks. Product data is fetched from a local JSON file to dynamically render product listings, and I implemented key features such as adding items to the cart, updating quantities, deleting items, and saving the cart state using localStorage for persistence. I also created a real-time search function to filter products based on user input. The website is fully responsive, adapting seamlessly across various screen sizes from mobile to desktop. This project allowed me to sharpen my front-end development skills by focusing on clean code structure, efficient DOM manipulation, and delivering a smooth, user-friendly shopping experience.",
         "technologies": ["/html.png","/tailwindcss.png","/JS.jpg"],
         "image": "/project1.png",
-        "date":2024
+        "date":2024,
+        "link":"https://amazon-website-clone-amber.vercel.app/"
       },
 
       {
