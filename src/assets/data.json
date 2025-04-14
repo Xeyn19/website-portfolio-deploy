@@ -24,7 +24,9 @@
         "description": "I developed a Nike website clone using HTML, Tailwind CSS, DaisyUI, and Vanilla JavaScript to create a modern, responsive user interface. Tailwind CSS and DaisyUI were used to craft a clean and visually appealing layout, with DaisyUI components enhancing the UI for a more polished and consistent design. Vanilla JavaScript handled the dynamic functionality, including product display, cart management, and real-time updates to the interface. Product data is stored in a JSON file and fetched on the front end to render product details dynamically and manage the shopping cart experience. The site offers interactive features such as adding or removing items from the cart, viewing detailed product information, and smooth navigation throughout the interface. This project allowed me to deepen my front-end development skills by focusing on DOM manipulation, data handling, and building a fully responsive and engaging shopping experience without relying on any frameworks.",
         "technologies": ["/html.png","/tailwindcss.png","/JS.jpg","daisyUI.png"],
         "image": "/project2.png",
-        "date":2024
+        "date":2024,
+        "link":"https://github.com/Xeyn19/nike-web-clone"
+
       },
       {
         "id": 3,
@@ -32,7 +34,8 @@
         "description": "I developed a React-based jobs website using React.js v19 and Tailwind CSS v4, creating a responsive and user-friendly platform for job listings. Tailwind CSS was used to design a clean and modern layout, ensuring the website adapts seamlessly to all devices, from desktops to smartphones. I stored the job data in a JSON file and fetched it on the front end, allowing dynamic rendering of job listings. React Router was implemented to enable smooth navigation between different pages, providing an intuitive browsing experience. This project strengthened my skills in component-based development, state management, and client-side routing.",
         "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
         "image": "/project3.png",
-        "date":2025
+        "date":2025,
+        "link":"https://github.com/Xeyn19/react-jobs-website"
 
       },
       {
@@ -83,7 +86,8 @@
       "description": "I developed a Facebook Login UI Clone using HTML for the structure and pure CSS for styling and design. The clone replicates the look and feel of the official Facebook login page, including the login form, branding, and overall layout. The design is fully responsive across all devices, achieved through CSS media queries to ensure a consistent and smooth user experience on desktops, tablets, and mobile phones. This project demonstrates my ability to create responsive and visually accurate web interfaces using only HTML and CSS.",
       "technologies": ["/html.png","/CSS.png"],
       "image": "/project6.png",
-      "date":2023
+      "date":2023,
+      "link":"https://github.com/Xeyn19/facebook-clone"
     }
       
 ]
