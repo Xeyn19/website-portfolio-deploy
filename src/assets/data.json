@@ -9,6 +9,15 @@
         "link": "https://coffee-shop-vert-sigma.vercel.app/"
     },
     {
+      "id": 0.2,
+      "title": "Food Recipes Website",
+      "description": "I developed a Personal Food Recipes Website using React JS v19, Tailwind CSS v4, Daisy UI, and React Router. The website is fully responsive, ensuring an optimal viewing experience across all devices. It features advanced functionalities such as search filtering and category filtering, allowing users to easily find recipes based on their preferences. I have implemented data fetching using useEffect, alongside async/await for asynchronous operations, and included try/catch/finally for error handling and ensuring smooth execution. The recipe data is stored in a JSON file, making it easy to manage and update. Additionally, I utilized React Router and useParams to dynamically navigate to specific recipe details based on the recipe ID in the URL. This project showcases my skills in modern web development and creating user-friendly interfaces with dynamic content.",
+      "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","daisyUI.png"],
+      "image": "/projectrecipes.png",
+      "date":2025,
+      "link": "https://food-recipes-website-ruddy.vercel.app/"
+  },
+    {
         "id": 1,
         "title": "Amazon Website Clone",
         "description": "I developed an Amazon website clone as a personal project using HTML, Tailwind CSS v4, and Vanilla JavaScript to replicate the design, layout, and core functionality of the original site without any frameworks. Product data is fetched from a local JSON file to dynamically render product listings, and I implemented key features such as adding items to the cart, updating quantities, deleting items, and saving the cart state using localStorage for persistence. I also created a real-time search function to filter products based on user input. The website is fully responsive, adapting seamlessly across various screen sizes from mobile to desktop. This project allowed me to sharpen my front-end development skills by focusing on clean code structure, efficient DOM manipulation, and delivering a smooth, user-friendly shopping experience.",
