@@ -11,7 +11,7 @@ const Footer = () => {
                     <h2 className='font-bold'>Phone</h2>
                     <div className="flex items-center space-x-1">
                     <img src={Phone} alt="" className='w-7 max-md:w-5' /> 
-                     <p>+63 99 425 86519</p>
+                     <p className='text-slate-500'>+63 99 425 86519</p>
                     </div>
                    
                 </div>
@@ -19,7 +19,7 @@ const Footer = () => {
                     <h2 className='font-bold'>Email</h2>
                     <div className="flex items-cente space-x-1">
                     <img src={Email} alt="" className='w-7 max-md:w-5 ' /> 
-                    <p>edgarrodilorosa@gmail.com</p>
+                    <p className='text-slate-500'>edgarrodilorosa@gmail.com</p>
                     </div>
                 </div>
                 <div className="self-center max-xl:m-auto">

@@ -53,7 +53,7 @@ const Resume = () => {
 
           <div className="w-full space-y-2">
             <h1 className='text-lg font-medium mt-2'>Tech Stack</h1>
-            <ul className='grid grid-cols-3 list-disc pl-6 text-sm max-md:grid-cols-2'>
+            <ul className='grid grid-cols-3 list-disc text-black pl-6 text-sm max-md:grid-cols-2'>
               <li>HTML</li>
               <li>CSS</li>
               <li>Tailwind CSS</li>

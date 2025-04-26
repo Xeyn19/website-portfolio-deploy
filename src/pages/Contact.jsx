@@ -17,7 +17,7 @@ const Contact = () => {
   return (
     <div className="flex flex-col min-h-screen justify-center xl:pb-50 max-md:pb-20 max-md:w-full max-md:px-10 max-xl:w-full max-xl:px-20 max-xl:pb-40">
 
-      {/* Title */}
+
       <motion.h1
         className="block text-center text-4xl font-bold mt-5 mb-20 tracking-wider max-md:mb-10"
         variants={fadeIn}
@@ -30,7 +30,7 @@ const Contact = () => {
 
       <div className="grid grid-cols-2 max-md:grid-cols-1 xl:px-20 gap-20 max-xl:grid-cols-1">
 
-        {/* Profile Section */}
+
         <motion.div
           className="flex flex-col justify-center items-center space-y-10 px-20 py-20 max-md:px-10 bg-white rounded-xl shadow-md"
           variants={fadeIn}
@@ -43,12 +43,12 @@ const Contact = () => {
             alt="Edgar Profile"
             className="w-[400px] max-md:w-[200px] self-center rounded-md shadow-lg"
           />
-          <p className="text-center text-sm max-md:text-[13px]">
+          <p className="text-center text-sm max-md:text-[13px] text-black">
             Are you looking for a skilled Front-End React Developer to bring your ideas to life? I have a strong foundation in HTML, CSS, and JavaScript, combined with expertise in modern tools like Tailwind CSS and React.js. I’m also experienced in using CSS frameworks like Daisy UI and React Material UI to create clean, responsive, and user-friendly interfaces. Let's build something amazing together — reach out today! 🚀
           </p>
         </motion.div>
 
-        {/* Contact Details Section */}
+
         <motion.div
           className="flex flex-col items-center text-center justify-center rounded-xl"
           variants={fadeIn}
@@ -64,7 +64,7 @@ const Contact = () => {
             viewport={{ once: false, amount: 0.3 }}
           >
 
-            {/* Phone */}
+
             <div className="space-y-3">
               <h3 className="font-bold text-2xl">Phone</h3>
               <div className="flex justify-center items-center space-x-1">
@@ -73,7 +73,6 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Social Media */}
             <div className="space-y-3">
               <h3 className="font-bold text-2xl">Social Media</h3>
               <div className="flex justify-center items-center space-x-4">
@@ -112,7 +111,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Email */}
+
             <div className="space-y-2">
               <h3 className="font-bold text-2xl">Email</h3>
               <div className="flex justify-center space-x-1">
