@@ -3,7 +3,7 @@
         "id": 0.1,
         "title": "Coffee Shop Website",
         "description": "I developed a personal coffee shop website using HTML, Tailwind CSS v4 with DaisyUI, and React.js v19 to create a clean, modern, and fully responsive user interface. The design was styled using Tailwind CSS and DaisyUI components for a polished, consistent layout. React.js powered the dynamic functionality, including an “Add to Basket” feature that allows users to select and manage products in real-time. I implemented persistent state management by integrating localStorage, enabling the shopping basket contents to be saved and restored across page reloads or sessions. Product data was fetched from a local JSON file using useEffect with async/await, and I incorporated try-catch-finally blocks to gracefully handle loading states and potential errors, enhancing the user experience with a loading spinner during data retrieval. The site adapts smoothly across all screen sizes, ensuring a seamless experience on both desktop and mobile devices. I deployed the project using Vercel, making it accessible online and production-ready. This project strengthened my front-end development skills in component structure, state management, data persistence, data fetching, and responsive design.",
-        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","daisyUI.png"],
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","github.png","daisyUI.png"],
         "image": "/projectcoffee.png",
         "date":2025,
         "link": "https://coffee-shop-vert-sigma.vercel.app/"
@@ -11,8 +11,8 @@
     {
       "id": 0.2,
       "title": "Food Recipes Website",
-      "description": "I developed a Personal Food Recipes Website using React JS v19, Tailwind CSS v4, Daisy UI, and React Router. The website is fully responsive, ensuring an optimal viewing experience across all devices. It features advanced functionalities such as search filtering and category filtering, allowing users to easily find recipes based on their preferences. I have implemented data fetching using useEffect, alongside async/await for asynchronous operations, and included try/catch/finally for error handling and ensuring smooth execution. The recipe data is stored in a JSON file, making it easy to manage and update. Additionally, I utilized React Router and useParams to dynamically navigate to specific recipe details based on the recipe ID in the URL. This project showcases my skills in modern web development and creating user-friendly interfaces with dynamic content.",
-      "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","daisyUI.png"],
+      "description": "I developed a Personal Food Recipes Website using React JS v19, Tailwind CSS v4, Daisy UI, and React Router. The website is fully responsive, ensuring an optimal viewing experience across all devices. It features advanced functionalities such as search filtering and category filtering, allowing users to easily find recipes based on their preferences. I have implemented data fetching using useEffect, alongside async/await for asynchronous operations, and included try/catch/finally for error handling to ensure smooth execution. The recipe data is stored in a JSON file, making it easy to manage and update. Additionally, I utilized React Router and useParams to dynamically navigate to specific recipe details based on the recipe ID in the URL. Once the project was completed, I deployed it on Vercel for live access and pushed the code to GitHub for version control and collaboration. This project showcases my skills in modern web development and creating user-friendly interfaces with dynamic content.",
+      "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","github.png","daisyUI.png"],
       "image": "/projectrecipes.png",
       "date":2025,
       "link": "https://food-recipes-website-ruddy.vercel.app/"
@@ -20,8 +20,8 @@
     {
         "id": 1,
         "title": "Amazon Website Clone",
-        "description": "I developed an Amazon website clone as a personal project using HTML, Tailwind CSS v4, and Vanilla JavaScript to replicate the design, layout, and core functionality of the original site without any frameworks. Product data is fetched from a local JSON file to dynamically render product listings, and I implemented key features such as adding items to the cart, updating quantities, deleting items, and saving the cart state using localStorage for persistence. I also created a real-time search function to filter products based on user input. The website is fully responsive, adapting seamlessly across various screen sizes from mobile to desktop. This project allowed me to sharpen my front-end development skills by focusing on clean code structure, efficient DOM manipulation, and delivering a smooth, user-friendly shopping experience.",
-        "technologies": ["/html.png","/tailwindcss.png","/JS.jpg"],
+        "description": "I developed an Amazon website clone as a personal project using HTML, Tailwind CSS v4, and Vanilla JavaScript to replicate the design, layout, and core functionality of the original site without any frameworks. Product data is fetched from a local JSON file to dynamically render product listings, and I implemented key features such as adding items to the cart, updating quantities, deleting items, and saving the cart state using localStorage for persistence. I also created a real-time search function to filter products based on user input. The website is fully responsive, adapting seamlessly across various screen sizes from mobile to desktop. This project allowed me to sharpen my front-end development skills by focusing on clean code structure, efficient DOM manipulation, and delivering a smooth, user-friendly shopping experience. Once completed, I deployed the website on Vercel for live access and pushed the code to GitHub for version control and collaboration.",
+        "technologies": ["/html.png","/tailwindcss.png","/JS.jpg","github.png","vercel.png"],
         "image": "/project1.png",
         "date":2024,
         "link":"https://amazon-website-clone-amber.vercel.app/"
@@ -30,8 +30,8 @@
       {
         "id": 2,
         "title": "Nike Website Clone",
-        "description": "I developed a Nike website clone using HTML, Tailwind CSS, DaisyUI, and Vanilla JavaScript to create a modern, responsive user interface. Tailwind CSS and DaisyUI were used to craft a clean and visually appealing layout, with DaisyUI components enhancing the UI for a more polished and consistent design. Vanilla JavaScript handled the dynamic functionality, including product display, cart management, and real-time updates to the interface. Product data is stored in a JSON file and fetched on the front end to render product details dynamically and manage the shopping cart experience. The site offers interactive features such as adding or removing items from the cart, viewing detailed product information, and smooth navigation throughout the interface. This project allowed me to deepen my front-end development skills by focusing on DOM manipulation, data handling, and building a fully responsive and engaging shopping experience without relying on any frameworks.",
-        "technologies": ["/html.png","/tailwindcss.png","/JS.jpg","daisyUI.png"],
+        "description": "I developed a Nike website clone using HTML, Tailwind CSS, DaisyUI, and Vanilla JavaScript to create a modern, responsive user interface. Tailwind CSS and DaisyUI were used to craft a clean and visually appealing layout, with DaisyUI components enhancing the UI for a more polished and consistent design. Vanilla JavaScript handled the dynamic functionality, including product display, cart management, and real-time updates to the interface. Product data is stored in a JSON file and fetched on the front end to render product details dynamically and manage the shopping cart experience. The site offers interactive features such as adding or removing items from the cart, viewing detailed product information, and smooth navigation throughout the interface. This project allowed me to deepen my front-end development skills by focusing on DOM manipulation, data handling, and building a fully responsive and engaging shopping experience without relying on any frameworks. Once completed, I pushed the project to GitHub for version control and collaboration.",
+        "technologies": ["/html.png","/tailwindcss.png","/JS.jpg","daisyUI.png","github.png"],
         "image": "/project2.png",
         "date":2024,
         "link":"https://github.com/Xeyn19/nike-web-clone"
@@ -40,8 +40,8 @@
       {
         "id": 3,
         "title": "React Jobs Website",
-        "description": "I developed a React-based jobs website using React.js v19 and Tailwind CSS v4, creating a responsive and user-friendly platform for job listings. Tailwind CSS was used to design a clean and modern layout, ensuring the website adapts seamlessly to all devices, from desktops to smartphones. I stored the job data in a JSON file and fetched it on the front end, allowing dynamic rendering of job listings. React Router was implemented to enable smooth navigation between different pages, providing an intuitive browsing experience. This project strengthened my skills in component-based development, state management, and client-side routing.",
-        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "description": "I developed a React-based jobs website using React.js v19 and Tailwind CSS v4, creating a responsive and user-friendly platform for job listings. Tailwind CSS was used to design a clean and modern layout, ensuring the website adapts seamlessly to all devices, from desktops to smartphones. I used JSON Server to serve the job data, allowing dynamic fetching and rendering of job listings on the front end. React Router was implemented to enable smooth navigation between different pages, providing an intuitive browsing experience. This project strengthened my skills in component-based development, state management, and client-side routing. Once completed, I uploaded the project to GitHub for version control and collaboration.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","github.png"],
         "image": "/project3.png",
         "date":2025,
         "link":"https://github.com/Xeyn19/react-jobs-website"
@@ -51,11 +51,20 @@
         
         "id": 4,
         "title": "Movies Website API",
-        "description": "I developed a dynamic movie website using React.js that fetches movie data from an external API and displays it on the front end. The project includes a fully responsive design, ensuring seamless viewing across all devices. I used React.js not only for designing and layout but also to implement key functionalities, such as a debounced search feature for smooth and efficient searching. The website efficiently handles API data, providing users with real-time movie information and an intuitive user experience. This project showcases my ability to combine front-end design with functional logic, delivering a professional and responsive web application.",
-        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg"],
+        "description": "I developed a dynamic movie website using React.js that fetches movie data from an external API and displays it on the front end. The project includes a fully responsive design, ensuring seamless viewing across all devices. I used React.js not only for designing and layout but also to implement key functionalities, such as a debounced search feature for smooth and efficient searching. The website efficiently handles API data, providing users with real-time movie information and an intuitive user experience. This project showcases my ability to combine front-end design with functional logic, delivering a professional and responsive web application. Once completed, I pushed the project to GitHub for version control and collaboration.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","github.png","vercel.png"],
         "image": "/project4.png",
         "date":2025,
         "link": "https://movie-website-amber.vercel.app/"
+      },
+      {
+        "id": 4.5,
+        "title": "Zustand Habit-List React",
+        "description": "I developed a Habit List app using Zustand for state management in React. The app allows users to add habits with a frequency of either daily or weekly, and the data is stored persistently in local storage using Zustand's persist middleware, ensuring the habit list is saved even after page reloads. I use Zustand's set and get methods for all functions, including adding new habits, marking habits as complete, and deleting them. The get method retrieves the current state, while set updates the state based on user actions, ensuring the app stays up to date. In addition to managing the habit list, the app tracks statistics such as the total number of habits, the count of habits completed today, and the longest streak of completed habits along with their names. These statistics are also managed within the set and get methods in the store.js file, allowing for efficient state updates and accurate progress tracking. I used MUI (Material-UI) for several components, including progress components, to visually represent habit completion and streaks. This enhances the user experience with a clean and responsive design. Once the app was developed, I pushed the code to GitHub and deployed it on Vercel for live access, ensuring seamless integration between development and production environments.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","daisyUI.png","github.png","material-ui.png"],
+        "image": "/project4.5.jpg",
+        "date":2025,
+        "link": "https://react-zustand-todo-list.vercel.app/"
       },
       {
         "id": 5,
@@ -76,7 +85,7 @@
         "id": 8,
         "title": "GYM Website UI and Functionality",
         "description": "I developed the UI for our System Analysis and Design project during my 3rd year, 1st semester as a Bachelor of Science in Information Systems (BSIS) student. I used pure HTML for structuring and CSS for styling and layout, ensuring the design is fully responsive across all devices through CSS media queries. The interface is clean and user-friendly, providing a consistent and smooth experience on desktops, tablets, and mobile devices. Additionally, I implemented functional buttons and modals using JavaScript, enhancing user interaction and improving the overall user experience. This project reflects my ability to create responsive, interactive, and well-organized layouts using core front-end technologies.",
-        "technologies": ["/html.png","/CSS.png","/JS.jpg"],
+        "technologies": ["/html.png","/CSS.png","/JS.jpg","github.png"],
         "image": "/project8.png",
         "date":2024
       },
@@ -92,8 +101,8 @@
      {
       "id": 6,
       "title": "Facebook Login Clone UI",
-      "description": "I developed a Facebook Login UI Clone using HTML for the structure and pure CSS for styling and design. The clone replicates the look and feel of the official Facebook login page, including the login form, branding, and overall layout. The design is fully responsive across all devices, achieved through CSS media queries to ensure a consistent and smooth user experience on desktops, tablets, and mobile phones. This project demonstrates my ability to create responsive and visually accurate web interfaces using only HTML and CSS.",
-      "technologies": ["/html.png","/CSS.png"],
+      "description": "I developed a Facebook Login UI Clone using HTML for the structure and pure CSS for styling and design. The clone replicates the look and feel of the official Facebook login page, including the login form, branding, and overall layout. The design is fully responsive across all devices, achieved through CSS media queries to ensure a consistent and smooth user experience on desktops, tablets, and mobile phones. This project demonstrates my ability to create responsive and visually accurate web interfaces using only HTML and CSS. Once completed, I pushed the project to GitHub for version control and collaboration and deployed it on Vercel for live access.",
+      "technologies": ["/html.png","/CSS.png","github.png","vercel.png"],
       "image": "/project6.png",
       "date":2023,
       "link":"https://github.com/Xeyn19/facebook-clone"

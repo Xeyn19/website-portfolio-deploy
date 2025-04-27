@@ -62,6 +62,7 @@ const Resume = () => {
               <li>React JS</li>
               <li>Git</li>
               <li>Github</li>
+              <li>Material UI</li>
             </ul>
           </div>
         </motion.div>

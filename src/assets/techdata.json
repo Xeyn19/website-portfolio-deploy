@@ -62,6 +62,13 @@
         "experience":"1 year",
         "techlink": "https://git-scm.com/",
         "image": "/git.png"
+    },
+    {
+        "id":9,
+        "techname": "Material UI",
+        "experience":"1 year",
+        "techlink": "https://mui.com/material-ui/",
+        "image": "/material-ui.png"
     }
 
 ]

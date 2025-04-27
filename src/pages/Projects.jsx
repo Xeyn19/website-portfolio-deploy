@@ -137,7 +137,7 @@ const Projects = () => {
                   viewport={{ once: false, amount: 0.2 }}
                 >
                   <span className='font-bold'>Tech Stack:</span>
-                  {project.technologies.slice(0, 5).map((techImg, i) => (
+                  {project.technologies.slice(0, 10).map((techImg, i) => (
                     <>
                     <img
                       key={i}
