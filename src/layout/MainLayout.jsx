@@ -12,7 +12,7 @@ const MainLayout = () => {
       <div className={`relative ${theme === 'dark' ? 'bg-white text-black' : 'bg-slate-100 text-yellow-700'}`}>
           <NavBar />
           <input onClick={handleTheme}
-          type="checkbox" checked={theme === 'light'} className="toggle absolute right-20 max-md:right-10 max-xl:right-8" />
+          type="checkbox" checked={theme === 'light'} className="toggle bg-white absolute right-20 max-md:right-10 max-xl:right-8" />
           <Outlet />
           <Footer />
       </div>
