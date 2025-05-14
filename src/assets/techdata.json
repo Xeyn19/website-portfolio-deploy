@@ -1,0 +1,81 @@
+[
+    {
+        "id":1,
+        "techname": "HTML 5",
+        "experience":"3 years",
+        "techlink": "https://www.w3schools.com/html/",
+        "image": "/html.png"
+    },
+    {    
+        "id":2,
+        "techname": "CSS",
+        "experience":"3 years",
+        "techlink": "https://www.w3schools.com/css/",
+        "image": "/CSS.png"
+    },
+    {
+        "id":3,
+        "techname": "Vanilla JS",
+        "experience":"2 years",
+        "techlink": "https://www.w3schools.com/js/",
+        "image": "/JS.png"
+    },
+    {
+        "id":4,
+        "techname": "Tailwind CSS",
+        "experience":"2 years",
+        "techlink": "https://tailwindcss.com/",
+        "image": "/tailwindcss.png"
+    },
+    {
+        "id":5,
+        "techname": "React JS",
+        "experience":"1 year",
+        "techlink": "https://react.dev/",
+        "image": "/reactjs.svg"
+
+    },
+    {
+        "id":6,
+        "techname": "Front-end Development",
+        "experience":"3 years",
+        "techlink": "https://www.w3schools.com/whatis/whatis_frontenddev.asp",
+        "image": "/front.png"
+    },
+    {
+        "id":7,
+        "techname": "Daisy UI",
+        "experience":"2 years",
+        "techlink": "https://daisyui.com/",
+        "image": "/daisyUISkills.svg"
+    },
+    {
+        "id":8,
+        "techname": "Github",
+        "experience":"1 year",
+        "techlink": "https://github.com",
+        "image": "/github.png"
+    },
+    {
+        "id":9,
+        "techname": "Git",
+        "experience":"1 year",
+        "techlink": "https://git-scm.com/",
+        "image": "/git.png"
+    },
+    {
+        "id":9,
+        "techname": "Material UI",
+        "experience":"1 year",
+        "techlink": "https://mui.com/material-ui/",
+        "image": "/material-ui.png"
+    },
+     {
+        "id":10,
+        "techname": "Next JS",
+        "experience":"1 year",
+        "techlink": "https://nextjs.org/",
+        "image": "/nextjs.png"
+    }
+
+]
