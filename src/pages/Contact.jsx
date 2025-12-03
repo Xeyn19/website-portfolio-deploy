@@ -13,44 +13,45 @@ const Contact = () => {
   const formRef = useRef();
   const [sending, setSending] = useState(false);
 
-  // Helper to get today's date string
   const getToday = () => {
     const now = new Date();
-    return now.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+    return now.toISOString().slice(0, 10); 
   };
 
-  // Check and update submission count in localStorage
-  const canSend = () => {
+  const canSend = (email) => {
     const today = getToday();
-    const data = JSON.parse(localStorage.getItem('contact_submissions') || '{}');
-    if (data.date === today) {
-      return data.count < 2;
+    const data = JSON.parse(localStorage.getItem('contact_email_submissions') || '{}');
+    const entry = data[email];
+    if (entry && entry.date === today) {
+      return entry.count < 2;
     }
     return true;
   };
 
-  const incrementSend = () => {
+  const incrementSend = (email) => {
     const today = getToday();
-    const data = JSON.parse(localStorage.getItem('contact_submissions') || '{}');
-    if (data.date === today) {
-      localStorage.setItem('contact_submissions', JSON.stringify({ date: today, count: data.count + 1 }));
+    const data = JSON.parse(localStorage.getItem('contact_email_submissions') || '{}');
+    const entry = data[email];
+    if (entry && entry.date === today) {
+      data[email] = { date: today, count: entry.count + 1 };
     } else {
-      localStorage.setItem('contact_submissions', JSON.stringify({ date: today, count: 1 }));
+      data[email] = { date: today, count: 1 };
     }
+    localStorage.setItem('contact_email_submissions', JSON.stringify(data));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!canSend()) {
-    alert('Oops! You’ve reached your daily limit of 2 messages. Please try again tomorrow. Thank you for understanding!');
-
+    const email = formRef.current.from_email.value.trim().toLowerCase();
+    if (!canSend(email)) {
+      alert('Oops! This email has reached its daily limit of 2 messages. Please try again tomorrow.');
       return;
     }
 
     setSending(true);
 
-    // Set the time value before sending
+
     const now = new Date();
     const timeString = now.toLocaleString();
     formRef.current.time.value = timeString;
@@ -62,7 +63,7 @@ const Contact = () => {
       '9yqMTbCs9TY4obJ-A'
     )
       .then(() => {
-        incrementSend();
+        incrementSend(email);
         alert('Thank you for reaching out! Your message has been successfully sent. I will get back to you as soon as possible.');
         formRef.current.reset();
         setSending(false);
