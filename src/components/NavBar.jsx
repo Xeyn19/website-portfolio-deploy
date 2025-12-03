@@ -105,6 +105,13 @@ const NavBar = () => {
             Resume
           </NavLink>
           <NavLink 
+            to='/certificates' 
+            className='text-white text-lg'
+            onClick={toggleMenu}
+          >
+            Certificates
+          </NavLink>
+          <NavLink 
             to='/projects' 
             className='text-white text-lg'
             onClick={toggleMenu}
