@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import edgar from '/edgar2.jpg';
-import phone from '/phone-call.png';
-import fb from '/facebook.png';
-import ig from '/instagram.png';
-import linkedin from '/linkedin.png';
-import email from '/email.png';
-import github from '/github.png'
+import emailjs from '@emailjs/browser';
+
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -14,6 +10,69 @@ const fadeIn = {
 };
 
 const Contact = () => {
+  const formRef = useRef();
+  const [sending, setSending] = useState(false);
+
+  // Helper to get today's date string
+  const getToday = () => {
+    const now = new Date();
+    return now.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+  };
+
+  // Check and update submission count in localStorage
+  const canSend = () => {
+    const today = getToday();
+    const data = JSON.parse(localStorage.getItem('contact_submissions') || '{}');
+    if (data.date === today) {
+      return data.count < 2;
+    }
+    return true;
+  };
+
+  const incrementSend = () => {
+    const today = getToday();
+    const data = JSON.parse(localStorage.getItem('contact_submissions') || '{}');
+    if (data.date === today) {
+      localStorage.setItem('contact_submissions', JSON.stringify({ date: today, count: data.count + 1 }));
+    } else {
+      localStorage.setItem('contact_submissions', JSON.stringify({ date: today, count: 1 }));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!canSend()) {
+    alert('Oops! You’ve reached your daily limit of 2 messages. Please try again tomorrow. Thank you for understanding!');
+
+      return;
+    }
+
+    setSending(true);
+
+    // Set the time value before sending
+    const now = new Date();
+    const timeString = now.toLocaleString();
+    formRef.current.time.value = timeString;
+
+    emailjs.sendForm(
+      'service_cs1o819',
+      'template_7263nu5',
+      formRef.current,
+      '9yqMTbCs9TY4obJ-A'
+    )
+      .then(() => {
+        incrementSend();
+        alert('Thank you for reaching out! Your message has been successfully sent. I will get back to you as soon as possible.');
+        formRef.current.reset();
+        setSending(false);
+      })
+      .catch(() => {
+        alert('Failed to send message. Please try again.');
+        setSending(false);
+      });
+  };
+
   return (
     <div className="flex flex-col min-h-screen justify-center xl:pb-50 max-md:pb-20 max-md:w-full max-md:px-10 max-xl:w-full max-xl:px-20 max-xl:pb-40">
 
@@ -56,71 +115,59 @@ const Contact = () => {
           whileInView="visible"
           viewport={{ once: false, amount: 0.3 }}
         >
-          <motion.div
-            className="w-[500px] max-md:w-full h-[450px] bg-white flex flex-col justify-center shadow-md space-y-10 rounded-xl"
+          <motion.form
+            ref={formRef}
+            className="w-[500px] max-md:w-full bg-white flex flex-col justify-center shadow-md space-y-8 rounded-xl px-10 py-10"
             variants={fadeIn}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.3 }}
+            onSubmit={handleSubmit}
           >
-
-
-            <div className="space-y-3">
-              <h3 className="font-bold text-2xl">Phone</h3>
-              <div className="flex justify-center items-center space-x-1">
-                <img src={phone} className="w-7 h-7" alt="Phone" />
-                <p className="text-gray-600 font-medium text-lg">+63 99 425 86519</p>
-              </div>
+            <h3 className="font-bold text-2xl mb-2">Get in Touch</h3>
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="from_name" className="text-left font-medium text-gray-700">Name</label>
+              <input
+                type="text"
+                id="from_name"
+                name="from_name"
+                required
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Your Name"
+              />
             </div>
-
-            <div className="space-y-3">
-              <h3 className="font-bold text-2xl">Social Media</h3>
-              <div className="flex justify-center items-center space-x-4">
-                <motion.a
-                  href="https://www.facebook.com/edgar.orosa.9/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <img src={fb} alt="Facebook" className="w-7 h-7" />
-                </motion.a>
-                <motion.a
-                  href="https://www.instagram.com/c_stor_/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <img src={ig} alt="Instagram" className="w-7 h-7" />
-                </motion.a>
-                <motion.a
-                  href="https://www.linkedin.com/in/edgar-orosa-a43a15333/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <img src={linkedin} alt="LinkedIn" className="w-7 h-7" />
-                </motion.a>
-                <motion.a
-                  href="https://github.com/Xeyn19"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <img src={github} alt="Github" className="w-7 h-7" />
-                </motion.a>
-              </div>
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="from_email" className="text-left font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                id="from_email"
+                name="from_email"
+                required
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="your@email.com"
+              />
             </div>
-
-
-            <div className="space-y-2">
-              <h3 className="font-bold text-2xl">Email</h3>
-              <div className="flex justify-center space-x-1">
-                <img src={email} alt="Email" className="w-7 h-7" />
-                <p className="font-medium text-gray-600">edgarrodilorosa@gmail.com</p>
-              </div>
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="message" className="text-left font-medium text-gray-700">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={5}
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+                placeholder="Type your message here..."
+              />
             </div>
-
-          </motion.div>
+            {/* Hidden input for time */}
+            <input type="hidden" name="time" />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white font-bold py-2 px-6 rounded-md hover:bg-blue-700 transition"
+              disabled={sending}
+            >
+              {sending ? 'Sending...' : 'Send Message'}
+            </button>
+          </motion.form>
         </motion.div>
       </div>
     </div>
