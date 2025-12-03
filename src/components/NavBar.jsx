@@ -49,6 +49,17 @@ const NavBar = () => {
           >
             Resume
           </NavLink>
+           <div>|</div>
+          <NavLink 
+            to='/certificates' 
+            className={({ isActive }) => 
+              isActive 
+               ? 'text-yellow-600 font-semibold' 
+                : 'hover:text-yellow-500 transition-colors ease-in-out duration-500'
+            }
+          >
+            Certificates
+          </NavLink>
           <div>|</div>
           <NavLink 
             to='/projects' 

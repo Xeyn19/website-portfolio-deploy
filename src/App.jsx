@@ -12,6 +12,7 @@ import ContactLayout from './layout/ContactLayout'
 import Contact from './pages/Contact'
 import Page404 from './components/Page404'
 import ThemeProvider from './context/ThemeProvider'
+import Certificates from './pages/Certificates'
 
 
 
@@ -33,6 +34,9 @@ const App = () => {
           </Route>
           <Route path='contact' element={<ContactLayout />}>
             <Route index element ={<Contact />}/> 
+          </Route>
+           <Route path='certificates' element={<ContactLayout />}>
+            <Route index element ={<Certificates />}/> 
           </Route>
         </Route>
     )
