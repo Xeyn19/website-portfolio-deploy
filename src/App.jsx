@@ -13,6 +13,7 @@ import Contact from './pages/Contact'
 import Page404 from './components/Page404'
 import ThemeProvider from './context/ThemeProvider'
 import Certificates from './pages/Certificates'
+import UnderWorkPage from './components/UnderWorkPage'
 
 
 
@@ -21,7 +22,7 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<MainLayout />}>
-          <Route path='*' element={<Page404 />} /> 
+        <Route path='*' element={<Page404 />} /> 
           <Route index element={<HomePage />}/> 
           <Route path='resume' element={<ResumeLayout />}>
             <Route index element ={<Resume />}/> 
@@ -36,7 +37,7 @@ const App = () => {
             <Route index element ={<Contact />}/> 
           </Route>
            <Route path='certificates' element={<ContactLayout />}>
-            <Route index element ={<Certificates />}/> 
+            <Route index element ={<UnderWorkPage />}/> 
           </Route>
         </Route>
     )
