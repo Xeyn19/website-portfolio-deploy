@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import edgarprofile from '/edgar prof.jpg';
+import edgarprofile from '/Portfolio Picture.jpeg';
 import facebook from '/facebook.png';
 import instagram from '/instagram.png';
 import linkedin from '/linkedin.png';
@@ -27,8 +27,8 @@ const HomePage = () => {
         <img
           src={edgarprofile}
           alt="Profile"
-          className="w-[500px] rounded-full mb-20 shadow-md max-md:m-auto
-                 max-md:w-[300px] max-lg:mb-0 max-xl:w-[400px] max-xl:mt-20"
+          className="w-[500px] h-[600px] rounded-full mb-20 shadow-md max-md:m-auto
+                 max-md:w-[300px] max-md:h-[400px] max-md:xl:[500px] max-lg:mb-0 max-xl:w-[400px] max-xl:mt-20"
         />
       </motion.div>
 
