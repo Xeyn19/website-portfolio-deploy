@@ -53,7 +53,7 @@ const Skills = () => {
         viewport={{ once: false, amount: 0.3 }}
       >
      <span className="text-black block max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1000px]">
-     I am a proficient front-end developer with expertise in HTML5, CSS, JavaScript, Tailwind CSS, React.js, Next.js, DaisyUI, Material UI, and Vercel, specializing in the creation of responsive and intuitive web interfaces. I utilize DaisyUI components to ensure consistent and visually cohesive designs, leverage Material UI for polished and functional UI components, harness the power of Next.js for optimized routing, server-side rendering, and performance, deploy applications efficiently with Vercel for optimal performance and reliability, and employ Git and GitHub for version control and seamless collaboration on development projects.
+     I am a Full-Stack Developer with expertise in HTML5, CSS, JavaScript, Tailwind CSS, React.js, Next.js, DaisyUI, Material UI, Node.js, Express.js, and Vercel. I primarily build responsive, intuitive, and high-performing web applications using React.js for the front-end, with knowledge of Next.js for optimized routing and server-side rendering. I leverage DaisyUI and Material UI for polished, consistent designs, use Node.js and Express.js for robust backend functionality, and manage projects with Git and GitHub for version control and collaboration.
 </span>
 
 

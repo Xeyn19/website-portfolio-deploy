@@ -77,6 +77,20 @@
         "techlink": "https://nextjs.org/",
         "image": "/nextjs.png"
 
+    },
+    {
+        "id":11,
+        "techname": "Express JS",
+        "experience":"1 year",
+        "techlink": "https://expressjs.com/",
+        "image": "/express.png"
+    },
+    {
+        "id":12,
+        "techname": "Node JS",
+        "experience":"2 year",
+        "techlink": "https://nodejs.org/en",
+        "image": "/nodejs.png"
     }
 
 ]

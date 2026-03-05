@@ -16,7 +16,7 @@ const NavBar = () => {
             <h1 className='font-medium text-2xl max-md:text-sm'>Edgar Orosa</h1>
           </NavLink>
           <div className='max-md:hidden'>|</div>
-          <p className='text-gray-500 text-sm'>Front-End Developer</p>
+          <p className='text-gray-500 text-sm'>Full-Stack Developer</p>
           <button 
             className="md:hidden text-gray-700 focus:outline-none ml-3" 
             onClick={toggleMenu}
