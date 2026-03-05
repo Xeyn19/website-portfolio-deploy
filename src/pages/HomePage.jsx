@@ -42,7 +42,7 @@ const HomePage = () => {
       >
       <h1 className="font-bold text-4xl max-md:text-xl leading-snug whitespace-pre-line w-full">
   <Typewriter
-    words={["Hello, I'm \nFront-End React Developer."]}
+    words={["Hello, I'm \nFull-Stack Developer."]}
     loop={0} 
     cursor
     cursorStyle="|"
@@ -62,7 +62,7 @@ const HomePage = () => {
         >
           <h2 className="font-bold text-xl mb-2 max-md:text-sm">About Me</h2>
           <p className="text-gray-500 max-md:text-sm">
-            I'm a passionate front-end developer with a strong foundation in building responsive and user-friendly web applications. I'm currently working toward becoming a software engineer or full-stack developer, expanding my skills in both front-end and back-end technologies. My goal is to create seamless, high-performing applications that provide an excellent user experience while mastering the complete development process.
+           I am a Full-Stack Developer with a strong foundation in React and Node.js/Express.js, building responsive, high-performing web applications. I am focused on expanding my skills across the full development stack to become an efficient and versatile software engineer, delivering seamless user experiences through clean, maintainable code.
           </p>
         </motion.div>
 

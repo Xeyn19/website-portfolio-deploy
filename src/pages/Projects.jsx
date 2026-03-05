@@ -8,7 +8,7 @@ const Projects = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedYear, setSelectedYear] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollDirection, setScrollDirection] = useState('down');
@@ -43,9 +43,9 @@ const Projects = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const handleRecentProjectsFiltered = (year) => {
-    setSelectedYear(year);
-    setFilteredData(year === 'all' ? data : data.filter((project) => project.date === parseInt(year)));
+  const handleCategoryFilter = (category) => {
+    setSelectedCategory(category);
+    setFilteredData(category === 'all' ? data : data.filter((project) => project.category === category));
     setIsDropdownOpen(false);
   };
 
@@ -75,11 +75,7 @@ const Projects = () => {
             hover:bg-yellow-700 transition-all duration-300 ease-in-out flex items-center"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            {selectedYear === 'all' 
-              ? 'All Projects' 
-              : selectedYear === '2025' 
-              ? `Recent Projects (${selectedYear})` 
-              : `Previous Projects (${selectedYear})`}
+            {selectedCategory === 'all' ? 'All Projects' : `${selectedCategory} Projects`}
             <span className="ml-2">▼</span>
           </button>
 
@@ -91,17 +87,13 @@ const Projects = () => {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              {['all', '2025', '2024', '2023'].map((year) => (
+              {['all', 'Front-End', 'Full Stack'].map((category) => (
                 <li
-                  key={year}
+                  key={category}
                   className="px-4 py-2 max-md:text-[12px] cursor-pointer hover:bg-yellow-600 hover:text-white transition-all duration-200"
-                  onClick={() => handleRecentProjectsFiltered(year)}
+                  onClick={() => handleCategoryFilter(category)}
                 >
-                  {year === 'all' 
-                    ? 'All Projects' 
-                    : year === '2025' 
-                      ? `Recent Projects (${year})` 
-                      : `Previous Projects (${year})`}
+                  {category === 'all' ? 'All Projects' : `${category} Projects`}
                 </li>
               ))}
             </motion.ul>

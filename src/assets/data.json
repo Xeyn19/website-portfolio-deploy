@@ -6,6 +6,7 @@
         "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","github.png","daisyUI.png"],
         "image": "/projectcoffee.png",
         "date":2025,
+        "category": "Front-End",
         "link": "https://coffee-shop-vert-sigma.vercel.app/"
     },
     {
@@ -15,6 +16,7 @@
       "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","github.png","daisyUI.png"],
       "image": "/projectrecipes.png",
       "date":2025,
+      "category": "Front-End",
       "link": "https://food-recipes-website-ruddy.vercel.app/"
     },
     {
@@ -24,6 +26,7 @@
         "technologies": ["/html.png","/tailwindcss.png","/JS.jpg","github.png","vercel.png"],
         "image": "/project1.png",
         "date":2024,
+        "category": "Front-End",
         "link":"https://amazon-website-clone-amber.vercel.app/"
       },
 
@@ -34,6 +37,7 @@
         "technologies": ["/html.png","/tailwindcss.png","/JS.jpg","daisyUI.png","github.png"],
         "image": "/project2.png",
         "date":2024,
+        "category": "Front-End",
         "link":"https://github.com/Xeyn19/nike-web-clone"
 
       },
@@ -44,6 +48,7 @@
         "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","github.png"],
         "image": "/project3.png",
         "date":2025,
+        "category": "Front-End",
         "link":"https://github.com/Xeyn19/react-jobs-website"
 
       },
@@ -55,6 +60,7 @@
         "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","github.png","vercel.png"],
         "image": "/project4.png",
         "date":2025,
+        "category": "Front-End",
         "link": "https://movie-website-amber.vercel.app/"
       },
       {
@@ -64,6 +70,7 @@
         "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","daisyUI.png","github.png","material-ui.png"],
         "image": "/project4.5.jpg",
         "date":2025,
+        "category": "Front-End",
         "link": "https://react-zustand-todo-list.vercel.app/"
       },
       {
@@ -72,14 +79,16 @@
         "description": "I developed a simple To-Do List application using Vanilla JavaScript for functionality and Tailwind CSS for styling and design. The app allows users to add, edit, and delete tasks, with all data being saved in localStorage to preserve tasks even after refreshing the page. The use of Tailwind CSS ensures a clean and modern design, while Vanilla JavaScript efficiently manages the state, user interactions, and local storage operations. This project showcases my ability to build functional and visually appealing applications using modern front-end technologies with persistent data handling.",
         "technologies": ["/html.png","/tailwindcss.png","/JS.jpg"],
         "image": "/project7.png",
-        "date":2023
+        "date":2023,
+        "category": "Front-End"
       },{
         "id": 9,
         "title": "Simple Rock Paper Scissor Game",
         "description": "I developed a Simple Rock Paper Scissors Game using HTML for the structure, pure CSS for clean and simple designs, and Vanilla JavaScript for functionality. The game allows players to choose their moves, while the computer generates a random move. The scores and game records are saved in local storage, allowing users to track their progress even after refreshing the page. I also implemented an auto-play feature that can be toggled by pressing 'A' to start and 'P' to stop, or by clicking a button. This project demonstrates my ability to create interactive and responsive web applications using core front-end technologies.",
         "technologies": ["/html.png","/CSS.png","/JS.jpg"],
         "image": "/project9.png",
-        "date":2023
+        "date":2023,
+        "category": "Front-End"
       },
       {
         "id": 8,
@@ -87,7 +96,8 @@
         "description": "I developed the UI for our System Analysis and Design project during my 3rd year, 1st semester as a Bachelor of Science in Information Systems (BSIS) student. I used pure HTML for structuring and CSS for styling and layout, ensuring the design is fully responsive across all devices through CSS media queries. The interface is clean and user-friendly, providing a consistent and smooth experience on desktops, tablets, and mobile devices. Additionally, I implemented functional buttons and modals using JavaScript, enhancing user interaction and improving the overall user experience. This project reflects my ability to create responsive, interactive, and well-organized layouts using core front-end technologies.",
         "technologies": ["/html.png","/CSS.png","/JS.jpg","github.png"],
         "image": "/project8.png",
-        "date":2024
+        "date":2024,
+        "category": "Front-End"
       },
       {
         
@@ -96,7 +106,8 @@
           "description": "I created an Instagram clone using HTML for structuring the layout and pure CSS for styling and design. The project replicates the core design and user interface of Instagram, including the feed layout, profile section, and navigation bar. It is fully responsive, ensuring a consistent and smooth experience across all devices, from desktops to mobile phones. This project demonstrates my ability to create clean, modern designs and responsive layouts using only HTML and CSS, highlighting my front-end development skills.",
           "technologies": ["/html.png","/CSS.png"],
           "image": "/project5.png",
-          "date":2023
+          "date":2023,
+          "category": "Front-End"
       },
      {
       "id": 6,
@@ -105,6 +116,7 @@
       "technologies": ["/html.png","/CSS.png","github.png","vercel.png"],
       "image": "/project6.png",
       "date":2023,
+      "category": "Front-End",
       "link":"https://github.com/Xeyn19/facebook-clone"
     }
       

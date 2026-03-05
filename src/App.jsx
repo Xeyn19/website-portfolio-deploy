@@ -15,8 +15,6 @@ import ThemeProvider from './context/ThemeProvider'
 import Certificates from './pages/Certificates'
 import UnderWorkPage from './components/UnderWorkPage'
 
-
-
 const App = () => {
 
   const router = createBrowserRouter(
