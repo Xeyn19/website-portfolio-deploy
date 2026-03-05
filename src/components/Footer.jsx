@@ -2,6 +2,7 @@ import React from 'react'
 import Email from '/email.png'
 import Phone from '/phone-call.png'
 const Footer = () => {
+  const currentYear = new Date().getFullYear()
   return (
     <>
         <footer className='flex md:flex-col px-10  max-md:flex-col max-md:p-0'>
@@ -23,7 +24,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="self-center max-xl:m-auto">
-                    <p className='text-gray-700 text-sm'>© 2025 By Edgar Orosa.</p>
+                    <p className='text-gray-700 text-sm'>&copy; {currentYear} By Edgar Orosa.</p>
                 </div>
             </div>
         </footer>
