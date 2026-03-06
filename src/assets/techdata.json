@@ -91,6 +91,13 @@
         "experience":"2 year",
         "techlink": "https://nodejs.org/en",
         "image": "/nodejs.png"
+    },
+    {
+        "id":13,
+        "techname": "MYSQL",
+        "experience":"2 year",
+        "techlink": "https://www.mysql.com/",
+        "image": "/mysql.png"
     }
 
 ]
