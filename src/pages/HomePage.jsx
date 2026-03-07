@@ -34,28 +34,30 @@ const HomePage = () => {
         className="mx-auto max-w-6xl overflow-hidden rounded-[32px] border border-white/70 bg-white/85 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur"
       >
         <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="px-6 py-8 sm:px-8 lg:px-10">
+          <div className="px-6 py-7 sm:px-8 lg:px-10">
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
               Portfolio
             </p>
 
-            <h1 className="mt-4 whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl">
-              <Typewriter
-                words={["Hello, \n I'm Full-Stack Developer."]}
-                loop={0}
-                cursor
-                cursorStyle="|"
-                typeSpeed={70}
-                deleteSpeed={50}
-                delaySpeed={1000}
-              />
-            </h1>
+            <div className="mt-3 min-h-[136px] whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:min-h-[168px] sm:text-5xl">
+              <h1>
+                <Typewriter
+                  words={["Hello,\nI'm Full-Stack Developer."]}
+                  loop={0}
+                  cursor
+                  cursorStyle="|"
+                  typeSpeed={70}
+                  deleteSpeed={50}
+                  delaySpeed={1000}
+                />
+              </h1>
+            </div>
 
-            <div className="mt-7 rounded-[28px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,247,237,0.95),_rgba(255,255,255,0.96))] p-6 shadow-[0_18px_45px_rgba(148,163,184,0.12)]">
+            <div className="-mt-5 rounded-[28px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,247,237,0.95),_rgba(255,255,255,0.96))] p-5 shadow-[0_18px_45px_rgba(148,163,184,0.12)]">
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
                 About Me
               </p>
-              <p className="mt-3 text-sm leading-7 text-slate-700">
+              <p className="mt-2 text-sm leading-7 text-slate-700">
                 I am a Full-Stack Developer with a strong foundation in React and
                 Node.js/Express.js, building responsive, high-performing web applications. I am
                 focused on expanding my skills across the full development stack to become an
@@ -64,12 +66,12 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="mt-7">
+            <div className="mt-4">
               <div className="rounded-[24px] bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] p-5 text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)]">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-300/90">
                   Primary Stack
                 </p>
-                <div className="mt-3 space-y-3 text-sm leading-6 text-slate-300">
+                <div className="mt-2 space-y-2 text-sm leading-6 text-slate-300">
                   <p>
                     <span className="font-semibold text-white">Front-End:</span> HTML, CSS,
                     JavaScript, React.js, Tailwind CSS
@@ -88,11 +90,11 @@ const HomePage = () => {
               </div>
             </div>
 
-            <div className="mt-7">
+            <div className="mt-6">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
                 Connect
               </p>
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="mt-3 flex flex-wrap gap-3">
                 {socialLinks.map((item, index) => (
                   <motion.a
                     key={item.label}
@@ -112,22 +114,19 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className="relative overflow-hidden bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] px-7 py-8 text-white">
+          <div className="relative overflow-hidden bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] px-7 py-7 text-white">
             <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-amber-400/10 blur-3xl" />
             <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
 
-            <div className="relative flex h-full flex-col justify-between space-y-8">
+            <div className="relative flex h-full flex-col gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-300/90">
                   Featured Profile
                 </p>
-                <h2 className="mt-3 text-3xl font-semibold leading-tight">
-                  Intentional design and practical development.
-                </h2>
               </div>
 
               <div className="w-full rounded-[28px] bg-white/8 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ring-1 ring-white/10">
-                <div className="flex h-[420px] w-full items-end justify-center overflow-hidden rounded-[22px] bg-white pt-5">
+                <div className="flex h-[380px] w-full items-end justify-center overflow-hidden rounded-[22px] bg-white pt-4">
                   <img
                     src={profileImage}
                     alt="Edgar R Orosa Jr"
@@ -136,14 +135,37 @@ const HomePage = () => {
                 </div>
               </div>
 
-              <div className="rounded-[24px] border border-white/10 bg-white/6 p-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
-                  Goal
-                </p>
-                <p className="mt-3 text-sm leading-6 text-slate-300">
-                  To create scalable, user-friendly web applications that balance clean UI, solid
-                  engineering, and practical business value.
-                </p>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                <div className="rounded-[24px] border border-white/10 bg-white/6 p-5">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
+                    Development Focus
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    Focused on growing as a full-stack developer by building practical web
+                    applications, improving problem-solving skills, and gaining real-world
+                    experience in collaborative development.
+                  </p>
+                </div>
+
+                <div className="rounded-[24px] border border-white/10 bg-white/6 p-5">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
+                    What I Value
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    Clean design, practical functionality, and continuous improvement through
+                    real project experience, feedback, and collaboration.
+                  </p>
+                </div>
+
+                <div className="rounded-[24px] border border-white/10 bg-white/6 p-5 sm:col-span-2 lg:col-span-1">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
+                    What I Bring
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    A strong foundation in modern web development, a willingness to learn fast,
+                    and a focused approach to building reliable and user-friendly interfaces.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
