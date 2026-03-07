@@ -39,7 +39,8 @@ const HomePage = () => {
               Portfolio
             </p>
 
-            <div className="mt-3 min-h-[136px] whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:min-h-[168px] sm:text-5xl">
+            <div className="mt-3 min-h-[136px] whitespace-pre-line text-5xl 
+            font-semibold leading-tight tracking-tight text-slate-900 sm:min-h-[168px] max-md:text-3xl max-sm:text-[24px]">
               <h1>
                 <Typewriter
                   words={["Hello,\nI'm Full-Stack Developer."]}
@@ -53,7 +54,7 @@ const HomePage = () => {
               </h1>
             </div>
 
-            <div className="-mt-5 rounded-[28px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,247,237,0.95),_rgba(255,255,255,0.96))] p-5 shadow-[0_18px_45px_rgba(148,163,184,0.12)]">
+            <div className="-mt-5 max-sm:-mt-12 rounded-[28px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,247,237,0.95),_rgba(255,255,255,0.96))] p-5 shadow-[0_18px_45px_rgba(148,163,184,0.12)]">
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
                 About Me
               </p>
