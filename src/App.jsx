@@ -13,7 +13,6 @@ import Contact from './pages/Contact'
 import Page404 from './components/Page404'
 import ThemeProvider from './context/ThemeProvider'
 import Certificates from './pages/Certificates'
-import UnderWorkPage from './components/UnderWorkPage'
 
 const App = () => {
 
@@ -35,7 +34,7 @@ const App = () => {
             <Route index element ={<Contact />}/> 
           </Route>
            <Route path='certificates' element={<ContactLayout />}>
-            <Route index element ={<UnderWorkPage />}/> 
+            <Route index element ={<Certificates />}/> 
           </Route>
         </Route>
     )

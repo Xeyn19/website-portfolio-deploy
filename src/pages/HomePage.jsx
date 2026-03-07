@@ -1,113 +1,156 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import edgarprofile from '/Portfolio Picture.jpeg';
-import facebook from '/facebook.png';
-import instagram from '/instagram.png';
-import linkedin from '/linkedin.png';
+import React from 'react'
+import { motion } from 'framer-motion'
+import profileImage from '/Profile-bg-remover.png'
+import facebook from '/facebook.png'
+import instagram from '/instagram.png'
+import linkedin from '/linkedin.png'
 import github from '/github.png'
-import { Typewriter } from 'react-simple-typewriter';
+import { Typewriter } from 'react-simple-typewriter'
+import Spinner from '../components/Spinner'
+import usePageLoader from '../hooks/usePageLoader'
 
+const socialLinks = [
+  { img: facebook, link: 'https://www.facebook.com/edgar.orosa.9/', label: 'Facebook' },
+  { img: linkedin, link: 'https://www.linkedin.com/in/edgar-orosa-a43a15333/', label: 'LinkedIn' },
+  { img: instagram, link: 'https://www.instagram.com/c_stor_/', label: 'Instagram' },
+  { img: github, link: 'https://github.com/Xeyn19', label: 'GitHub' },
+]
 
 const HomePage = () => {
+  const loading = usePageLoader()
+
+  if (loading) {
+    return <Spinner />
+  }
+
   return (
-    <motion.div
-      className="flex justify-center items-center lg:min-h-screen space-x-10 
-         max-md:flex-col max-md:space-x-0 max-md:p-10 max-xl:flex-col"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      
-      <motion.div
-        className="max-md:order-2 max-md:mt-8"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+    <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(15,23,42,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(180,83,9,0.1),_transparent_24%),linear-gradient(135deg,_#f8fafc_0%,_#fff7ed_45%,_#eff6ff_100%)]" />
+
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="mx-auto max-w-6xl overflow-hidden rounded-[32px] border border-white/70 bg-white/85 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur"
       >
-        <img
-          src={edgarprofile}
-          alt="Profile"
-          className="w-[500px] h-[600px] rounded-full mb-20 shadow-md max-md:m-auto
-                 max-md:w-[300px] max-md:h-[400px] max-md:xl:[500px] max-lg:mb-0 max-xl:w-[400px] max-xl:mt-20"
-        />
-      </motion.div>
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="px-6 py-8 sm:px-8 lg:px-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
+              Portfolio
+            </p>
 
-
-      <motion.div
-        className="w-[500px] self-start mt-40 space-y-6 mr-7 max-md:m-0
-             max-md:w-full max-md:text-left max-md:px-2 max-xl:m-auto max-xl:mt-15"
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-      >
-      <h1 className="font-bold text-4xl max-md:text-xl leading-snug whitespace-pre-line w-full">
-  <Typewriter
-    words={["Hello, I'm \nFull-Stack Developer."]}
-    loop={0} 
-    cursor
-    cursorStyle="|"
-    typeSpeed={70}
-    deleteSpeed={50}
-    delaySpeed={1000}
-  />
-</h1>
-
-
-
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-        >
-          <h2 className="font-bold text-xl mb-2 max-md:text-sm">About Me</h2>
-          <p className="text-gray-500 max-md:text-sm">
-           I am a Full-Stack Developer with a strong foundation in React and Node.js/Express.js, building responsive, high-performing web applications. I am focused on expanding my skills across the full development stack to become an efficient and versatile software engineer, delivering seamless user experiences through clean, maintainable code.
-          </p>
-        </motion.div>
-
-
-        <motion.div
-          className="flex space-x-2"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.2 },
-            },
-          }}
-        >
-          {[ 
-            { img: facebook, link: "https://www.facebook.com/edgar.orosa.9/" }, 
-            { img: linkedin, link: "https://www.linkedin.com/in/edgar-orosa-a43a15333/" }, 
-            { img: instagram, link: "https://www.instagram.com/c_stor_/" },
-            { img: github, link: "https://github.com/Xeyn19" }
-          ].map((item, index) => (
-            <motion.a
-              key={index}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-            >
-              <img
-                src={item.img}
-                alt="Social Icon"
-                className="w-8 h-8 hover:-translate-y-2 transition-all max-md:w-7 max-md:h-7
-                  ease-in-out duration-700 cursor-pointer hover:drop-shadow-xl"
+            <h1 className="mt-4 whitespace-pre-line text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl">
+              <Typewriter
+                words={["Hello, \n I'm Full-Stack Developer."]}
+                loop={0}
+                cursor
+                cursorStyle="|"
+                typeSpeed={70}
+                deleteSpeed={50}
+                delaySpeed={1000}
               />
-            </motion.a>
-          ))}
-        </motion.div>
-      </motion.div>
-    </motion.div>
-  );
-};
+            </h1>
 
-export default HomePage;
+            <div className="mt-7 rounded-[28px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,247,237,0.95),_rgba(255,255,255,0.96))] p-6 shadow-[0_18px_45px_rgba(148,163,184,0.12)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
+                About Me
+              </p>
+              <p className="mt-3 text-sm leading-7 text-slate-700">
+                I am a Full-Stack Developer with a strong foundation in React and
+                Node.js/Express.js, building responsive, high-performing web applications. I am
+                focused on expanding my skills across the full development stack to become an
+                efficient and versatile software engineer, delivering seamless user experiences
+                through clean, maintainable code.
+              </p>
+            </div>
+
+            <div className="mt-7">
+              <div className="rounded-[24px] bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] p-5 text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-300/90">
+                  Primary Stack
+                </p>
+                <div className="mt-3 space-y-3 text-sm leading-6 text-slate-300">
+                  <p>
+                    <span className="font-semibold text-white">Front-End:</span> HTML, CSS,
+                    JavaScript, React.js, Tailwind CSS
+                  </p>
+                  <p>
+                    <span className="font-semibold text-white">Back-End:</span> Node.js,
+                    Express.js, PHP
+                  </p>
+                  <p>
+                    <span className="font-semibold text-white">Database:</span> MySQL
+                  </p>
+                  <p>
+                    <span className="font-semibold text-white">Tools:</span> Git, GitHub
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-7">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
+                Connect
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {socialLinks.map((item, index) => (
+                  <motion.a
+                    key={item.label}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.4 + index * 0.08 }}
+                    className="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:border-amber-400"
+                  >
+                    <img src={item.img} alt={item.label} className="h-6 w-6 object-contain" />
+                    <span className="text-sm font-medium text-slate-700">{item.label}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] px-7 py-8 text-white">
+            <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-amber-400/10 blur-3xl" />
+            <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
+
+            <div className="relative flex h-full flex-col justify-between space-y-8">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-300/90">
+                  Featured Profile
+                </p>
+                <h2 className="mt-3 text-3xl font-semibold leading-tight">
+                  Intentional design and practical development.
+                </h2>
+              </div>
+
+              <div className="w-full rounded-[28px] bg-white/8 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ring-1 ring-white/10">
+                <div className="flex h-[420px] w-full items-end justify-center overflow-hidden rounded-[22px] bg-white pt-5">
+                  <img
+                    src={profileImage}
+                    alt="Edgar R Orosa Jr"
+                    className="h-full w-full scale-110 object-contain object-bottom drop-shadow-[0_18px_30px_rgba(15,23,42,0.28)]"
+                  />
+                </div>
+              </div>
+
+              <div className="rounded-[24px] border border-white/10 bg-white/6 p-5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
+                  Goal
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-300">
+                  To create scalable, user-friendly web applications that balance clean UI, solid
+                  engineering, and practical business value.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+    </div>
+  )
+}
+
+export default HomePage

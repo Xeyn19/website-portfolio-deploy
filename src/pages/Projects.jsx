@@ -1,181 +1,208 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import projectdata from '../assets/data.json';
-import Spinner from '../components/Spinner';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import projectdata from '../assets/data.json'
+import Spinner from '../components/Spinner'
+
+const categories = ['all', 'Front-End', 'Full Stack']
 
 const Projects = () => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState('down');
-
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [imageModes, setImageModes] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setData(projectdata);
-        setFilteredData(projectdata);
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        setData(projectdata)
+        setFilteredData(projectdata)
       } catch (error) {
-        console.error('Fetch data error', error);
+        console.error('Fetch data error', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchData();
-  }, []);
+    }
 
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrollDirection(currentScrollY > lastScrollY ? 'down' : 'up');
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+    fetchData()
+  }, [])
 
   const handleCategoryFilter = (category) => {
-    setSelectedCategory(category);
-    setFilteredData(category === 'all' ? data : data.filter((project) => project.category === category));
-    setIsDropdownOpen(false);
-  };
+    setSelectedCategory(category)
+    setFilteredData(category === 'all' ? data : data.filter((project) => project.category === category))
+  }
+
+  const handleImageLoad = (imageSrc, event) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget
+    const nextMode = naturalHeight > naturalWidth ? 'portrait' : 'landscape'
+
+    setImageModes((prev) => (prev[imageSrc] === nextMode ? prev : { ...prev, [imageSrc]: nextMode }))
+  }
 
   if (loading) {
-    return <Spinner />;
+    return <Spinner />
   }
 
   return (
-    <motion.div className="flex min-h-screen">
-      <div className="w-full h-full px-40 py-20 max-md:px-5 max-xl:p-0 max-xl:text-center">
-        
-    
-        <motion.h1 
-          className="font-bold text-4xl tracking-wider block"
-          whileInView={{ opacity: 1, y: scrollDirection === 'down' ? 0 : -10 }}
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: false, amount: 0.2 }}
+    <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(15,23,42,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(180,83,9,0.1),_transparent_24%),linear-gradient(135deg,_#f8fafc_0%,_#fff7ed_45%,_#eff6ff_100%)]" />
+
+      <div className="mx-auto max-w-6xl space-y-7">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="overflow-hidden rounded-[32px] border border-white/70 bg-white/85 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-8"
         >
-          Projects
-        </motion.h1>
+          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
+                Selected Work
+              </p>
+              <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-900">
+                Projects
+              </h1>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-700">
+                A collection of front-end and full-stack projects focused on responsive interfaces,
+                user-centered interaction, and practical functionality. Each build reflects hands-on
+                experience with modern web tools, data handling, and real deployment workflows.
+              </p>
+            </div>
 
-    
-        <div className="relative inline-block my-6 max-md:px-20">
-          <button 
-            className="py-2 px-4 bg-yellow-600 text-white max-md:text-[12px] font-medium rounded-md cursor-pointer 
-            hover:bg-yellow-700 transition-all duration-300 ease-in-out flex items-center"
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          >
-            {selectedCategory === 'all' ? 'All Projects' : `${selectedCategory} Projects`}
-            <span className="ml-2">▼</span>
-          </button>
+            <div className="rounded-[28px] bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] p-6 text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
+                Filter
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {categories.map((category) => {
+                  const isActive = selectedCategory === category
 
-          {isDropdownOpen && (
-            <motion.ul 
-              className="absolute left-0 mt-2 w-52 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden z-10"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              {['all', 'Front-End', 'Full Stack'].map((category) => (
-                <li
-                  key={category}
-                  className="px-4 py-2 max-md:text-[12px] cursor-pointer hover:bg-yellow-600 hover:text-white transition-all duration-200"
-                  onClick={() => handleCategoryFilter(category)}
-                >
-                  {category === 'all' ? 'All Projects' : `${category} Projects`}
-                </li>
-              ))}
-            </motion.ul>
-          )}
-        </div>
+                  return (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => handleCategoryFilter(category)}
+                      className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                        isActive
+                          ? 'bg-amber-400 text-slate-900 shadow-[0_10px_25px_rgba(251,191,36,0.35)]'
+                          : 'border border-white/10 bg-white/10 text-slate-100 hover:bg-white/16'
+                      }`}
+                    >
+                      {category === 'all' ? 'All Projects' : category}
+                    </button>
+                  )
+                })}
+              </div>
+              <p className="mt-5 text-sm leading-6 text-slate-300">
+                Showing {filteredData.length} project{filteredData.length === 1 ? '' : 's'} in the{' '}
+                {selectedCategory === 'all' ? 'full portfolio' : selectedCategory.toLowerCase()} category.
+              </p>
+            </div>
+          </div>
+        </motion.section>
 
-    
         {filteredData.length > 0 ? (
-          filteredData.map((project, index) => (
-            <motion.div 
-              key={project.id} 
-              className="flex space-x-30 mt-10 mb-40 max-md:flex-col max-md:mt-4 max-md:mb-10 max-xl:flex-col"
-              whileInView={{ opacity: 1, y: scrollDirection === 'down' ? 0 : -10 }}
-              initial={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
-              viewport={{ once: false, amount: 0.3 }} 
-            >
- 
-              <motion.div 
-                className="w-[50%] space-y-5 max-md:w-[100%] self-center max-md:self-start max-xl:w[100%] max-xl:m-auto max-md:pt-5"
-                whileInView={{ opacity: 1, x: scrollDirection === 'down' ? 0 : -10 }}
-                initial={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
-                viewport={{ once: false, amount: 0.3 }} 
+          <div className="grid gap-6">
+            {filteredData.map((project, index) => (
+              ((mode) => (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
+                viewport={{ once: true, amount: 0.15 }}
+                className="overflow-hidden rounded-[32px] border border-slate-200/80 bg-white shadow-[0_24px_60px_rgba(15,23,42,0.08)]"
               >
-                <h2 className="font-bold text-lg max-xl:text-xl">{project.title}</h2>
-                <p className="text-gray-600 text-sm max-xl:text-md">{project.description}</p>
-                <motion.div
-                  className="flex mt-3 max-md:justify-center max-xl:justify-center"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                  viewport={{ once: false, amount: 0.2 }}
-                >
-                  <span className='font-bold'>Tech Stack:</span>
-                  {project.technologies.slice(0, 10).map((techImg, i) => (
-                    <>
-                    <img
-                      key={i}
-                      src={techImg}
-                      alt={`Tech ${i}`}
-                      className="w-8 h-8 mx-1 object-contain rounded-md max-md:w-6 "
-                    />
-                    </>
-                  ))}
-                </motion.div>
-                <span><button onClick={() => project.link && window.open(project.link, "_blank")} 
-                disabled={!project.link}
-                className='text-slate-700 font-medium cursor-pointer 
-                hover:text-yellow-600 transition-all duration-300 hover:underline'>• Live Preview</button></span>
-              </motion.div>
-              
+                <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+                  <div className="p-6 sm:p-8">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
+                        {project.category}
+                      </span>
+                      <span className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        {project.date}
+                      </span>
+                    </div>
 
-            
-              <motion.div 
-                className="w-[50%] max-md:w-[100%] max-md:mt-10 max-xl:w[100%] max-xl:m-auto max-md:mb-15"
-                whileInView={{ opacity: 1, scale: scrollDirection === 'down' ? 1 : 0.98 }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                viewport={{ once: false, amount: 0.3 }}
-              > 
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-[500px] rounded-lg shadow-sm"
-                />
-              </motion.div>
-            </motion.div>
-          ))
+                    <h2 className="mt-4 text-2xl font-semibold leading-tight text-slate-900">
+                      {project.title}
+                    </h2>
+                    <p className="mt-4 text-sm leading-7 text-slate-700">
+                      {project.description}
+                    </p>
+
+                    <div className="mt-6">
+                      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
+                        Tech Stack
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-3">
+                        {project.technologies.slice(0, 10).map((techImg, techIndex) => (
+                          <div
+                            key={`${project.id}-${techIndex}`}
+                            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50"
+                          >
+                            <img
+                              src={techImg}
+                              alt={`${project.title} technology ${techIndex + 1}`}
+                              className="h-7 w-7 object-contain"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-7">
+                      {project.link ? (
+                        <button
+                          type="button"
+                          onClick={() => window.open(project.link, '_blank')}
+                          className="rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-amber-500 hover:text-slate-950"
+                        >
+                          Live Preview
+                        </button>
+                      ) : (
+                        <span className="rounded-full border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-500">
+                          Preview unavailable
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="bg-[linear-gradient(135deg,_#fff7ed_0%,_#ffffff_55%,_#eff6ff_100%)] p-6 sm:p-8">
+                    <div
+                      className={`flex h-full min-h-[320px] w-full items-center justify-center rounded-[28px] border border-white/80 bg-white shadow-[0_18px_45px_rgba(148,163,184,0.16)] ${
+                        mode === 'portrait' ? 'p-5 sm:p-6' : 'p-3'
+                      }`}
+                    >
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        onLoad={(event) => handleImageLoad(project.image, event)}
+                        className={`h-full w-full rounded-[20px] ${
+                          mode === 'portrait' ? 'object-contain object-center' : 'object-cover object-center'
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+              ))(imageModes[project.image] || 'landscape')
+            ))}
+          </div>
         ) : (
-          <motion.p 
-            className="text-gray-600 text-center mt-5"
-            whileInView={{ opacity: 1 }}
+          <motion.div
             initial={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            animate={{ opacity: 1 }}
+            className="rounded-[28px] border border-slate-200 bg-white p-8 text-center shadow-[0_18px_40px_rgba(15,23,42,0.06)]"
           >
-            No projects found for the selected year.
-          </motion.p>
+            <p className="text-sm text-slate-600">No projects found for the selected category.</p>
+          </motion.div>
         )}
       </div>
-    </motion.div>
-  );
-};
+    </div>
+  )
+}
 
-export default Projects;
+export default Projects
