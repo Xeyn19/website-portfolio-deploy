@@ -3,9 +3,11 @@ import { motion } from 'framer-motion'
 import profileImage from '/Profile-bg-remover.png'
 import Spinner from '../components/Spinner'
 import usePageLoader from '../hooks/usePageLoader'
+import useSiteTheme from '../hooks/useSiteTheme'
 
 const Resume = () => {
   const loading = usePageLoader()
+  const { classes } = useSiteTheme()
 
   const contacts = [
     {
@@ -79,22 +81,22 @@ const Resume = () => {
 
   return (
     <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(15,23,42,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(180,83,9,0.1),_transparent_24%),linear-gradient(135deg,_#f8fafc_0%,_#fff7ed_45%,_#eff6ff_100%)]" />
+      <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}
-        className="mx-auto max-w-6xl overflow-hidden rounded-[32px] border border-white/70 bg-white/85 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur"
+        className={`mx-auto max-w-6xl overflow-hidden rounded-[32px] ${classes.shell}`}
       >
         <div className="grid lg:grid-cols-[320px_1fr]">
-          <aside className="relative overflow-hidden bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] px-7 py-8 text-white">
+          <aside className={`relative overflow-hidden px-7 py-8 text-white ${classes.panelDark}`}>
             <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-amber-400/10 blur-3xl" />
             <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
 
             <div className="relative space-y-8">
               <div className="text-center">
-                <div className="w-full rounded-[28px] bg-white/8 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ring-1 ring-white/10">
+                <div className={`w-full rounded-[28px] p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ${classes.darkFrame}`}>
                   <div className="flex h-72 w-full items-end justify-center overflow-hidden rounded-[22px] bg-white pt-4">
                     <img
                       src={profileImage}
@@ -112,7 +114,7 @@ const Resume = () => {
                 </p>
               </div>
 
-              <section className="rounded-[24px] border border-white/10 bg-white/6 p-5">
+              <section className={`rounded-[24px] p-5 ${classes.darkTile}`}>
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
                   Contact
                 </p>
@@ -128,7 +130,7 @@ const Resume = () => {
                 </div>
               </section>
 
-              <section className="rounded-[24px] border border-white/10 bg-white/6 p-5">
+              <section className={`rounded-[24px] p-5 ${classes.darkTile}`}>
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
                   Technical Skill
                 </p>
@@ -136,7 +138,7 @@ const Resume = () => {
                   {technicalSkills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs text-slate-100"
+                      className={`rounded-full px-3 py-1 text-xs ${classes.darkChip}`}
                     >
                       {skill}
                     </span>
@@ -147,18 +149,18 @@ const Resume = () => {
           </aside>
 
           <main className="px-6 py-7 sm:px-8 lg:px-10">
-            <div className="rounded-[28px] border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,247,237,0.95),_rgba(255,255,255,0.96))] p-6 shadow-[0_18px_45px_rgba(148,163,184,0.12)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
+            <div className={`rounded-[28px] p-6 ${classes.panelSoft}`}>
+              <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Profile Summary
               </p>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
+              <p className={`mt-3 max-w-3xl text-sm leading-7 ${classes.text}`}>
                 A motivated pursuing a full-stack developer career, eager to design and develop scalable web applications using modern front-end and back-end technologies while continuously improving through real-world projects.
               </p>
             </div>
 
             <div className="mt-7 grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-              <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">
+              <section className={`rounded-[28px] p-6 ${classes.surface}`}>
+                <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.labelMuted}`}>
                   Education
                 </p>
                 <div className="mt-5 space-y-5">
@@ -167,25 +169,25 @@ const Resume = () => {
                       key={item.school}
                       className="border-l-2 border-amber-500/70 pl-4"
                     >
-                      <p className="text-base font-semibold text-slate-900">{item.school}</p>
+                      <p className={`text-base font-semibold ${classes.heading}`}>{item.school}</p>
                       <p className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-amber-700">
                         {item.years}
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-slate-700">{item.details}</p>
+                      <p className={`mt-2 text-sm leading-6 ${classes.text}`}>{item.details}</p>
                     </article>
                   ))}
                 </div>
               </section>
 
-              <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">
+              <section className={`rounded-[28px] p-6 ${classes.surface}`}>
+                <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.labelMuted}`}>
                   Certifications
                 </p>
-                <ul className="mt-5 space-y-3 text-sm leading-6 text-slate-700">
+                <ul className={`mt-5 space-y-3 text-sm leading-6 ${classes.text}`}>
                   {certifications.map((certification) => (
                     <li
                       key={certification}
-                      className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3"
+                      className={`rounded-2xl px-4 py-3 ${classes.surfaceMuted}`}
                     >
                       {certification}
                     </li>
@@ -194,20 +196,20 @@ const Resume = () => {
               </section>
             </div>
 
-            <section className="mt-6 rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">
+            <section className={`mt-6 rounded-[28px] p-6 ${classes.surface}`}>
+              <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.labelMuted}`}>
                 Projects
               </p>
               <div className="mt-5 grid gap-5 lg:grid-cols-2">
                 {projects.map((project) => (
                   <article
                     key={project.title}
-                    className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,_#ffffff_0%,_#f8fafc_100%)] p-5"
+                    className={`rounded-[24px] p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}
                   >
-                    <h2 className="text-base font-semibold leading-6 text-slate-900">
+                    <h2 className={`text-base font-semibold leading-6 ${classes.heading}`}>
                       {project.title}
                     </h2>
-                    <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-700">
+                    <ul className={`mt-4 space-y-2 text-sm leading-6 ${classes.text}`}>
                       {project.details.map((detail) => (
                         <li key={detail} className="flex gap-3">
                           <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />

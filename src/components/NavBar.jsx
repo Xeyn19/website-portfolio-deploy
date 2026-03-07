@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import useSiteTheme from '../hooks/useSiteTheme'
 
 const navItems = [
   { to: '/resume', label: 'Resume' },
@@ -9,22 +10,9 @@ const navItems = [
   { to: '/contact', label: 'Contact' },
 ]
 
-const desktopLinkClass = ({ isActive }) =>
-  `rounded-full px-4 py-2 text-sm font-medium transition ${
-    isActive
-      ? 'bg-slate-900 text-white shadow-[0_10px_24px_rgba(15,23,42,0.18)]'
-      : 'text-slate-600 hover:bg-amber-50 hover:text-amber-700'
-  }`
-
-const mobileLinkClass = ({ isActive }) =>
-  `rounded-2xl px-4 py-3 text-base font-medium transition ${
-    isActive
-      ? 'bg-slate-900 text-white'
-      : 'text-slate-700 hover:bg-amber-50 hover:text-amber-700'
-  }`
-
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { isDark, classes } = useSiteTheme()
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev)
@@ -36,14 +24,14 @@ const NavBar = () => {
 
   return (
     <header className="sticky top-0 z-40 px-4 pt-6 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-6xl rounded-[28px] border border-white/70 bg-white/85 shadow-[0_18px_50px_rgba(15,23,42,0.1)] backdrop-blur">
+      <div className={`mx-auto max-w-6xl rounded-[28px] ${classes.shell}`}>
         <div className="flex items-center justify-between gap-4 px-5 py-4 sm:px-6">
           <NavLink to="/" onClick={closeMenu} className="min-w-0">
             <div className="flex flex-col">
-              <span className="text-lg font-semibold tracking-tight text-slate-900 sm:text-xl">
+              <span className={`text-lg font-semibold tracking-tight sm:text-xl ${classes.heading}`}>
                 Edgar Orosa
               </span>
-              <span className="text-[11px] uppercase tracking-[0.28em] text-amber-700">
+              <span className={`text-[11px] uppercase tracking-[0.28em] ${classes.label}`}>
                 Full-Stack Developer
               </span>
             </div>
@@ -51,7 +39,15 @@ const NavBar = () => {
 
           <nav className="hidden items-center gap-2 lg:flex">
             {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to} className={desktopLinkClass}>
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `rounded-full px-4 py-2 text-sm font-medium transition ${
+                    isActive ? classes.navActive : classes.navMuted
+                  }`
+                }
+              >
                 {item.label}
               </NavLink>
             ))}
@@ -60,7 +56,7 @@ const NavBar = () => {
           <button
             type="button"
             onClick={toggleMenu}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.08)] transition hover:border-amber-300 hover:text-amber-700 lg:hidden"
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition lg:hidden ${classes.iconButton}`}
             aria-label="Toggle menu"
             aria-expanded={isOpen}
           >
@@ -77,13 +73,17 @@ const NavBar = () => {
         </div>
 
         {isOpen && (
-          <div className="border-t border-slate-200/80 px-5 py-4 lg:hidden">
+          <div className={`border-t px-5 py-4 lg:hidden ${isDark ? 'border-slate-800/80' : 'border-slate-200/80'}`}>
             <nav className="grid gap-2">
               {navItems.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
-                  className={mobileLinkClass}
+                  className={({ isActive }) =>
+                    `rounded-2xl px-4 py-3 text-base font-medium transition ${
+                      isActive ? classes.navActive : classes.navMuted
+                    }`
+                  }
                   onClick={closeMenu}
                 >
                   {item.label}
