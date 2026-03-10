@@ -1,15 +1,5 @@
 [   
     {
-        "id": 0.1,
-        "title": "Coffee Shop Website",
-        "description": "I developed a personal coffee shop website using HTML, Tailwind CSS v4 with DaisyUI, and React.js v19 to create a clean, modern, and fully responsive user interface. The design was styled using Tailwind CSS and DaisyUI components for a polished, consistent layout. React.js powered the dynamic functionality, including an “Add to Basket” feature that allows users to select and manage products in real-time. I implemented persistent state management by integrating localStorage, enabling the shopping basket contents to be saved and restored across page reloads or sessions. Product data was fetched from a local JSON file using useEffect with async/await, and I incorporated try-catch-finally blocks to gracefully handle loading states and potential errors, enhancing the user experience with a loading spinner during data retrieval. The site adapts smoothly across all screen sizes, ensuring a seamless experience on both desktop and mobile devices. I deployed the project using Vercel, making it accessible online and production-ready. This project strengthened my front-end development skills in component structure, state management, data persistence, data fetching, and responsive design.",
-        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","github.png","daisyUI.png"],
-        "image": "/projectcoffee.png",
-        "date":2025,
-        "category": "Front-End",
-        "link": "https://coffee-shop-vert-sigma.vercel.app/"
-    },
-    {
         "id": 0.3,
         "title": "UI/UX Landing Page",
         "description": "Developed the UI/UX for our midterm project landing page using Next.js, ensuring a fully responsive design across all devices. Implemented dark and light mode themes for improved user experience and deployed the project on Vercel.",
@@ -18,6 +8,17 @@
         "date":2026,
         "category": "Front-End",
         "link": "https://tutoyscorp.vercel.app/"
+    },
+
+  {
+        "id": 0.1,
+        "title": "Coffee Shop Website",
+        "description": "I developed a personal coffee shop website using HTML, Tailwind CSS v4 with DaisyUI, and React.js v19 to create a clean, modern, and fully responsive user interface. The design was styled using Tailwind CSS and DaisyUI components for a polished, consistent layout. React.js powered the dynamic functionality, including an “Add to Basket” feature that allows users to select and manage products in real-time. I implemented persistent state management by integrating localStorage, enabling the shopping basket contents to be saved and restored across page reloads or sessions. Product data was fetched from a local JSON file using useEffect with async/await, and I incorporated try-catch-finally blocks to gracefully handle loading states and potential errors, enhancing the user experience with a loading spinner during data retrieval. The site adapts smoothly across all screen sizes, ensuring a seamless experience on both desktop and mobile devices. I deployed the project using Vercel, making it accessible online and production-ready. This project strengthened my front-end development skills in component structure, state management, data persistence, data fetching, and responsive design.",
+        "technologies": ["/html.png","/tailwindcss.png","/reactjs.svg","vercel.png","github.png","daisyUI.png"],
+        "image": "/projectcoffee.png",
+        "date":2025,
+        "category": "Front-End",
+        "link": "https://coffee-shop-vert-sigma.vercel.app/"
     },
     {
       "id": 0.2,
