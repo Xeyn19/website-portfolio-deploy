@@ -10,6 +10,16 @@
         "link": "https://coffee-shop-vert-sigma.vercel.app/"
     },
     {
+        "id": 0.3,
+        "title": "UI/UX Landing Page",
+        "description": "Developed the UI/UX for our midterm project landing page using Next.js, ensuring a fully responsive design across all devices. Implemented dark and light mode themes for improved user experience and deployed the project on Vercel.",
+        "technologies": ["/tailwindcss.png","/nextjs.png","vercel.png","github.png"],
+        "image": "/tutoyscorp.png",
+        "date":2026,
+        "category": "Front-End",
+        "link": "https://tutoyscorp.vercel.app/"
+    },
+    {
       "id": 0.2,
       "title": "Food Recipes Website",
       "description": "I developed a Personal Food Recipes Website using React JS v19, Tailwind CSS v4, Daisy UI, and React Router. The website is fully responsive, ensuring an optimal viewing experience across all devices. It features advanced functionalities such as search filtering and category filtering, allowing users to easily find recipes based on their preferences. I have implemented data fetching using useEffect, alongside async/await for asynchronous operations, and included try/catch/finally for error handling to ensure smooth execution. The recipe data is stored in a JSON file, making it easy to manage and update. Additionally, I utilized React Router and useParams to dynamically navigate to specific recipe details based on the recipe ID in the URL. Once the project was completed, I deployed it on Vercel for live access and pushed the code to GitHub for version control and collaboration. This project showcases my skills in modern web development and creating user-friendly interfaces with dynamic content.",
