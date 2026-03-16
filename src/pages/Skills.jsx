@@ -74,7 +74,7 @@ const Skills = () => {
               </div>
               <p className="mt-5 text-sm leading-6 text-slate-300">
                 The current stack emphasizes production-ready front-end work while extending into
-                Node.js, Express.js, and MySQL for full-stack growth.
+                Node.js, Express.js,PHP, and MySQL for full-stack growth.
               </p>
             </div>
           </div>
