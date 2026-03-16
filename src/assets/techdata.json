@@ -88,16 +88,23 @@
     {
         "id":12,
         "techname": "Node JS",
-        "experience":"2 year",
+        "experience":"2 years",
         "techlink": "https://nodejs.org/en",
         "image": "/nodejs.png"
     },
     {
         "id":13,
         "techname": "MYSQL",
-        "experience":"2 year",
+        "experience":"2 years",
         "techlink": "https://www.mysql.com/",
         "image": "/mysql.png"
+    },
+     {
+        "id":14,
+        "techname": "PHP",
+        "experience":"2 years",
+        "techlink": "https://www.php.net/",
+        "image": "/php.png"
     }
 
 ]
