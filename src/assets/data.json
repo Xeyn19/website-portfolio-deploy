@@ -20,6 +20,16 @@
         "link": ""
     },
     {
+        "id": 0.324,
+        "title": "Users Management Page - X-Meta System",
+        "description": "I developed a User Management System that allows administrators to manage users, roles, access permissions, and Program ID assignments within the platform. The system includes role-based access control, ensuring only authorized users (e.g., admin) can perform create, edit, and delete actions, while others operate in read-only mode. I implemented dynamic data handling with database integration, including user status synchronization, program ID mapping with external data sources, and formatted access date ranges. The interface features a structured data table with dropdown handling for multiple program IDs, real-time statistics (total, active, inactive users), and clear UI states for system feedback. Additionally, the system is designed to be scalable and maintainable, with modular helper functions and safeguards for missing data or database dependencies.",
+        "technologies": ["/html.png","/php.png","/JS.jpg","github.png"],
+        "image": "/usersmanagement.png",
+        "date":2026,
+        "category": "Full-Stack",
+        "link": ""
+    },
+    {
         "id": 0.12,
         "title": "Job Application Tracker",
         "description": "A full-stack web application I personally built to help job seekers stay on top of every application throughout the entire hiring process. The system features secure user authentication using JWT, allowing users to manage their job applications with full add, edit, and delete capabilities — tracking key details like company, role, status, date, notes, and resume file uploads. A four-stage status pipeline — Applied, Interview, Offer, and Rejected — keeps progress clear and organized, while a live dashboard delivers real-time statistics and a visual chart of the overall application breakdown. The project was designed and developed entirely from scratch, spanning database architecture, RESTful API development, React frontend engineering, and a cohesive custom dark UI design system.",
