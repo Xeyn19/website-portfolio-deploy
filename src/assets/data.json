@@ -10,6 +10,16 @@
         "link": "https://tutoyscorp.vercel.app/"
     },
     {
+        "id": 0.323,
+        "title": "Daily Monitoring Page - X-Meta System",
+        "description": "Developed a Daily Monitoring Dashboard that tracks real-time device play data with date and device-type filtering, dynamic AJAX data fetching, and interactive UI components. The system includes summarized metrics, detailed data tables, and optimized loading, error, and empty states, ensuring a responsive, user-friendly, and maintainable monitoring solution.",
+        "technologies": ["/html.png","/php.png","/JS.jpg","github.png"],
+        "image": "/dailymonitoring.png",
+        "date":2026,
+        "category": "Full-Stack",
+        "link": ""
+    },
+    {
         "id": 0.12,
         "title": "Job Application Tracker",
         "description": "A full-stack web application I personally built to help job seekers stay on top of every application throughout the entire hiring process. The system features secure user authentication using JWT, allowing users to manage their job applications with full add, edit, and delete capabilities — tracking key details like company, role, status, date, notes, and resume file uploads. A four-stage status pipeline — Applied, Interview, Offer, and Rejected — keeps progress clear and organized, while a live dashboard delivers real-time statistics and a visual chart of the overall application breakdown. The project was designed and developed entirely from scratch, spanning database architecture, RESTful API development, React frontend engineering, and a cohesive custom dark UI design system.",
@@ -27,7 +37,7 @@
         "image": "/online-saving-goal.png",
         "date":2025,
         "category": "Full-Stack",
-        "link": "https://www.php.net/"
+        "link": ""
     },
   {
         "id": 0.13,
