@@ -54,6 +54,7 @@ const Resume = () => {
   const technicalSkills = [
     'HTML',
     'JavaScript',
+    'TypeScript',
     'CSS',
     'React JS',
     'Next Js',
@@ -154,7 +155,9 @@ const Resume = () => {
                 Profile Summary
               </p>
               <p className={`mt-3 max-w-3xl text-sm leading-7 ${classes.text}`}>
-                A motivated pursuing a full-stack developer career, eager to design and develop scalable web applications using modern front-end and back-end technologies while continuously improving through real-world projects.
+                A motivated aspiring full-stack developer, eager to design and develop scalable
+                web applications using modern front-end and back-end technologies including
+                TypeScript, while continuously improving through real-world projects.
               </p>
             </div>
 

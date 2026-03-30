@@ -61,7 +61,7 @@ const HomePage = () => {
                 About Me
               </p>
               <p className={`mt-2 text-sm leading-7 ${classes.text}`}>
-                I am a Full-Stack Developer with a strong foundation in React and
+                I am a Full-Stack Developer with a strong foundation in React, TypeScript, and
                 Node.js/Express.js, building responsive, high-performing web applications. I am
                 focused on expanding my skills across the full development stack to become an
                 efficient and versatile software engineer, delivering seamless user experiences
@@ -77,7 +77,7 @@ const HomePage = () => {
                 <div className="mt-2 space-y-2 text-sm leading-6 text-slate-300">
                   <p>
                     <span className="font-semibold text-white">Front-End:</span> HTML, CSS,
-                    JavaScript, React.js, Tailwind CSS
+                    JavaScript, TypeScript, React.js, Tailwind CSS
                   </p>
                   <p>
                     <span className="font-semibold text-white">Back-End:</span> Node.js,

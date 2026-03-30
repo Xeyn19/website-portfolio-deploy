@@ -51,8 +51,7 @@ const Skills = () => {
               </h1>
               <p className={`mt-4 max-w-3xl text-sm leading-7 ${classes.text}`}>
                 I build responsive web applications with a front-end focus and growing back-end
-                capability. My stack covers UI development, component-based workflows, RESTful app
-                structure, database fundamentals, and deployment-ready collaboration tools.
+                capability. My stack covers React and TypeScript development, component-based workflows, RESTful app structure, database fundamentals, and deployment-ready collaboration tools.
               </p>
             </div>
 
@@ -61,7 +60,7 @@ const Skills = () => {
                 Focus Areas
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {['Responsive UI', 'React Development', 'API Integration', 'Version Control', 'Database Basics'].map(
+                {['Responsive UI', 'React Development', 'TypeScript', 'API Integration', 'Version Control', 'Database Basics'].map(
                   (item) => (
                     <span
                       key={item}
@@ -73,8 +72,7 @@ const Skills = () => {
                 )}
               </div>
               <p className="mt-5 text-sm leading-6 text-slate-300">
-                The current stack emphasizes production-ready front-end work while extending into
-                Node.js, Express.js, PHP, and MySQL for full-stack growth.
+                The current stack emphasizes production-ready front-end work with React and TypeScript while extending into Node.js, Express.js, PHP, and MySQL for full-stack growth.
               </p>
             </div>
           </div>

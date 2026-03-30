@@ -35,6 +35,13 @@
         "image": "/reactjs.svg"
 
     },
+       {
+        "id":5.1,
+        "techname": "TypeScript",
+        "experience":"1 year",
+        "techlink": "https://www.typescriptlang.org/",
+        "image": "/typescript.png"
+    },
     {
         "id":6,
         "techname": "Front-end Development",
