@@ -2,13 +2,13 @@
     
     {
         "id": 0.34,
-        "title": "Ipay International - Business Page",
-        "description": "I developed a modern, responsive corporate landing platform for iPay International using Next.js, React, TypeScript, and Tailwind CSS, featuring a modular multi-section design, theme support, and reusable components for scalability and maintainability. The platform delivers a polished user experience across devices and was successfully deployed using Vercel.",
-        "technologies": ["/tailwindcss.png","/nextjs.png","/typescript.png","vercel.png","github.png"],
+        "title": "Ipay International Website",
+        "description": "I developed a modern iPay web application using Next.js 16, React 19, TypeScript, Tailwind CSS, and Supabase, delivering a secure, responsive, and production-ready payment platform for businesses in the Philippines. The system features a scalable marketing website with reusable components, dark and light mode support, and a streamlined Request Proposal flow. It integrates Supabase for authentication, lead management, and server-side data handling, while maintaining a clean and modular frontend architecture. Overall, the project emphasizes performance, maintainability, and a strong user experience aligned with real-world business operations.",
+        "technologies": ["/tailwindcss.png","/nextjs.png","/typescript.png","vercel.png","github.png","/supabase.jpg"],
         "image": "/Ipay.png",
         "date":2026,
-        "category": "Front-End",
-        "link": "https://ipay-eta.vercel.app/"
+        "category": "Full-Stack",
+        "link": "https://ipays.ph/"
     },
     {
         "id": 0.3,
