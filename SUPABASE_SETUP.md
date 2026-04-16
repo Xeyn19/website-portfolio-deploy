@@ -28,11 +28,31 @@ Create a local `.env.local` file in the project root.
 ```env
 VITE_SUPABASE_URL=your-supabase-project-url
 VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+VITE_ADMIN_EMAIL=your-admin-email@example.com
 ```
 
 Keep `.env.local` private. It is ignored by git through the existing `*.local` rule in `.gitignore`.
 
 For shared documentation, use `.env.example` with placeholder values only.
+
+## Production Environment Variables
+
+For production deployments, add the same variables in the hosting provider dashboard:
+
+```env
+VITE_SUPABASE_URL=your-supabase-project-url
+VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+VITE_ADMIN_EMAIL=your-admin-email@example.com
+```
+
+Examples:
+
+- Vercel: Project Settings -> Environment Variables
+- Netlify: Site Configuration -> Environment Variables
+
+The local `.env.local` file is not uploaded to production. Production needs its own environment variables configured in the hosting dashboard.
+
+Do not add the Supabase secret key to frontend production environment variables.
 
 ## Database Tables
 
@@ -63,7 +83,9 @@ create table if not exists public.skills (
 );
 ```
 
-`source_id` is used for the original JSON `id` values. Supabase uses its own generated `id` as the real primary key.
+Supabase automatically creates a unique `id` for every new row. The CRUD forms do not ask you to type an ID.
+
+`source_id` is only for the old JSON `id` values from the original import. New rows created from the app can leave `source_id` empty.
 
 ## Row Level Security
 
@@ -86,7 +108,65 @@ to anon
 using (true);
 ```
 
-These policies only allow public reads. Do not add public insert, update, or delete policies for this portfolio.
+These policies only allow public reads.
+
+## Admin CRUD Auth
+
+The portfolio has admin-only create, edit, and delete controls on the Projects and Skills pages.
+
+1. Open Supabase.
+2. Go to **Authentication**.
+3. Create an admin user with email and password.
+4. Set `VITE_ADMIN_EMAIL` in `.env.local` to the same email.
+5. Restart the Vite dev server after changing `.env.local`.
+
+The app only shows CRUD controls when the logged-in user's email matches `VITE_ADMIN_EMAIL`.
+
+## Admin Write Policies
+
+Run these policies in the Supabase SQL Editor. Replace `your-admin-email@example.com` with the same email used in `VITE_ADMIN_EMAIL`.
+
+```sql
+create policy "Allow admin insert projects"
+on public.projects
+for insert
+to authenticated
+with check ((auth.jwt() ->> 'email') = 'your-admin-email@example.com');
+
+create policy "Allow admin update projects"
+on public.projects
+for update
+to authenticated
+using ((auth.jwt() ->> 'email') = 'your-admin-email@example.com')
+with check ((auth.jwt() ->> 'email') = 'your-admin-email@example.com');
+
+create policy "Allow admin delete projects"
+on public.projects
+for delete
+to authenticated
+using ((auth.jwt() ->> 'email') = 'your-admin-email@example.com');
+
+create policy "Allow admin insert skills"
+on public.skills
+for insert
+to authenticated
+with check ((auth.jwt() ->> 'email') = 'your-admin-email@example.com');
+
+create policy "Allow admin update skills"
+on public.skills
+for update
+to authenticated
+using ((auth.jwt() ->> 'email') = 'your-admin-email@example.com')
+with check ((auth.jwt() ->> 'email') = 'your-admin-email@example.com');
+
+create policy "Allow admin delete skills"
+on public.skills
+for delete
+to authenticated
+using ((auth.jwt() ->> 'email') = 'your-admin-email@example.com');
+```
+
+Do not create public insert, update, or delete policies for this portfolio.
 
 ## Adding Data
 
@@ -119,6 +199,8 @@ Field mapping for `skills`:
 
 Do not paste full production row values into this README. Keep the inserted content in Supabase.
 
+When adding new rows from the React app, you do not need to fill in `id` or `source_id`. Supabase generates `id` automatically.
+
 ## React Connection
 
 Install the Supabase client:
@@ -147,14 +229,18 @@ const { data, error } = await supabase
   .order('date', { ascending: false })
 ```
 
+Admin users can also create, update, and delete rows from `public.projects`.
+
 The Skills page reads from `public.skills`.
 
 ```js
 const { data, error } = await supabase
   .from('skills')
   .select('id, source_id, techname, experience, techlink, image')
-  .order('source_id', { ascending: true })
+  .order('id', { ascending: true })
 ```
+
+Admin users can also create, update, and delete rows from `public.skills`.
 
 ## Images
 
@@ -189,6 +275,9 @@ Check:
 - Skills page loads data from Supabase.
 - Project filters still work.
 - Images and icons still load from local public paths.
+- Visiting `/login` opens the admin login modal.
+- Admin login works for the configured `VITE_ADMIN_EMAIL`.
+- Add, edit, and delete work for both projects and skills.
 
 Build the app:
 
@@ -196,14 +285,35 @@ Build the app:
 npm run build
 ```
 
+## Production Checklist
+
+Before deploying CRUD to production, confirm:
+
+- `VITE_SUPABASE_URL` is added in the host dashboard.
+- `VITE_SUPABASE_PUBLISHABLE_KEY` is added in the host dashboard.
+- `VITE_ADMIN_EMAIL` is added in the host dashboard.
+- The admin user exists in Supabase Auth.
+- Public read RLS policies exist for `anon` and `authenticated` users.
+- Admin write RLS policies exist for create, update, and delete.
+- `/login` opens the React app in production.
+- No Supabase secret key is exposed in frontend environment variables.
+
+If `/login` returns a 404 after deployment, configure the host to rewrite all routes to `index.html`.
+
 ## Troubleshooting
 
 If the page is blank or data does not load, check the browser console.
 
 If Supabase returns a permission error, confirm the public `select` RLS policies exist.
 
+If admin save or delete fails, confirm the admin write policies use the exact same email as `VITE_ADMIN_EMAIL`.
+
 If data is empty, confirm the table names are exactly `projects` and `skills`.
 
 If env variables are missing, confirm `.env.local` exists and restart the dev server.
+
+In production, confirm the variables exist in the hosting provider dashboard and redeploy after changing them.
+
+If `/login` works locally but not in production, configure a React Router fallback/rewrite to `index.html`.
 
 If images are broken, confirm the files exist in the Vite `public` folder and the Supabase path starts with `/`.

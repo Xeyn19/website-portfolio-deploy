@@ -1,4 +1,6 @@
 import React from 'react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import {  Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import MainLayout from './layout/MainLayout'
 import HomePage from './pages/HomePage'
@@ -13,6 +15,7 @@ import Contact from './pages/Contact'
 import Page404 from './components/Page404'
 import ThemeProvider from './context/ThemeProvider'
 import Certificates from './pages/Certificates'
+import Login from './pages/Login'
 
 const App = () => {
 
@@ -33,6 +36,7 @@ const App = () => {
           <Route path='contact' element={<ContactLayout />}>
             <Route index element ={<Contact />}/> 
           </Route>
+          <Route path='login' element={<Login />} />
            <Route path='certificates' element={<ContactLayout />}>
             <Route index element ={<Certificates />}/> 
           </Route>
@@ -42,6 +46,17 @@ const App = () => {
   return (
     <ThemeProvider>
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </ThemeProvider>
   )
 }
