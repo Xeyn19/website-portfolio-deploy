@@ -15,9 +15,28 @@ A modern personal portfolio built with React, Vite, and Tailwind CSS.
 - Tailwind CSS 4 + DaisyUI
 - Framer Motion
 - EmailJS
+- Supabase
 
 ## Project Data
-Projects live in `src/assets/data.json`.
+Projects and skills are loaded from Supabase tables:
+- `projects`
+- `skills`
+
+Local JSON files in `src/assets/` are the original source data/reference files.
+
+Images and icons are not stored in Supabase. They stay in the Vite `public` folder, while Supabase stores only path strings such as `/project1.png` or `/html.png`.
+
+## Supabase Setup
+Create a local `.env.local` file with your own Supabase values:
+
+```env
+VITE_SUPABASE_URL=your-supabase-project-url
+VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+```
+
+Do not commit real Supabase credentials or secret keys.
+
+See `SUPABASE_SETUP.md` for the full setup and connection guide.
 
 ## Getting Started
 ```bash

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import projectdata from '../assets/data.json'
 import Spinner from '../components/Spinner'
 import useSiteTheme from '../hooks/useSiteTheme'
+import { supabase } from '../lib/supabaseClient'
 
 const categoryOptions = [
   { key: 'all', label: 'All Projects' },
@@ -30,9 +30,19 @@ const Projects = () => {
       setLoading(true)
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000))
-        setData(projectdata)
+        const { data: projects, error } = await supabase
+          .from('projects')
+          .select('id, source_id, title, description, technologies, image, date, category, link')
+          .order('date', { ascending: false })
+
+        if (error) {
+          throw error
+        }
+
+        setData(projects ?? [])
       } catch (error) {
         console.error('Fetch data error', error)
+        setData([])
       } finally {
         setLoading(false)
       }
@@ -215,7 +225,7 @@ const Projects = () => {
                         Tech Stack
                       </p>
                       <div className="mt-3 flex flex-wrap gap-3">
-                        {project.technologies.slice(0, 10).map((techImg, techIndex) => (
+                        {(project.technologies ?? []).slice(0, 10).map((techImg, techIndex) => (
                           <div
                             key={`${project.id}-${techIndex}`}
                             className={`flex h-12 w-12 items-center justify-center rounded-2xl ${classes.surfaceMuted}`}

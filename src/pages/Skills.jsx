@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import tech from '../assets/techdata.json'
 import Spinner from '../components/Spinner'
 import useSiteTheme from '../hooks/useSiteTheme'
+import { supabase } from '../lib/supabaseClient'
 
 const Skills = () => {
   const [loading, setLoading] = useState(false)
@@ -15,9 +15,19 @@ const Skills = () => {
     const fetchData = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000))
-        setTechData(tech)
+        const { data, error } = await supabase
+          .from('skills')
+          .select('id, source_id, techname, experience, techlink, image')
+          .order('source_id', { ascending: true })
+
+        if (error) {
+          throw error
+        }
+
+        setTechData(data ?? [])
       } catch (error) {
         console.error('Fetch data error', error)
+        setTechData([])
       } finally {
         setLoading(false)
       }
