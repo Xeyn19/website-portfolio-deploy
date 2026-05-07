@@ -1,18 +1,24 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { motion as Motion } from 'framer-motion'
+import { Link, Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import useAdminAuth from '../hooks/useAdminAuth'
+import useProjectsData from '../hooks/useProjectsData'
 import useSiteTheme from '../hooks/useSiteTheme'
 import { supabase } from '../lib/supabaseClient'
-
-const categoryOptions = [
-  { key: 'all', label: 'All Projects' },
-  { key: 'Front-End', label: 'Front-End' },
-  { key: 'Full Stack', label: 'Full Stack' },
-]
+import {
+  getProjectExternalLinks,
+  getTechnologyVisual,
+  summarizeProjectDescription,
+} from '../lib/projectContent'
 
 const projectCategoryChoices = ['Front-End', 'Full-Stack']
+const publicCategoryFilters = [
+  { key: 'all', label: 'All Projects' },
+  { key: 'full-stack', label: 'Full-Stack' },
+  { key: 'front-end', label: 'Front-End' },
+]
 
 const emptyProjectForm = {
   title: '',
@@ -23,13 +29,6 @@ const emptyProjectForm = {
   category: 'Front-End',
   link: '',
 }
-
-const normalizeCategory = (category = '') =>
-  category
-    .toString()
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '-')
 
 const toOptionalNumber = (value) => {
   const trimmedValue = value.toString().trim()
@@ -65,66 +64,24 @@ const buildProjectPayload = (form) => ({
   link: form.link.trim() || null,
 })
 
+const normalizeCategory = (value = '') =>
+  value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+
 const Projects = () => {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState([])
+  const { classes } = useSiteTheme()
+  const { projects, loading: projectsLoading, refreshProjects } = useProjectsData()
+  const { isAdmin, loading: authLoading, signOut, userEmail } = useAdminAuth()
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [selectedYear, setSelectedYear] = useState('all')
-  const [imageModes, setImageModes] = useState({})
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
   const [projectForm, setProjectForm] = useState(emptyProjectForm)
   const [deleteTarget, setDeleteTarget] = useState(null)
   const [actionError, setActionError] = useState('')
   const [saving, setSaving] = useState(false)
-  const { classes } = useSiteTheme()
-  const { isAdmin, signOut, userEmail } = useAdminAuth()
-
-  const fetchProjects = useCallback(async ({ showSpinner = true } = {}) => {
-    if (showSpinner) {
-      setLoading(true)
-    }
-
-    try {
-      const { data: projects, error } = await supabase
-        .from('projects')
-        .select('id, source_id, title, description, technologies, image, date, category, link')
-        .order('date', { ascending: false })
-
-      if (error) {
-        throw error
-      }
-
-      setData(projects ?? [])
-    } catch (error) {
-      console.error('Fetch data error', error)
-      setData([])
-    } finally {
-      if (showSpinner) {
-        setLoading(false)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    fetchProjects()
-  }, [fetchProjects])
-
-  const handleCategoryFilter = (category) => {
-    setSelectedCategory(category)
-  }
-
-  const handleYearFilter = (year) => {
-    const nextYear = year === 'all' ? 'all' : Number(year)
-    setSelectedYear(nextYear)
-  }
-
-  const handleImageLoad = (imageSrc, event) => {
-    const { naturalWidth, naturalHeight } = event.currentTarget
-    const nextMode = naturalHeight > naturalWidth ? 'portrait' : 'landscape'
-
-    setImageModes((prev) => (prev[imageSrc] === nextMode ? prev : { ...prev, [imageSrc]: nextMode }))
-  }
 
   const openCreateProject = () => {
     setEditingProject(null)
@@ -155,6 +112,14 @@ const Projects = () => {
     const { name, value } = event.target
     setProjectForm((currentForm) => ({ ...currentForm, [name]: value }))
   }
+
+  const filteredProjects = projects.filter((project) => {
+    if (selectedCategory === 'all') {
+      return true
+    }
+
+    return normalizeCategory(project.category) === selectedCategory
+  })
 
   const handleAdminLogout = async () => {
     const { error } = await signOut()
@@ -192,7 +157,7 @@ const Projects = () => {
       }
 
       closeProjectModal(true)
-      await fetchProjects({ showSpinner: false })
+      await refreshProjects()
       toast.success(editingProject ? 'Project updated successfully.' : 'Project created successfully.')
     } catch (error) {
       console.error('Save project error', error)
@@ -219,7 +184,7 @@ const Projects = () => {
       }
 
       setDeleteTarget(null)
-      await fetchProjects({ showSpinner: false })
+      await refreshProjects()
       toast.success('Project deleted successfully.')
     } catch (error) {
       console.error('Delete project error', error)
@@ -230,284 +195,193 @@ const Projects = () => {
     }
   }
 
-  if (loading) {
+  if (authLoading) {
     return <Spinner />
   }
 
-  const availableYears = Array.from(
-    new Set(data.map((project) => project.date).filter((date) => Number.isFinite(date)))
-  ).sort((a, b) => b - a)
-
-  const sortedData = [...data].sort((a, b) => (b.date || 0) - (a.date || 0))
-
-  const filteredData = sortedData.filter((project) => {
-    const normalized = normalizeCategory(project.category)
-    const matchesCategory =
-      selectedCategory === 'all' ||
-      (selectedCategory === 'Front-End' && normalized === 'front-end') ||
-      (selectedCategory === 'Full Stack' && normalized === 'full-stack')
-    const matchesYear = selectedYear === 'all' || project.date === selectedYear
-
-    return matchesCategory && matchesYear
-  })
+  if (!isAdmin) {
+    return <Navigate to="/#projects" replace />
+  }
 
   return (
-    <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
-      <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
+    <div className="relative overflow-hidden px-4 pb-14 pt-28 sm:px-6 sm:pt-32 lg:pb-20">
+      <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
 
-      <div className="mx-auto max-w-6xl space-y-7">
+      <main className="mx-auto max-w-[860px]">
         <Motion.section
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-          className={`overflow-hidden rounded-[32px] p-6 sm:p-8 ${classes.shell}`}
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+          className={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
         >
-          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Selected Work
               </p>
-              <h1 className={`mt-3 text-4xl font-semibold tracking-tight ${classes.heading}`}>
+              <h1 className={`mt-3 text-[1.75rem] font-semibold tracking-tight sm:text-[2rem] ${classes.heading}`}>
                 Projects
               </h1>
-              <p className={`mt-4 max-w-3xl text-sm leading-7 ${classes.text}`}>
-                A collection of front-end and full-stack projects focused on responsive interfaces,
-                user-centered interaction, and practical functionality. Each build reflects hands-on
-                experience with modern web tools, data handling, and real deployment workflows.
+              <p className={`mt-4 max-w-2xl text-[14px] leading-7 ${classes.textMuted}`}>
+                A focused list of front-end and full-stack work. Open a project to read the full case
+                study, responsibilities, tech stack, and implementation details.
               </p>
-
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                {isAdmin && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={openCreateProject}
-                      className={`rounded-full px-5 py-2.5 text-sm font-medium transition ${classes.buttonPrimary}`}
-                    >
-                      Add Project
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleAdminLogout}
-                      className={`rounded-full px-5 py-2.5 text-sm font-medium transition ${classes.buttonGhost}`}
-                    >
-                      Logout
-                    </button>
-                    <span className={`text-xs ${classes.textMuted}`}>Admin: {userEmail}</span>
-                  </>
-                )}
-              </div>
             </div>
 
-            <div className={`rounded-[28px] p-6 ${classes.panelDark}`}>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
-                Filter
-              </p>
-              <div className="mt-4 space-y-5">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-300">
-                    Category
+            <div className="flex flex-wrap gap-3">
+              {isAdmin ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={openCreateProject}
+                    className={`rounded-full px-5 py-2.5 text-[13px] font-medium transition ${classes.buttonPrimary}`}
+                  >
+                    Add Project
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleAdminLogout}
+                    className={`rounded-full px-5 py-2.5 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : null}
+            </div>
+          </div>
+
+          {isAdmin ? (
+            <p className={`mt-5 text-xs ${classes.textMuted}`}>Admin: {userEmail}</p>
+          ) : null}
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            {publicCategoryFilters.map((filter) => {
+              const isActive = selectedCategory === filter.key
+
+              return (
+                <button
+                  key={filter.key}
+                  type="button"
+                  onClick={() => setSelectedCategory(filter.key)}
+                  className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
+                    isActive ? classes.navActive : classes.buttonGhost
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="mt-8 space-y-5">
+            {filteredProjects.map((project, index) => {
+              const { liveLink, repoLink } = getProjectExternalLinks(project)
+              const technologies = (project.technologies ?? []).map((technology) =>
+                getTechnologyVisual(technology),
+              )
+
+              return (
+                <Motion.article
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, ease: 'easeOut', delay: index * 0.04 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  className={`rounded-[28px] p-5 ${classes.surfaceMuted}`}
+                >
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="max-w-3xl">
+                      <h2 className={`text-[1.18rem] font-semibold tracking-tight sm:text-[1.34rem] ${classes.heading}`}>
+                        {project.title}
+                      </h2>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3">
+                      <Link
+                        to={`/projects/${project.slug}`}
+                        className={`inline-flex rounded-full px-4 py-2 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                      >
+                        View
+                      </Link>
+                      {liveLink ? (
+                        <a
+                          href={liveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex rounded-full px-4 py-2 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                        >
+                          Live
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <p className={`mt-4 max-w-3xl text-[14.5px] leading-7 ${classes.text}`}>
+                    {summarizeProjectDescription(project.description, 170)}
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-3">
-                    {categoryOptions.map((category) => {
-                      const isActive = selectedCategory === category.key
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {technologies.map((technology) => {
+                      const TechIcon = technology.Icon
 
                       return (
-                        <button
-                          key={category.key}
-                          type="button"
-                          onClick={() => handleCategoryFilter(category.key)}
-                          className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                            isActive
-                              ? 'bg-amber-400 text-slate-900 shadow-[0_10px_25px_rgba(251,191,36,0.35)]'
-                              : classes.darkChip
-                          }`}
-                        >
-                          {category.label}
-                        </button>
+                      <span
+                        key={`${project.slug}-${technology.label}`}
+                        className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
+                      >
+                        <TechIcon className={`h-3.5 w-3.5 ${technology.iconClass}`} />
+                        <span>{technology.label}</span>
+                      </span>
                       )
                     })}
                   </div>
-                </div>
 
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-300">
-                    Year
-                  </p>
-                  <div className="group relative mt-3">
-                    <select
-                      value={selectedYear === 'all' ? 'all' : String(selectedYear)}
-                      onChange={(event) => handleYearFilter(event.target.value)}
-                      className={`w-full appearance-none rounded-2xl px-4 py-2.5 pr-10 text-sm font-medium shadow-[0_10px_24px_rgba(2,6,23,0.18)] transition hover:border-amber-300 hover:text-amber-300 focus:border-amber-300 focus:text-amber-300 focus:ring-2 focus:ring-amber-300/40 ${classes.input}`}
-                    >
-                      <option value="all">All Years</option>
-                      {availableYears.map((year) => (
-                        <option key={year} value={year}>
-                          {year}
-                        </option>
-                      ))}
-                    </select>
-                    <span
-                      className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 transition-colors ${classes.textMuted} group-hover:text-amber-300 group-focus-within:text-amber-300`}
-                    >
-                      <svg
-                        className="h-4 w-4"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
+                  {isAdmin ? (
+                    <div className="mt-5 flex flex-wrap gap-3">
+                      <button
+                        type="button"
+                        onClick={() => openEditProject(project)}
+                        className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${classes.buttonGhost}`}
                       >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActionError('')
+                          setDeleteTarget(project)
+                        }}
+                        className="rounded-full border border-red-300/60 px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ) : null}
+                </Motion.article>
+              )
+            })}
+
+            {!filteredProjects.length && !projectsLoading ? (
+              <div className={`rounded-[28px] p-8 text-center ${classes.surfaceMuted}`}>
+                <p className={`text-sm ${classes.textMuted}`}>No projects found for this category.</p>
               </div>
-              <p className="mt-5 text-sm leading-6 text-slate-300">
-                Showing {filteredData.length} project{filteredData.length === 1 ? '' : 's'} in the{' '}
-                {selectedCategory === 'all' ? 'full portfolio' : selectedCategory.toLowerCase()} category
-                {selectedYear === 'all' ? '.' : ` for ${selectedYear}.`}
-              </p>
-            </div>
+            ) : null}
           </div>
         </Motion.section>
-
-        {filteredData.length > 0 ? (
-          <div className="grid gap-6">
-            {filteredData.map((project, index) => (
-              ((mode) => (
-              <Motion.article
-                key={project.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
-                viewport={{ once: true, amount: 0.15 }}
-                className={`overflow-hidden rounded-[32px] shadow-[0_24px_60px_rgba(15,23,42,0.08)] ${classes.surface}`}
-              >
-                <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
-                  <div className="p-6 sm:p-8">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${classes.badge}`}>
-                        {project.category}
-                      </span>
-                      <span className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${classes.badgeMuted}`}>
-                        {project.date}
-                      </span>
-                    </div>
-
-                    <h2 className={`mt-4 text-2xl font-semibold leading-tight ${classes.heading}`}>
-                      {project.title}
-                    </h2>
-                    <p className={`mt-4 text-sm leading-7 ${classes.text}`}>
-                      {project.description}
-                    </p>
-
-                    <div className="mt-6">
-                      <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.labelMuted}`}>
-                        Tech Stack
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-3">
-                        {(project.technologies ?? []).slice(0, 10).map((techImg, techIndex) => (
-                          <div
-                            key={`${project.id}-${techIndex}`}
-                            className={`flex h-12 w-12 items-center justify-center rounded-2xl ${classes.surfaceMuted}`}
-                          >
-                            <img
-                              src={techImg}
-                              alt={`${project.title} technology ${techIndex + 1}`}
-                              className="h-7 w-7 object-contain"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-7 flex flex-wrap gap-3">
-                      {project.link ? (
-                        <button
-                          type="button"
-                          onClick={() => window.open(project.link, '_blank')}
-                          className={`rounded-full px-5 py-2.5 text-sm font-medium transition ${classes.buttonPrimary}`}
-                        >
-                          Live Preview
-                        </button>
-                      ) : (
-                        <span className={`rounded-full px-5 py-2.5 text-sm font-medium ${classes.buttonGhost}`}>
-                          Preview unavailable
-                        </span>
-                      )}
-
-                      {isAdmin && (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => openEditProject(project)}
-                            className={`rounded-full px-5 py-2.5 text-sm font-medium transition ${classes.buttonGhost}`}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setActionError('')
-                              setDeleteTarget(project)
-                            }}
-                            className="rounded-full border border-red-300/60 px-5 py-2.5 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
-                          >
-                            Delete
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className={`p-6 sm:p-8 ${classes.surfaceAccent}`}>
-                    <div
-                      className={`flex h-full min-h-[320px] w-full items-center justify-center rounded-[28px] shadow-[0_18px_45px_rgba(148,163,184,0.16)] ${classes.imageFrame} ${
-                        mode === 'portrait' ? 'p-5 sm:p-6' : 'p-3'
-                      }`}
-                    >
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        onLoad={(event) => handleImageLoad(project.image, event)}
-                        className={`h-full w-full rounded-[20px] ${
-                          mode === 'portrait' ? 'object-contain object-center' : 'object-cover object-center'
-                        }`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Motion.article>
-              ))(imageModes[project.image] || 'landscape')
-            ))}
-          </div>
-        ) : (
-          <Motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className={`rounded-[28px] p-8 text-center ${classes.surface}`}
-          >
-            <p className={`text-sm ${classes.textMuted}`}>No projects found for the selected category.</p>
-          </Motion.div>
-        )}
-      </div>
+      </main>
 
       {isProjectModalOpen && (
         <div className="fixed inset-0 z-50 flex min-h-dvh items-end bg-slate-950/70 px-4 py-6 backdrop-blur sm:items-center sm:justify-center">
           <form
             onSubmit={handleProjectSubmit}
-            className={`max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}
+            className={`max-h-[92dvh] w-full max-w-2xl overflow-y-auto rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>
                   {editingProject ? 'Edit Project' : 'New Project'}
                 </p>
-                <h2 className={`mt-2 text-2xl font-semibold ${classes.heading}`}>
+                <h2 className={`mt-2 text-[1.45rem] font-semibold ${classes.heading}`}>
                   {editingProject ? editingProject.title : 'Add Project'}
                 </h2>
               </div>
@@ -635,9 +509,9 @@ const Projects = () => {
 
       {deleteTarget && (
         <div className="fixed inset-0 z-50 flex min-h-dvh items-end bg-slate-950/70 px-4 py-6 backdrop-blur sm:items-center sm:justify-center">
-          <div className={`w-full max-w-lg rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}>
+          <div className={`w-full max-w-md rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}>
             <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>Delete</p>
-            <h2 className={`mt-2 text-2xl font-semibold ${classes.heading}`}>Delete project?</h2>
+            <h2 className={`mt-2 text-[1.45rem] font-semibold ${classes.heading}`}>Delete project?</h2>
             <p className={`mt-3 text-sm leading-6 ${classes.text}`}>
               This will remove "{deleteTarget.title}" from Supabase.
             </p>

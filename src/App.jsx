@@ -4,10 +4,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import {  Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import MainLayout from './layout/MainLayout'
 import HomePage from './pages/HomePage'
+import About from './pages/About'
 import ResumeLayout from './layout/ResumeLayout'
 import Resume from './pages/Resume'
 import ProjectsLayout from './layout/ProjectsLayout'
 import Projects from './pages/Projects'
+import ProjectDetail from './pages/ProjectDetail'
 import SkillsLayout from './layout/SkillsLayout'
 import Skills from './pages/Skills'
 import ContactLayout from './layout/ContactLayout'
@@ -24,11 +26,13 @@ const App = () => {
         <Route path='/' element={<MainLayout />}>
         <Route path='*' element={<Page404 />} /> 
           <Route index element={<HomePage />}/> 
+          <Route path='about' element={<About />} />
           <Route path='resume' element={<ResumeLayout />}>
             <Route index element ={<Resume />}/> 
           </Route>
           <Route path='projects' element={<ProjectsLayout />}>
             <Route index element ={<Projects />}/> 
+            <Route path=':slug' element={<ProjectDetail />}/>
           </Route>
           <Route path='skills' element={<SkillsLayout />}>
             <Route index element ={<Skills />}/> 

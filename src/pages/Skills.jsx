@@ -181,22 +181,22 @@ const Skills = () => {
     <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
       <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
-      <div className="mx-auto max-w-6xl space-y-7">
+      <div className="mx-auto max-w-5xl space-y-6">
         <Motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className={`overflow-hidden rounded-[32px] p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-8 ${classes.shell}`}
+          className={`overflow-hidden rounded-[32px] p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
         >
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Technical Foundation
               </p>
-              <h1 className={`mt-3 text-4xl font-semibold tracking-tight ${classes.heading}`}>
+              <h1 className={`mt-3 text-[1.9rem] font-semibold tracking-tight sm:text-[2.2rem] ${classes.heading}`}>
                 Skills
               </h1>
-              <p className={`mt-4 max-w-3xl text-sm leading-7 ${classes.text}`}>
+              <p className={`mt-4 max-w-3xl text-[14px] leading-7 ${classes.text}`}>
                 I build responsive web applications with a front-end focus and growing back-end
                 capability. My stack covers React and TypeScript development, component-based workflows, RESTful app structure, database fundamentals, and deployment-ready collaboration tools.
               </p>
@@ -224,7 +224,7 @@ const Skills = () => {
               </div>
             </div>
 
-            <div className={`rounded-[28px] p-6 ${classes.panelDark}`}>
+            <div className={`rounded-[28px] p-5 ${classes.panelDark}`}>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
                 Focus Areas
               </p>
@@ -240,14 +240,14 @@ const Skills = () => {
                   ),
                 )}
               </div>
-              <p className="mt-5 text-sm leading-6 text-slate-300">
+              <p className="mt-5 text-[13px] leading-6 text-slate-300">
                 The current stack emphasizes production-ready front-end work with React and TypeScript while extending into Node.js, Express.js, PHP, and MySQL for full-stack growth.
               </p>
             </div>
           </div>
         </Motion.section>
 
-        <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {techData.map((data, index) => (
             <Motion.article
               key={`${data.id}-${data.techname}`}
@@ -256,7 +256,7 @@ const Skills = () => {
               transition={{ duration: 0.45, ease: 'easeOut', delay: index * 0.04 }}
               viewport={{ once: true, amount: 0.15 }}
               whileHover={{ y: -6 }}
-              className={`group rounded-[28px] p-6 transition ${classes.surface}`}
+              className={`group rounded-[28px] p-5 transition ${classes.surface}`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className={`flex h-16 w-16 items-center justify-center rounded-2xl ${classes.surfaceMuted} ${classes.surfaceAccent}`}>
@@ -276,10 +276,10 @@ const Skills = () => {
                 <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.labelMuted}`}>
                   Technology
                 </p>
-                <h2 className={`mt-2 text-xl font-semibold ${classes.heading}`}>{data.techname}</h2>
+                <h2 className={`mt-2 text-[1.08rem] font-semibold ${classes.heading}`}>{data.techname}</h2>
               </div>
 
-              <p className={`mt-4 text-sm leading-7 ${classes.textMuted}`}>
+              <p className={`mt-4 text-[13px] leading-6 ${classes.textMuted}`}>
                 Practical experience building interfaces, features, and development workflows with{' '}
                 {data.techname}.
               </p>
@@ -325,14 +325,14 @@ const Skills = () => {
         <div className="fixed inset-0 z-50 flex min-h-dvh items-end bg-slate-950/70 px-4 py-6 backdrop-blur sm:items-center sm:justify-center">
           <form
             onSubmit={handleSkillSubmit}
-            className={`max-h-[92dvh] w-full max-w-2xl overflow-y-auto rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}
+            className={`max-h-[92dvh] w-full max-w-xl overflow-y-auto rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>
                   {editingSkill ? 'Edit Skill' : 'New Skill'}
                 </p>
-                <h2 className={`mt-2 text-2xl font-semibold ${classes.heading}`}>
+                <h2 className={`mt-2 text-[1.45rem] font-semibold ${classes.heading}`}>
                   {editingSkill ? editingSkill.techname : 'Add Skill'}
                 </h2>
               </div>
@@ -418,9 +418,9 @@ const Skills = () => {
 
       {deleteTarget && (
         <div className="fixed inset-0 z-50 flex min-h-dvh items-end bg-slate-950/70 px-4 py-6 backdrop-blur sm:items-center sm:justify-center">
-          <div className={`w-full max-w-lg rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}>
+          <div className={`w-full max-w-md rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}>
             <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>Delete</p>
-            <h2 className={`mt-2 text-2xl font-semibold ${classes.heading}`}>Delete skill?</h2>
+            <h2 className={`mt-2 text-[1.45rem] font-semibold ${classes.heading}`}>Delete skill?</h2>
             <p className={`mt-3 text-sm leading-6 ${classes.text}`}>
               This will remove "{deleteTarget.techname}" from Supabase.
             </p>

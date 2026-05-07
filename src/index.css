@@ -5,3 +5,152 @@
     --font-primary : "Poppins", "sans-serif";
 
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    letter-spacing: -0.01em;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+}
+
+@keyframes marquee-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-right {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-left 28s linear infinite;
+}
+
+.marquee-track-reverse {
+    animation-name: marquee-right;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+.electric-border {
+    position: relative;
+    border-radius: inherit;
+    isolation: isolate;
+}
+
+.electric-border::before,
+.electric-border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.electric-border::before {
+    padding: 1px;
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent 0deg 28deg,
+            var(--eb-primary) 28deg 40deg,
+            transparent 40deg 118deg,
+            var(--eb-secondary) 118deg 128deg,
+            transparent 128deg 214deg,
+            var(--eb-primary) 214deg 226deg,
+            transparent 226deg 312deg,
+            var(--eb-secondary) 312deg 324deg,
+            transparent 324deg 360deg
+        );
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    filter:
+        drop-shadow(0 0 5px var(--eb-primary))
+        drop-shadow(0 0 10px var(--eb-secondary));
+    opacity: 0.85;
+    animation: electric-border-spin 7.2s linear infinite;
+    z-index: 2;
+}
+
+.electric-border::after {
+    inset: -1px;
+    background:
+        radial-gradient(circle at 18% 20%, var(--eb-primary), transparent 24%),
+        radial-gradient(circle at 82% 72%, var(--eb-secondary), transparent 26%);
+    filter: blur(18px);
+    opacity: 0.16;
+    animation: electric-border-pulse 4.8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+.electric-border--soft::before {
+    opacity: 0.68;
+    animation-duration: 9.5s;
+}
+
+.electric-border--soft::after {
+    opacity: 0.11;
+}
+
+.electric-border__content {
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+}
+
+@keyframes electric-border-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes electric-border-pulse {
+    from {
+        transform: scale(0.995);
+    }
+
+    to {
+        transform: scale(1.015);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .marquee-track-reverse {
+        animation: none;
+    }
+
+    .electric-border::before,
+    .electric-border::after {
+        animation: none;
+    }
+}

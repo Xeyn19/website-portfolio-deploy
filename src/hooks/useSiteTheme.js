@@ -17,8 +17,8 @@ const useSiteTheme = () => {
         ? 'bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.14),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(251,191,36,0.12),_transparent_24%),linear-gradient(135deg,_#020617_0%,_#0f172a_58%,_#111827_100%)]'
         : 'bg-[radial-gradient(circle_at_top_left,_rgba(15,23,42,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(180,83,9,0.1),_transparent_24%),linear-gradient(135deg,_#f8fafc_0%,_#fff7ed_45%,_#eff6ff_100%)]',
       shell: isDark
-        ? 'border border-slate-800/80 bg-slate-950/72 shadow-[0_30px_80px_rgba(2,6,23,0.48)] backdrop-blur'
-        : 'border border-white/70 bg-white/85 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur',
+        ? 'border border-slate-800/80 bg-[linear-gradient(180deg,_rgba(15,23,42,0.86),_rgba(2,6,23,0.88))] shadow-[0_30px_80px_rgba(2,6,23,0.48)] backdrop-blur-xl'
+        : 'border border-white/70 bg-[linear-gradient(180deg,_rgba(255,255,255,0.92),_rgba(248,250,252,0.92))] shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur-xl',
       panelDark: isDark
         ? 'bg-[linear-gradient(180deg,_#020617_0%,_#0f172a_55%,_#1e293b_100%)] text-white shadow-[0_18px_40px_rgba(2,6,23,0.4)]'
         : 'bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)]',
@@ -26,11 +26,11 @@ const useSiteTheme = () => {
         ? 'border border-slate-800/80 bg-[linear-gradient(135deg,_rgba(30,41,59,0.92),_rgba(15,23,42,0.92))] shadow-[0_18px_45px_rgba(2,6,23,0.35)]'
         : 'border border-slate-200/80 bg-[linear-gradient(135deg,_rgba(255,247,237,0.95),_rgba(255,255,255,0.96))] shadow-[0_18px_45px_rgba(148,163,184,0.12)]',
       surface: isDark
-        ? 'border border-slate-800 bg-slate-900/88 shadow-[0_18px_40px_rgba(2,6,23,0.28)]'
-        : 'border border-slate-200 bg-white shadow-[0_18px_40px_rgba(15,23,42,0.06)]',
+        ? 'border border-slate-800/90 bg-slate-900/88 shadow-[0_20px_46px_rgba(2,6,23,0.3)]'
+        : 'border border-slate-200 bg-white shadow-[0_20px_46px_rgba(15,23,42,0.07)]',
       surfaceMuted: isDark
-        ? 'border border-slate-800 bg-slate-900/72'
-        : 'border border-slate-200 bg-slate-50',
+        ? 'border border-slate-800/90 bg-[linear-gradient(180deg,_rgba(15,23,42,0.82),_rgba(2,6,23,0.76))]'
+        : 'border border-slate-200 bg-[linear-gradient(180deg,_#ffffff,_#f8fafc)]',
       surfaceAccent: isDark
         ? 'bg-[linear-gradient(135deg,_rgba(30,41,59,0.94),_rgba(15,23,42,0.98))]'
         : 'bg-[linear-gradient(135deg,_#fff7ed_0%,_#ffffff_55%,_#eff6ff_100%)]',
@@ -58,7 +58,7 @@ const useSiteTheme = () => {
         ? 'border border-slate-800 bg-slate-950/80 text-slate-200 shadow-[0_10px_24px_rgba(2,6,23,0.24)] hover:border-amber-300 hover:text-amber-300'
         : 'border border-slate-200 bg-white text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.08)] hover:border-amber-300 hover:text-amber-700',
       socialPill: isDark
-        ? 'border border-slate-800 bg-slate-950/78 shadow-[0_10px_24px_rgba(2,6,23,0.18)] hover:-translate-y-1 hover:border-amber-300'
+        ? 'border border-slate-800 bg-slate-950/80 shadow-[0_10px_24px_rgba(2,6,23,0.18)] hover:-translate-y-1 hover:border-amber-300'
         : 'border border-slate-200 bg-white shadow-[0_10px_24px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-amber-400',
       socialText: isDark ? 'text-slate-200' : 'text-slate-700',
       input: isDark
@@ -68,7 +68,7 @@ const useSiteTheme = () => {
         ? 'bg-amber-400 text-slate-950 hover:bg-amber-300 hover:text-slate-950'
         : 'bg-slate-900 text-white hover:bg-amber-500 hover:text-slate-950',
       buttonGhost: isDark
-        ? 'border border-slate-800 text-slate-300 hover:border-amber-300 hover:bg-white/6 hover:text-amber-300'
+        ? 'border border-slate-700/90 text-slate-200 hover:border-amber-300 hover:bg-white/6 hover:text-amber-300'
         : 'border border-slate-200 text-slate-700 hover:border-amber-400 hover:bg-amber-50 hover:text-slate-900',
       badge: isDark
         ? 'bg-amber-400/14 text-amber-300'

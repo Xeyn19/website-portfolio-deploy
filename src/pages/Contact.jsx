@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import profileImage from '/shakehands.jpg'
 import emailjs from '@emailjs/browser'
 import Spinner from '../components/Spinner'
@@ -87,14 +87,14 @@ const Contact = () => {
     <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
       <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className={`mx-auto max-w-6xl overflow-hidden rounded-[32px] ${classes.shell}`}
+        className={`mx-auto max-w-5xl overflow-hidden rounded-[32px] ${classes.shell}`}
       >
         <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-          <aside className={`relative overflow-hidden px-7 py-8 text-white ${classes.panelDark}`}>
+          <aside className={`relative overflow-hidden px-6 py-7 text-white ${classes.panelDark}`}>
             <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-amber-400/10 blur-3xl" />
             <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
 
@@ -103,10 +103,10 @@ const Contact = () => {
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-300/90">
                   Contact
                 </p>
-                <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white">
+                <h1 className="mt-3 text-[1.95rem] font-semibold tracking-tight text-white sm:text-[2.2rem]">
                   Let&apos;s work together
                 </h1>
-                <p className="mt-4 max-w-md text-sm leading-7 text-slate-300">
+                <p className="mt-4 max-w-md text-[14px] leading-7 text-slate-300">
                   If you&apos;re looking for a developer who can help build responsive interfaces,
                   improve user experience, and contribute to real project work, send a message here.
                 </p>
@@ -123,13 +123,13 @@ const Contact = () => {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                <div className={`rounded-[24px] p-5 ${classes.darkTile}`}>
+                <div className={`rounded-[24px] p-4 ${classes.darkTile}`}>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                     Email
                   </p>
                   <p className="mt-2 text-sm text-slate-100">edgarrodilorosa@gmail.com</p>
                 </div>
-                <div className={`rounded-[24px] p-5 ${classes.darkTile}`}>
+                <div className={`rounded-[24px] p-4 ${classes.darkTile}`}>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                     Phone
                   </p>
@@ -139,25 +139,25 @@ const Contact = () => {
             </div>
           </aside>
 
-          <main className="px-6 py-7 sm:px-8 lg:px-10">
-            <div className={`rounded-[28px] p-6 ${classes.panelSoft}`}>
+          <main className="px-5 py-6 sm:px-7 lg:px-8">
+            <div className={`rounded-[28px] p-5 ${classes.panelSoft}`}>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Send a Message
               </p>
-              <p className={`mt-3 text-sm leading-7 ${classes.text}`}>
+              <p className={`mt-3 text-[14px] leading-7 ${classes.text}`}>
                 Messages are sent directly through the portfolio contact form. To prevent spam,
                 the same email address is limited to two submissions per day.
               </p>
             </div>
 
-            <motion.form
+            <Motion.form
               ref={formRef}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
               viewport={{ once: true, amount: 0.2 }}
               onSubmit={handleSubmit}
-              className={`mt-6 rounded-[28px] p-6 sm:p-8 ${classes.surface}`}
+              className={`mt-6 rounded-[28px] p-5 sm:p-6 ${classes.surface}`}
             >
               <div className="grid gap-6">
                 <div className="grid gap-2">
@@ -212,10 +212,10 @@ const Contact = () => {
                   {sending ? 'Sending...' : 'Send Message'}
                 </button>
               </div>
-            </motion.form>
+            </Motion.form>
           </main>
         </div>
-      </motion.div>
+      </Motion.div>
     </div>
   )
 }
