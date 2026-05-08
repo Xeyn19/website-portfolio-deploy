@@ -237,8 +237,8 @@ const HomePage = () => {
               </a>
             </div>
 
-            <div className={`mt-5 overflow-hidden border px-4 py-4 sm:px-5 ${cardRadius} ${classes.surfaceMuted}`}>
-              <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className={`mt-5 ${cardRadius} ${classes.surfaceMuted} p-4 sm:p-5`}>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${classes.labelMuted}`}>
                     Choose year
@@ -248,7 +248,7 @@ const HomePage = () => {
                   </p>
                 </div>
 
-                <div className={`inline-flex max-w-full gap-2 overflow-x-auto border p-1 ${controlRadius} ${classes.surface}`}>
+                <div className="-mx-1 flex max-w-full gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:px-0">
                   {githubCalendarYears.map((year) => {
                     const isActive = selectedGithubYear === year
 
@@ -258,7 +258,7 @@ const HomePage = () => {
                         type="button"
                         onClick={() => setSelectedGithubYear(year)}
                         aria-pressed={isActive}
-                        className={`min-w-[72px] px-4 py-2 text-[12px] font-medium whitespace-nowrap transition ${controlRadius} ${
+                        className={`min-h-10 min-w-[72px] shrink-0 whitespace-nowrap px-4 py-2 text-[12px] font-medium transition ${controlRadius} ${focusRingClass} ${
                           isActive ? classes.navActive : classes.buttonGhost
                         }`}
                       >
@@ -269,7 +269,7 @@ const HomePage = () => {
                 </div>
               </div>
 
-              <div className={`border p-3 sm:p-4 ${cardRadius} ${classes.surface}`}>
+              <div className="mt-4 overflow-x-auto">
                 <GitHubCalendar
                   key={selectedGithubYear}
                   username="Xeyn19"
