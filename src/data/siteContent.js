@@ -128,6 +128,14 @@ export const siteContent = {
     eyebrow: 'Portfolio',
     name: 'Edgar Orosa',
     title: 'Full-Stack Developer',
+    rotatingTitles: [
+      'Full-Stack Developer',
+      'Building modern web apps',
+      'Creating business websites',
+      'Making life easier',
+      'Designing intuitive UI',
+      "Let's build your product",
+    ],
     summary:
       'I build responsive web applications with strong front-end execution and growing full-stack depth across React, TypeScript, Node.js, PHP, MySQL, and Supabase.',
     bio:

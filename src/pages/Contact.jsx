@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { motion as Motion } from 'framer-motion'
-import profileImage from '/shakehands.jpg'
+import profileImage from '/edgar.jpg'
 import emailjs from '@emailjs/browser'
 import Spinner from '../components/Spinner'
 import usePageLoader from '../hooks/usePageLoader'
@@ -117,7 +117,7 @@ const Contact = () => {
                   <img
                     src={profileImage}
                     alt="Edgar R Orosa Jr"
-                    className="max-h-full max-w-full object-cover object-bottom drop-shadow-[0_18px_30px_rgba(15,23,42,0.28)]"
+                    className="h-full w-full object-cover object-center drop-shadow-[0_18px_30px_rgba(15,23,42,0.28)]"
                   />
                 </div>
               </div>

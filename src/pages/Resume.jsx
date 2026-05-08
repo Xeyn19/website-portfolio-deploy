@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion as Motion } from 'framer-motion'
-import profileImage from '/Profile-bg-remover.png'
+import profileImage from '/edgar.jpg'
 import Spinner from '../components/Spinner'
 import usePageLoader from '../hooks/usePageLoader'
 import useSiteTheme from '../hooks/useSiteTheme'
@@ -97,7 +97,7 @@ const Resume = () => {
                     <img
                       src={profileImage}
                       alt="Edgar R Orosa Jr"
-                      className="h-full w-full scale-110 object-contain object-bottom drop-shadow-[0_18px_30px_rgba(15,23,42,0.28)]"
+                      className="h-full w-full object-cover object-center drop-shadow-[0_18px_30px_rgba(15,23,42,0.28)]"
                     />
                   </div>
                 </div>

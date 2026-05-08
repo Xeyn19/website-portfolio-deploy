@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { motion as Motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
+import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion'
 import { GitHubCalendar } from 'react-github-calendar'
 import { Link } from 'react-router-dom'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
@@ -85,11 +85,17 @@ const HomePage = () => {
   const { classes, isDark } = useSiteTheme()
   const { hero, about, experience, education, certificates, contact, footerQuote } = siteContent
   const { projects, skills } = usePortfolioHomeData()
+  const shouldReduceMotion = useReducedMotion()
   const [selectedProjectCategory, setSelectedProjectCategory] = useState('all')
   const [selectedGithubYear, setSelectedGithubYear] = useState(currentCalendarYear)
+  const [activeHeroTitleIndex, setActiveHeroTitleIndex] = useState(0)
   const marqueeSkills = buildMarqueeItems(skills)
   const firstRowSkills = marqueeSkills.filter((_, index) => index % 2 === 0)
   const secondRowSkills = marqueeSkills.filter((_, index) => index % 2 === 1)
+  const heroRotatingTitles =
+    Array.isArray(hero.rotatingTitles) && hero.rotatingTitles.length > 0
+      ? hero.rotatingTitles
+      : [hero.title]
   const visibleProjects = projects.filter((project) => {
     if (selectedProjectCategory === 'all') {
       return true
@@ -99,6 +105,7 @@ const HomePage = () => {
   })
   const githubProfileLink =
     hero.socialLinks.find((item) => item.label === 'GitHub')?.href ?? 'https://github.com/Xeyn19'
+  const activeHeroTitle = heroRotatingTitles[activeHeroTitleIndex] ?? hero.title
   const heroMeta = [
     {
       label: 'Education',
@@ -144,6 +151,18 @@ const HomePage = () => {
     },
   ]
 
+  useEffect(() => {
+    if (shouldReduceMotion || heroRotatingTitles.length <= 1) {
+      return undefined
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveHeroTitleIndex((currentIndex) => (currentIndex + 1) % heroRotatingTitles.length)
+    }, 2000)
+
+    return () => window.clearInterval(intervalId)
+  }, [heroRotatingTitles, shouldReduceMotion])
+
   if (loading) {
     return <Spinner />
   }
@@ -166,24 +185,48 @@ const HomePage = () => {
             className={sectionRadius}
             contentClassName={`overflow-hidden ${sectionRadius} ${classes.shell}`}
           >
-            <div className="px-6 py-6 sm:px-8 sm:py-7">
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+            <div className="px-5 py-5 sm:px-7 sm:py-6">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                 <img
-                  src="/edgar2.jpg"
+                  src="/edgar.jpg"
                   alt="Edgar Orosa"
-                  className="h-20 w-20 rounded-full object-cover ring-1 ring-white/15 shadow-[0_12px_30px_rgba(2,6,23,0.28)] sm:h-24 sm:w-24"
+                  className="h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-[0_10px_24px_rgba(2,6,23,0.24)] sm:h-20 sm:w-20"
                 />
 
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                      <h1 className={`text-[2.05rem] font-bold tracking-tight sm:text-[2.85rem] ${classes.heading}`}>
-                        {hero.name}
-                      </h1>
-                      <p className={`mt-2 text-[0.98rem] font-semibold sm:text-[1.08rem] ${classes.heading}`}>{hero.title}</p>
+                      <Motion.h1
+                        initial={shouldReduceMotion ? false : { opacity: 0, filter: 'blur(8px)' }}
+                        animate={shouldReduceMotion ? undefined : { opacity: 1, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.55, ease: 'easeOut' }}
+                        className={`hero-name-shell ${isDark ? '' : 'hero-name-shell--light'} text-[1.72rem] font-bold tracking-tight sm:text-[2.3rem] lg:text-[2.55rem]`}
+                      >
+                        <span aria-hidden="true" className="hero-name-layer hero-name-layer--cyan">
+                          {hero.name}
+                        </span>
+                        <span aria-hidden="true" className="hero-name-layer hero-name-layer--rose">
+                          {hero.name}
+                        </span>
+                        <span className="hero-name-core">{hero.name}</span>
+                      </Motion.h1>
+                      <div className="mt-1.5 min-h-[2.9rem] sm:min-h-[1.75rem]">
+                        <AnimatePresence mode="wait" initial={false}>
+                          <Motion.p
+                            key={activeHeroTitle}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
+                            transition={{ duration: 0.35, ease: 'easeOut' }}
+                            className={`max-w-[26ch] overflow-hidden text-ellipsis whitespace-nowrap text-[0.9rem] font-medium leading-6 sm:max-w-[30ch] sm:text-[1rem] ${classes.text}`}
+                          >
+                            {activeHeroTitle}
+                          </Motion.p>
+                        </AnimatePresence>
+                      </div>
                     </div>
 
-                    <span className={`inline-flex w-fit items-center gap-2 border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-[13px] font-medium text-emerald-400 ${controlRadius}`}>
+                    <span className={`inline-flex w-fit items-center gap-2 border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-[12px] font-medium text-emerald-400 ${controlRadius}`}>
                       <span className="relative flex h-2.5 w-2.5">
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
                         <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
@@ -192,10 +235,10 @@ const HomePage = () => {
                     </span>
                   </div>
 
-                  <div className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                  <div className="mt-5 grid gap-x-6 gap-y-3 sm:mt-6 sm:grid-cols-2">
                     {heroMeta.map((item) => (
-                      <div key={item.label} className={`flex items-center gap-3 text-[14px] ${classes.textMuted}`}>
-                        <span className="shrink-0">{item.icon}</span>
+                      <div key={item.label} className={`flex items-center gap-2.5 text-[13px] leading-5 sm:text-[13.5px] ${classes.textMuted}`}>
+                        <span className="shrink-0 opacity-90">{item.icon}</span>
                         <span>{item.value}</span>
                       </div>
                     ))}
