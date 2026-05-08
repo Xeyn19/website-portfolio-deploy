@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion'
-import { GitHubCalendar } from 'react-github-calendar'
-import 'react-github-calendar/tooltips.css'
 import { Link } from 'react-router-dom'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
 import ElectricBorder from '../components/ElectricBorder'
+import GitHubContributionCalendar from '../components/GitHubContributionCalendar'
 import Spinner from '../components/Spinner'
 import { siteContent } from '../data/siteContent'
 import usePageLoader from '../hooks/usePageLoader'
@@ -43,11 +42,6 @@ const githubCalendarTheme = {
   light: ['#e2e8f0', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9'],
   dark: ['#0f172a', '#082f49', '#0c4a6e', '#0369a1', '#38bdf8'],
 }
-const githubContributionDateFormatter = new Intl.DateTimeFormat('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-})
 const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70'
 
 const normalizeCategory = (value = '') =>
@@ -319,8 +313,7 @@ const HomePage = () => {
               </div>
 
               <div className="mt-4 overflow-x-auto">
-                <GitHubCalendar
-                  key={selectedGithubYear}
+                <GitHubContributionCalendar
                   username="Xeyn19"
                   className={`w-full text-[12px] ${classes.textMuted}`}
                   year={selectedGithubYear}
@@ -332,12 +325,6 @@ const HomePage = () => {
                   theme={githubCalendarTheme}
                   labels={{
                     totalCount: '{{count}} contributions in {{year}}',
-                  }}
-                  tooltips={{
-                    activity: {
-                      text: (activity) =>
-                        `${activity.count} contribution${activity.count === 1 ? '' : 's'} on ${githubContributionDateFormatter.format(new Date(activity.date))}`,
-                    },
                   }}
                   errorMessage="GitHub activity is unavailable right now."
                 />
