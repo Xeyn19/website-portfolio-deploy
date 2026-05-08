@@ -155,6 +155,24 @@ const NavBar = () => {
           <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
             <button
               type="button"
+              onClick={toggleMenu}
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition lg:hidden ${classes.iconButton}`}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
               onClick={scrollToTop}
               className={`hidden h-12 w-12 items-center justify-center rounded-full text-sm font-semibold lg:inline-flex ${classes.surfaceMuted} ${classes.heading}`}
               aria-label="Scroll to top"
@@ -182,6 +200,40 @@ const NavBar = () => {
             </nav>
 
             <div className="flex items-center gap-2">
+              <Link
+                to="/resume"
+                onClick={closeMenu}
+                className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition lg:hidden ${classes.buttonGhost}`}
+              >
+                Resume
+              </Link>
+
+              <Link
+                to="/login"
+                onClick={closeMenu}
+                className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition lg:hidden ${classes.buttonGhost}`}
+              >
+                Admin
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => scrollToSection('contact')}
+                className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition lg:hidden ${classes.buttonGhost}`}
+              >
+                Let&apos;s work
+              </button>
+
+              <button
+                type="button"
+                onClick={handleTheme}
+                className={`inline-flex h-10 w-10 items-center justify-center rounded-full transition lg:hidden ${classes.iconButton}`}
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-pressed={isDark}
+              >
+                <ThemeIcon className="h-4.5 w-4.5" />
+              </button>
+
               <button
                 type="button"
                 onClick={handleTheme}
@@ -200,23 +252,6 @@ const NavBar = () => {
                 Let&apos;s work
               </button>
 
-              <button
-                type="button"
-                onClick={toggleMenu}
-                className={`flex h-11 w-11 items-center justify-center rounded-full transition lg:hidden ${classes.iconButton}`}
-                aria-label="Toggle menu"
-                aria-expanded={isOpen}
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
             </div>
           </div>
 
@@ -236,43 +271,6 @@ const NavBar = () => {
                   </button>
                 ))}
               </nav>
-
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                <Link
-                  to="/resume"
-                  onClick={closeMenu}
-                  className={`rounded-2xl px-4 py-3 text-center text-sm font-medium transition ${classes.buttonGhost}`}
-                >
-                  Resume
-                </Link>
-                <Link
-                  to="/login"
-                  onClick={closeMenu}
-                  className={`rounded-2xl px-4 py-3 text-center text-sm font-medium transition ${classes.buttonGhost}`}
-                >
-                  Admin
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('contact')}
-                  className={`rounded-2xl px-4 py-3 text-center text-sm font-medium transition ${classes.buttonGhost}`}
-                >
-                  Let&apos;s work
-                </button>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleTheme}
-                className={`mt-4 flex items-center justify-between rounded-2xl px-4 py-3 transition ${classes.surfaceMuted}`}
-                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-                aria-pressed={isDark}
-              >
-                <span className={`text-sm ${classes.text}`}>Theme</span>
-                <span className={`flex h-10 w-10 items-center justify-center rounded-full ${classes.iconButton}`}>
-                  <ThemeIcon className="h-4.5 w-4.5" />
-                </span>
-              </button>
             </div>
           )}
         </div>
