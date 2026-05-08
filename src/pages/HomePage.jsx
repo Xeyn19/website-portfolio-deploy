@@ -177,7 +177,7 @@ const HomePage = () => {
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <div>
-                      <h1 className={`font-mono text-[2.05rem] font-bold tracking-tight sm:text-[2.85rem] ${classes.heading}`}>
+                      <h1 className={`text-[2.05rem] font-bold tracking-tight sm:text-[2.85rem] ${classes.heading}`}>
                         {hero.name}
                       </h1>
                       <p className={`mt-2 text-[0.98rem] font-semibold sm:text-[1.08rem] ${classes.heading}`}>{hero.title}</p>

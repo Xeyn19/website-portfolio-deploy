@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 @theme{
-    --font-primary : "Poppins", "sans-serif";
+    --font-primary : "Plus Jakarta Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
 }
 
