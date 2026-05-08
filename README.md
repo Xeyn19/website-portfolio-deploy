@@ -33,11 +33,36 @@ Create a local `.env.local` file with your own Supabase values:
 VITE_SUPABASE_URL=your-supabase-project-url
 VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
 VITE_ADMIN_EMAIL=your-admin-email@example.com
+GITHUB_CLASSIC_TOKEN=your-github-classic-token-with-read-user
 ```
 
 Do not commit real Supabase credentials or secret keys.
 
 See `SUPABASE_SETUP.md` for the full setup and connection guide.
+
+## GitHub Contributions Setup
+The homepage contribution calendar uses a server-side GitHub GraphQL request so it can stay closer to your real GitHub profile activity.
+
+Preferred local and production setup:
+
+```env
+GITHUB_CLASSIC_TOKEN=your-github-classic-token-with-read-user
+```
+
+Optional fallback variable:
+
+```env
+GITHUB_READ_TOKEN=your-optional-github-read-token
+```
+
+Notes:
+- `GITHUB_CLASSIC_TOKEN` is preferred over `GITHUB_READ_TOKEN`.
+- Use a classic personal access token with the `read:user` scope if you want private contribution counts to be included.
+- Do not prefix these variables with `VITE_`. They must stay server-side only.
+- In production, add the same variable in your hosting provider environment settings and redeploy.
+- On localhost, restart `npm run dev` after changing `.env.local` so the Vite dev API middleware picks up the new token.
+
+The local dev server now serves `/api/github-contributions`, and production uses the Vercel function in `api/github-contributions.js`.
 
 ## Admin CRUD
 Projects and skills support admin-only create, edit, and delete controls.
@@ -55,6 +80,7 @@ CRUD works in production when the deployed site has the same required environmen
 VITE_SUPABASE_URL=your-supabase-project-url
 VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
 VITE_ADMIN_EMAIL=your-admin-email@example.com
+GITHUB_CLASSIC_TOKEN=your-github-classic-token-with-read-user
 ```
 
 Add these in the hosting provider dashboard, such as Vercel or Netlify. The local `.env.local` file is only used on your computer.
@@ -63,6 +89,7 @@ Production also requires:
 - The admin user exists in Supabase Auth.
 - RLS policies allow public reads and admin writes.
 - The deployment supports React Router fallback so `/login` loads the React app instead of a 404 page.
+- If you want the GitHub contribution calendar to match your profile more closely, the deployment must include `GITHUB_CLASSIC_TOKEN`.
 
 Never add the Supabase secret key to frontend production environment variables.
 

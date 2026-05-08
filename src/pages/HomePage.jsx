@@ -281,7 +281,7 @@ const HomePage = () => {
             </div>
 
             <div className={`mt-5 ${cardRadius} ${classes.surfaceMuted} p-4 sm:p-5`}>
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div className="flex flex-col gap-4">
                 <div>
                   <p className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${classes.labelMuted}`}>
                     Choose year
@@ -291,7 +291,7 @@ const HomePage = () => {
                   </p>
                 </div>
 
-                <div className="-mx-1 flex max-w-full gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:px-0">
+                <div className="-mx-1 flex max-w-full gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:justify-end sm:px-0">
                   {githubCalendarYears.map((year) => {
                     const isActive = selectedGithubYear === year
 
@@ -312,10 +312,11 @@ const HomePage = () => {
                 </div>
               </div>
 
-              <div className="mt-4 overflow-x-auto">
+              <div className={`mt-4 ${cardRadius} border border-white/8 bg-slate-950/10 p-3 sm:p-4`}>
+                <div className="overflow-x-auto pb-2">
                 <GitHubContributionCalendar
                   username="Xeyn19"
-                  className={`w-full text-[12px] ${classes.textMuted}`}
+                  className={`text-[12px] ${classes.textMuted}`}
                   year={selectedGithubYear}
                   colorScheme={isDark ? 'dark' : 'light'}
                   blockSize={13}
@@ -328,6 +329,7 @@ const HomePage = () => {
                   }}
                   errorMessage="GitHub activity is unavailable right now."
                 />
+                </div>
               </div>
             </div>
           </ElectricBorder>

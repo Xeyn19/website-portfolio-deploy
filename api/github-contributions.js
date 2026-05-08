@@ -28,8 +28,15 @@ const buildYearRange = (year) => {
 
 const contributionCalendarQuery = `
   query ContributionCalendar($login: String!, $from: DateTime!, $to: DateTime!) {
+    viewer {
+      login
+    }
     user(login: $login) {
       contributionsCollection(from: $from, to: $to) {
+        hasAnyRestrictedContributions
+        restrictedContributionsCount
+        earliestRestrictedContributionDate
+        latestRestrictedContributionDate
         contributionCalendar {
           totalContributions
           weeks {
@@ -45,7 +52,7 @@ const contributionCalendarQuery = `
   }
 `
 
-export async function GET(request) {
+export async function handleGitHubContributions(request, env = process.env) {
   const { searchParams } = new URL(request.url)
   const username = searchParams.get('username')?.trim()
   const year = Number.parseInt(searchParams.get('year') ?? '', 10)
@@ -57,11 +64,14 @@ export async function GET(request) {
     )
   }
 
-  const githubToken = process.env.GITHUB_READ_TOKEN ?? process.env.GITHUB_TOKEN
+  const githubToken =
+    env.GITHUB_CLASSIC_TOKEN ??
+    env.GITHUB_READ_TOKEN ??
+    env.GITHUB_TOKEN
 
   if (!githubToken) {
     return createJsonResponse(
-      { error: 'Missing GITHUB_READ_TOKEN or GITHUB_TOKEN server environment variable.' },
+      { error: 'Missing GITHUB_READ_TOKEN, GITHUB_CLASSIC_TOKEN, or GITHUB_TOKEN server environment variable.' },
       503,
     )
   }
@@ -99,8 +109,9 @@ export async function GET(request) {
     )
   }
 
-  const contributionCalendar =
-    payload.data?.user?.contributionsCollection?.contributionCalendar
+  const viewerLogin = payload.data?.viewer?.login ?? null
+  const contributionsCollection = payload.data?.user?.contributionsCollection
+  const contributionCalendar = contributionsCollection?.contributionCalendar
 
   if (!contributionCalendar) {
     return createJsonResponse(
@@ -119,10 +130,28 @@ export async function GET(request) {
 
   return createJsonResponse({
     source: 'github-graphql',
+    diagnostics: {
+      viewerLogin,
+      tokenMatchesUser:
+        typeof viewerLogin === 'string' &&
+        viewerLogin.toLowerCase() === username.toLowerCase(),
+      hasAnyRestrictedContributions:
+        contributionsCollection?.hasAnyRestrictedContributions ?? false,
+      restrictedContributionsCount:
+        contributionsCollection?.restrictedContributionsCount ?? 0,
+      earliestRestrictedContributionDate:
+        contributionsCollection?.earliestRestrictedContributionDate ?? null,
+      latestRestrictedContributionDate:
+        contributionsCollection?.latestRestrictedContributionDate ?? null,
+    },
     total: {
       count: contributionCalendar.totalContributions,
       year,
     },
     contributions,
   })
+}
+
+export async function GET(request) {
+  return handleGitHubContributions(request, process.env)
 }
