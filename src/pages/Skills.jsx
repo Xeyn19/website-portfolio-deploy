@@ -186,7 +186,7 @@ const Skills = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className={`overflow-hidden rounded-[32px] p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
+          className={`overflow-hidden rounded-2xl p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
         >
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
@@ -224,8 +224,8 @@ const Skills = () => {
               </div>
             </div>
 
-            <div className={`rounded-[28px] p-5 ${classes.panelDark}`}>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
+            <div className={`rounded-2xl p-5 ${classes.panelDark}`}>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300/90">
                 Focus Areas
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -256,7 +256,7 @@ const Skills = () => {
               transition={{ duration: 0.45, ease: 'easeOut', delay: index * 0.04 }}
               viewport={{ once: true, amount: 0.15 }}
               whileHover={{ y: -6 }}
-              className={`group rounded-[28px] p-5 transition ${classes.surface}`}
+              className={`group rounded-2xl p-5 transition ${classes.surface}`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className={`flex h-16 w-16 items-center justify-center rounded-2xl ${classes.surfaceMuted} ${classes.surfaceAccent}`}>
@@ -325,7 +325,7 @@ const Skills = () => {
         <div className="fixed inset-0 z-50 flex min-h-dvh items-end bg-slate-950/70 px-4 py-6 backdrop-blur sm:items-center sm:justify-center">
           <form
             onSubmit={handleSkillSubmit}
-            className={`max-h-[92dvh] w-full max-w-xl overflow-y-auto rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}
+            className={`max-h-[92dvh] w-full max-w-xl overflow-y-auto rounded-2xl p-6 ${classes.surface}`}
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
@@ -418,7 +418,7 @@ const Skills = () => {
 
       {deleteTarget && (
         <div className="fixed inset-0 z-50 flex min-h-dvh items-end bg-slate-950/70 px-4 py-6 backdrop-blur sm:items-center sm:justify-center">
-          <div className={`w-full max-w-md rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}>
+          <div className={`w-full max-w-md rounded-2xl p-6 ${classes.surface}`}>
             <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>Delete</p>
             <h2 className={`mt-2 text-[1.45rem] font-semibold ${classes.heading}`}>Delete skill?</h2>
             <p className={`mt-3 text-sm leading-6 ${classes.text}`}>

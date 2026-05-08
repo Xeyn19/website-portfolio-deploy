@@ -37,7 +37,7 @@ const getCertificateVisual = (certificate = {}) => {
   }
 
   if (titleKey.includes('javascript') || titleKey.includes('development')) {
-    return { Icon: LuCode, iconClass: 'text-amber-300' }
+    return { Icon: LuCode, iconClass: 'text-sky-300' }
   }
 
   return { Icon: LuAward, iconClass: 'text-emerald-300' }
@@ -60,7 +60,7 @@ const Certificates = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className={`overflow-hidden rounded-[32px] p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
+          className={`overflow-hidden rounded-2xl p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
         >
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
@@ -76,8 +76,8 @@ const Certificates = () => {
               </p>
             </div>
 
-            <div className={`rounded-[28px] p-5 ${classes.panelDark}`}>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
+            <div className={`rounded-2xl p-5 ${classes.panelDark}`}>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300/90">
                 Overview
               </p>
               <p className="mt-4 text-[13px] leading-6 text-slate-300">
@@ -101,9 +101,9 @@ const Certificates = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, ease: 'easeOut', delay: index * 0.05 }}
                   viewport={{ once: true, amount: 0.15 }}
-                  className={`rounded-[28px] p-5 ${classes.surface}`}
+                  className={`rounded-2xl p-5 ${classes.surface}`}
                 >
-                  <div className={`rounded-[24px] p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}>
+                  <div className={`rounded-2xl p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}>
                     <div className="flex items-start gap-4">
                       <span
                         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset ${

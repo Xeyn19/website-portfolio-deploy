@@ -8,7 +8,7 @@ export default function ErrorPage() {
       <img src={errorimage} alt="404" className="w-40" />
       <h1 className="text-4xl font-bold text-red-500">404 - Page Not Found</h1>
       <p className="text-gray-600">Sorry, we couldn’t find the page you were looking for. Let’s get you back to where you need to be.</p>
-      <button onClick={() => navigate('/')} className=" px-4 py-2 cursor-pointer bg-yellow-600 text-white rounded">Go to Home</button>
+      <button onClick={() => navigate('/')} className=" px-4 py-2 cursor-pointer bg-sky-600 text-white rounded">Go to Home</button>
     </div>
   );
 }

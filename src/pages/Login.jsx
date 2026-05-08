@@ -56,7 +56,7 @@ const Login = () => {
 
       <div className="mx-auto flex min-h-[calc(100dvh-260px)] max-w-[920px] items-center justify-center">
         <div className="fixed inset-0 z-30 flex min-h-dvh items-end bg-slate-950/70 px-4 py-6 backdrop-blur sm:items-center sm:justify-center">
-          <div className={`max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-t-[28px] p-6 sm:rounded-[28px] ${classes.surface}`}>
+          <div className={`max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-2xl p-6 ${classes.surface}`}>
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>Admin</p>

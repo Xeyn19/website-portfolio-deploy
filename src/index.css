@@ -51,96 +51,47 @@ body {
     animation-play-state: paused;
 }
 
-.electric-border {
+.electric-border__content {
     position: relative;
     border-radius: inherit;
+}
+
+.hover-reveal {
+    position: relative;
     isolation: isolate;
 }
 
-.electric-border::before,
-.electric-border::after {
-    content: "";
+.hover-reveal__overlay {
     position: absolute;
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-}
-
-.electric-border::before {
-    padding: 1px;
-    background:
-        conic-gradient(
-            from 0deg,
-            transparent 0deg 28deg,
-            var(--eb-primary) 28deg 40deg,
-            transparent 40deg 118deg,
-            var(--eb-secondary) 118deg 128deg,
-            transparent 128deg 214deg,
-            var(--eb-primary) 214deg 226deg,
-            transparent 226deg 312deg,
-            var(--eb-secondary) 312deg 324deg,
-            transparent 324deg 360deg
-        );
-    -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    filter:
-        drop-shadow(0 0 5px var(--eb-primary))
-        drop-shadow(0 0 10px var(--eb-secondary));
-    opacity: 0.85;
-    animation: electric-border-spin 7.2s linear infinite;
+    opacity: 0;
     z-index: 2;
-}
-
-.electric-border::after {
-    inset: -1px;
+    transition: opacity 220ms ease;
     background:
-        radial-gradient(circle at 18% 20%, var(--eb-primary), transparent 24%),
-        radial-gradient(circle at 82% 72%, var(--eb-secondary), transparent 26%);
-    filter: blur(18px);
-    opacity: 0.16;
-    animation: electric-border-pulse 4.8s ease-in-out infinite alternate;
-    z-index: 0;
+        radial-gradient(
+            circle 180px at var(--hover-x) var(--hover-y),
+            rgba(56, 189, 248, 0.22),
+            rgba(56, 189, 248, 0.08) 38%,
+            transparent 72%
+        ),
+        linear-gradient(140deg, rgba(56, 189, 248, 0.08), transparent 62%, rgba(56, 189, 248, 0.05));
 }
 
-.electric-border--soft::before {
-    opacity: 0.68;
-    animation-duration: 9.5s;
+.hover-reveal:hover .hover-reveal__overlay,
+.hover-reveal:focus-within .hover-reveal__overlay {
+    opacity: 1;
 }
 
-.electric-border--soft::after {
-    opacity: 0.11;
-}
-
-.electric-border__content {
-    position: relative;
+.hover-reveal__content {
     z-index: 1;
-    border-radius: inherit;
+    transition: filter 220ms ease;
 }
 
-@keyframes electric-border-spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes electric-border-pulse {
-    from {
-        transform: scale(0.995);
-    }
-
-    to {
-        transform: scale(1.015);
-    }
+.hover-reveal:hover .hover-reveal__content,
+.hover-reveal:focus-within .hover-reveal__content {
+    filter: saturate(1.05) brightness(1.02);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -149,8 +100,8 @@ body {
         animation: none;
     }
 
-    .electric-border::before,
-    .electric-border::after {
-        animation: none;
+    .hover-reveal__overlay,
+    .hover-reveal__content {
+        transition: none;
     }
 }

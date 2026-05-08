@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <footer className="px-4 pb-8 pt-6 sm:px-6 lg:px-10">
-      <div className={`mx-auto max-w-[980px] rounded-[28px] px-5 py-5 sm:px-7 ${classes.shell}`}>
+      <div className={`mx-auto max-w-[980px] rounded-2xl px-5 py-5 sm:px-7 ${classes.shell}`}>
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr_0.9fr_1fr_auto] lg:items-start">
           <div>
             <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className={`rounded-[22px] px-4 py-4 ${classes.surfaceMuted}`}>
+            <div className={`rounded-2xl px-4 py-4 ${classes.surfaceMuted}`}>
               <p className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${classes.labelMuted}`}>
                 Phone
               </p>
@@ -71,7 +71,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className={`rounded-[22px] px-4 py-4 ${classes.surfaceMuted}`}>
+            <div className={`rounded-2xl px-4 py-4 ${classes.surfaceMuted}`}>
               <p className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${classes.labelMuted}`}>
                 Email
               </p>
@@ -82,8 +82,8 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className={`rounded-[22px] px-5 py-4 text-center lg:min-w-40 ${classes.panelDark}`}>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-300/90">
+          <div className={`rounded-2xl px-5 py-4 text-center lg:min-w-40 ${classes.panelDark}`}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-sky-300/90">
               Portfolio
             </p>
             <p className="mt-2 text-[13px] text-white">&copy; {currentYear} Edgar Orosa</p>

@@ -44,11 +44,14 @@ const ProjectDetail = () => {
   }
   const technologies = (project.technologies ?? []).map((technology) => getTechnologyVisual(technology))
   const { liveLink, repoLink } = getProjectExternalLinks(project, caseStudy)
+  const projectMeta = [project.category, project.date].filter(Boolean)
   const imageSlides = [project.image, ...(detail.galleryImages ?? [])].filter(
     (image, index, collection) => Boolean(image) && collection.indexOf(image) === index,
   )
   const [activeSlide, setActiveSlide] = useState(0)
   const hasMultipleSlides = imageSlides.length > 1
+  const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70'
+  const actionButtonClass = `inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition ${classes.buttonGhost} ${focusRingClass}`
 
   const goToPreviousSlide = () => {
     if (!hasMultipleSlides) {
@@ -78,7 +81,7 @@ const ProjectDetail = () => {
         <div className={`mb-8 border-b px-1 pb-5 ${classes.badgeMuted}`}>
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <Link to="/#projects" className={`inline-flex items-center gap-2 transition ${classes.textMuted}`}>
-              <span aria-hidden="true">←</span>
+              <span aria-hidden="true">&larr;</span>
               <span>Back</span>
             </Link>
             <span className={classes.textSubtle}>/</span>
@@ -93,21 +96,35 @@ const ProjectDetail = () => {
         >
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-3xl">
-              <h1 className={`text-[2.05rem] font-semibold tracking-tight sm:text-[2.65rem] ${classes.heading}`}>
+              <h1 className={`text-[1.8rem] font-semibold tracking-tight sm:text-[2.65rem] ${classes.heading}`}>
                 {project.title}
               </h1>
-              <p className={`mt-4 text-[15px] leading-7 sm:text-[15.5px] ${classes.textMuted}`}>
+
+              {projectMeta.length ? (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {projectMeta.map((item) => (
+                    <span
+                      key={`${project.slug}-${item}`}
+                      className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] ${classes.badgeMuted}`}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+
+              <p className={`mt-4 text-[14.5px] leading-6 sm:text-[15.5px] sm:leading-7 ${classes.textMuted}`}>
                 {detail.headline}
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
               {liveLink ? (
                 <a
                   href={liveLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex rounded-full px-5 py-3 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                  className={actionButtonClass}
                 >
                   Live Site
                 </a>
@@ -117,7 +134,7 @@ const ProjectDetail = () => {
                   href={repoLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex rounded-full px-5 py-3 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                  className={actionButtonClass}
                 >
                   Repository
                 </a>
@@ -125,42 +142,42 @@ const ProjectDetail = () => {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:items-start">
+          <div className="mt-8 grid gap-8 sm:mt-10 sm:gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:items-start">
             <div>
-              <div className={`overflow-hidden rounded-[30px] ${classes.surfaceMuted}`}>
+              <div className={`overflow-hidden rounded-2xl ${classes.surfaceMuted}`}>
                 <div className="relative">
                   <img
                     src={imageSlides[activeSlide]}
                     alt={`${project.title} screenshot ${activeSlide + 1}`}
-                    className="h-[300px] w-full object-cover sm:h-[420px] lg:h-[520px]"
+                    className="h-56 w-full object-cover sm:h-[420px] lg:h-[520px]"
                   />
 
                   <button
                     type="button"
                     onClick={goToPreviousSlide}
                     disabled={!hasMultipleSlides}
-                    className={`absolute left-4 top-1/2 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full transition ${
+                    className={`absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full transition sm:left-4 sm:h-14 sm:w-14 ${
                       hasMultipleSlides
                         ? classes.iconButton
                         : 'cursor-not-allowed border border-slate-800/80 bg-slate-950/70 text-slate-500'
-                    }`}
+                    } ${focusRingClass}`}
                     aria-label="Previous image"
                   >
-                    <span className="text-xl">‹</span>
+                    <span className="text-lg sm:text-xl">&lsaquo;</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={goToNextSlide}
                     disabled={!hasMultipleSlides}
-                    className={`absolute right-4 top-1/2 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full transition ${
+                    className={`absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full transition sm:right-4 sm:h-14 sm:w-14 ${
                       hasMultipleSlides
                         ? classes.iconButton
                         : 'cursor-not-allowed border border-slate-800/80 bg-slate-950/70 text-slate-500'
-                    }`}
+                    } ${focusRingClass}`}
                     aria-label="Next image"
                   >
-                    <span className="text-xl">›</span>
+                    <span className="text-lg sm:text-xl">&rsaquo;</span>
                   </button>
                 </div>
               </div>
@@ -171,10 +188,10 @@ const ProjectDetail = () => {
                     key={`${image}-${index}`}
                     type="button"
                     onClick={() => setActiveSlide(index)}
-                    className={`h-3 rounded-full transition ${
+                    className={`rounded-full transition ${focusRingClass} ${
                       index === activeSlide
-                        ? 'w-8 bg-amber-300'
-                        : 'w-3 bg-slate-700 hover:bg-slate-500'
+                        ? 'h-3.5 w-9 bg-sky-300'
+                        : 'h-3.5 w-3.5 bg-slate-700 hover:bg-slate-500'
                     }`}
                     aria-label={`Go to image ${index + 1}`}
                   />
@@ -182,7 +199,7 @@ const ProjectDetail = () => {
               </div>
 
               <div className="mt-10">
-                <h2 className={`text-[1.45rem] font-semibold tracking-tight ${classes.heading}`}>
+                <h2 className={`text-[1.32rem] font-semibold tracking-tight sm:text-[1.45rem] ${classes.heading}`}>
                   Tech Stack
                 </h2>
                 <div className="mt-5 flex flex-wrap gap-3">
@@ -190,38 +207,38 @@ const ProjectDetail = () => {
                     const TechIcon = technology.Icon
 
                     return (
-                    <span
-                      key={`${project.slug}-${technology.label}`}
-                      className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium ${classes.badgeMuted}`}
-                    >
-                      <TechIcon className={`h-4 w-4 ${technology.iconClass}`} />
-                      <span>{technology.label}</span>
-                    </span>
+                      <span
+                        key={`${project.slug}-${technology.label}`}
+                        className={`inline-flex min-h-10 items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium ${classes.badgeMuted}`}
+                      >
+                        <TechIcon className={`h-4 w-4 ${technology.iconClass}`} />
+                        <span>{technology.label}</span>
+                      </span>
                     )
                   })}
                 </div>
               </div>
             </div>
 
-            <div className="space-y-10">
-              <section>
-                <h2 className={`text-[1.5rem] font-semibold tracking-tight ${classes.heading}`}>
+            <div className="space-y-5 sm:space-y-6">
+              <section className={`rounded-2xl p-5 sm:p-6 ${classes.surfaceMuted}`}>
+                <h2 className={`text-[1.32rem] font-semibold tracking-tight sm:text-[1.5rem] ${classes.heading}`}>
                   Overview
                 </h2>
-                <p className={`mt-5 text-[15px] leading-7 ${classes.textMuted}`}>
+                <p className={`mt-4 text-[14.5px] leading-6 sm:mt-5 sm:text-[15px] sm:leading-7 ${classes.textMuted}`}>
                   {detail.overview}
                 </p>
               </section>
 
-              <section>
-                <h2 className={`text-[1.5rem] font-semibold tracking-tight ${classes.heading}`}>
+              <section className={`rounded-2xl p-5 sm:p-6 ${classes.surfaceMuted}`}>
+                <h2 className={`text-[1.32rem] font-semibold tracking-tight sm:text-[1.5rem] ${classes.heading}`}>
                   Key Features
                 </h2>
-                <ul className="mt-5 space-y-4">
+                <ul className="mt-4 space-y-3 sm:mt-5 sm:space-y-4">
                   {detail.features.map((item) => (
                     <li key={item} className="flex items-start gap-4">
-                      <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-amber-300" />
-                      <span className={`text-[15px] leading-7 ${classes.textMuted}`}>{item}</span>
+                      <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-sky-300" />
+                      <span className={`text-[14.5px] leading-6 sm:text-[15px] sm:leading-7 ${classes.textMuted}`}>{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -236,12 +253,12 @@ const ProjectDetail = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
-            className={`rounded-[34px] p-6 sm:p-7 ${classes.shell}`}
+            className={`rounded-2xl p-5 sm:p-7 ${classes.shell}`}
           >
             <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
               Problem
             </p>
-            <p className={`mt-5 text-[14.5px] leading-7 ${classes.text}`}>
+            <p className={`mt-4 text-[14.5px] leading-6 sm:mt-5 sm:leading-7 ${classes.text}`}>
               {detail.problem}
             </p>
           </Motion.section>
@@ -251,12 +268,12 @@ const ProjectDetail = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
-            className={`rounded-[34px] p-6 sm:p-7 ${classes.shell}`}
+            className={`rounded-2xl p-5 sm:p-7 ${classes.shell}`}
           >
             <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
               Solution
             </p>
-            <p className={`mt-5 text-[14.5px] leading-7 ${classes.text}`}>
+            <p className={`mt-4 text-[14.5px] leading-6 sm:mt-5 sm:leading-7 ${classes.text}`}>
               {detail.solution}
             </p>
           </Motion.section>
@@ -267,16 +284,16 @@ const ProjectDetail = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
-          className={`mt-6 rounded-[34px] p-6 sm:p-7 ${classes.shell}`}
+          className={`mt-6 rounded-2xl p-5 sm:p-7 ${classes.shell}`}
         >
           <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
             Responsibilities
           </p>
-          <ul className="mt-5 space-y-4">
+          <ul className="mt-4 space-y-3 sm:mt-5 sm:space-y-4">
             {detail.responsibilities.map((item) => (
               <li key={item} className="flex items-start gap-4">
                 <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-sky-400" />
-                <span className={`text-[14.5px] leading-7 ${classes.text}`}>{item}</span>
+                <span className={`text-[14.5px] leading-6 sm:leading-7 ${classes.text}`}>{item}</span>
               </li>
             ))}
           </ul>

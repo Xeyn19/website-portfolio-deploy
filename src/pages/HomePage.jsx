@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion as Motion } from 'framer-motion'
+import { GitHubCalendar } from 'react-github-calendar'
 import { Link } from 'react-router-dom'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
 import ElectricBorder from '../components/ElectricBorder'
@@ -26,6 +27,22 @@ const publicCategoryFilters = [
   { key: 'full-stack', label: 'Full-Stack' },
   { key: 'front-end', label: 'Front-End' },
 ]
+
+const currentCalendarYear = new Date().getFullYear()
+const githubCalendarStartYear = 2023
+const githubCalendarYears = Array.from(
+  { length: currentCalendarYear - githubCalendarStartYear + 1 },
+  (_, index) => currentCalendarYear - index,
+)
+const sectionRadius = 'rounded-2xl'
+const cardRadius = 'rounded-2xl'
+const controlRadius = 'rounded-2xl'
+
+const githubCalendarTheme = {
+  light: ['#e2e8f0', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9'],
+  dark: ['#0f172a', '#082f49', '#0c4a6e', '#0369a1', '#38bdf8'],
+}
+const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70'
 
 const normalizeCategory = (value = '') =>
   value
@@ -57,7 +74,7 @@ const getCertificateVisual = (certificate = {}) => {
   }
 
   if (titleKey.includes('javascript') || titleKey.includes('development')) {
-    return { Icon: LuCode, iconClass: 'text-amber-300' }
+    return { Icon: LuCode, iconClass: 'text-sky-300' }
   }
 
   return { Icon: LuAward, iconClass: 'text-emerald-300' }
@@ -69,6 +86,7 @@ const HomePage = () => {
   const { hero, about, experience, education, certificates, contact, footerQuote } = siteContent
   const { projects, skills } = usePortfolioHomeData()
   const [selectedProjectCategory, setSelectedProjectCategory] = useState('all')
+  const [selectedGithubYear, setSelectedGithubYear] = useState(currentCalendarYear)
   const marqueeSkills = buildMarqueeItems(skills)
   const firstRowSkills = marqueeSkills.filter((_, index) => index % 2 === 0)
   const secondRowSkills = marqueeSkills.filter((_, index) => index % 2 === 1)
@@ -79,6 +97,8 @@ const HomePage = () => {
 
     return normalizeCategory(project.category) === selectedProjectCategory
   })
+  const githubProfileLink =
+    hero.socialLinks.find((item) => item.label === 'GitHub')?.href ?? 'https://github.com/Xeyn19'
   const heroMeta = [
     {
       label: 'Education',
@@ -143,8 +163,8 @@ const HomePage = () => {
         >
           <ElectricBorder
             accent="amber"
-            className="rounded-[34px]"
-            contentClassName={`overflow-hidden rounded-[34px] ${classes.shell}`}
+            className={sectionRadius}
+            contentClassName={`overflow-hidden ${sectionRadius} ${classes.shell}`}
           >
             <div className="px-6 py-6 sm:px-8 sm:py-7">
               <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
@@ -163,7 +183,7 @@ const HomePage = () => {
                       <p className={`mt-2 text-[0.98rem] font-semibold sm:text-[1.08rem] ${classes.heading}`}>{hero.title}</p>
                     </div>
 
-                    <span className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-[13px] font-medium text-emerald-400">
+                    <span className={`inline-flex w-fit items-center gap-2 border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-[13px] font-medium text-emerald-400 ${controlRadius}`}>
                       <span className="relative flex h-2.5 w-2.5">
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
                         <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
@@ -180,7 +200,92 @@ const HomePage = () => {
                       </div>
                     ))}
                   </div>
+
                 </div>
+              </div>
+            </div>
+          </ElectricBorder>
+        </Motion.section>
+
+        <Motion.section
+          className="mt-6"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: 'easeOut', delay: 0.08 }}
+        >
+          <ElectricBorder
+            accent="cyan"
+            className={sectionRadius}
+            contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
+          >
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h2 className={`text-[1.05rem] font-semibold ${classes.heading}`}>
+                  GitHub Contributions
+                </h2>
+                <p className={`mt-1 text-[13px] ${classes.textMuted}`}>
+                  Public activity from {githubCalendarStartYear} to today.
+                </p>
+              </div>
+              <a
+                href={githubProfileLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-[12px] font-medium transition ${classes.textMuted}`}
+              >
+                View profile
+              </a>
+            </div>
+
+            <div className={`mt-5 overflow-hidden border px-4 py-4 sm:px-5 ${cardRadius} ${classes.surfaceMuted}`}>
+              <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${classes.labelMuted}`}>
+                    Choose year
+                  </p>
+                  <p className={`mt-1 text-[13px] ${classes.textMuted}`}>
+                    Showing contributions for {selectedGithubYear}.
+                  </p>
+                </div>
+
+                <div className={`inline-flex max-w-full gap-2 overflow-x-auto border p-1 ${controlRadius} ${classes.surface}`}>
+                  {githubCalendarYears.map((year) => {
+                    const isActive = selectedGithubYear === year
+
+                    return (
+                      <button
+                        key={year}
+                        type="button"
+                        onClick={() => setSelectedGithubYear(year)}
+                        aria-pressed={isActive}
+                        className={`min-w-[72px] px-4 py-2 text-[12px] font-medium whitespace-nowrap transition ${controlRadius} ${
+                          isActive ? classes.navActive : classes.buttonGhost
+                        }`}
+                      >
+                        {year}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div className={`border p-3 sm:p-4 ${cardRadius} ${classes.surface}`}>
+                <GitHubCalendar
+                  key={selectedGithubYear}
+                  username="Xeyn19"
+                  className={`w-full text-[12px] ${classes.textMuted}`}
+                  year={selectedGithubYear}
+                  colorScheme={isDark ? 'dark' : 'light'}
+                  blockSize={13}
+                  blockMargin={4}
+                  fontSize={12}
+                  showWeekdayLabels={false}
+                  theme={githubCalendarTheme}
+                  labels={{
+                    totalCount: '{{count}} contributions in {{year}}',
+                  }}
+                  errorMessage="GitHub activity is unavailable right now."
+                />
               </div>
             </div>
           </ElectricBorder>
@@ -194,8 +299,8 @@ const HomePage = () => {
           >
             <ElectricBorder
               accent="cyan"
-              className="rounded-[34px]"
-              contentClassName={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
+              className={sectionRadius}
+              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -205,7 +310,7 @@ const HomePage = () => {
                 </div>
                 <Link
                   to="/about"
-                  className={`inline-flex self-start rounded-full px-5 py-2.5 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                  className={`inline-flex self-start px-5 py-2.5 text-[13px] font-medium transition ${controlRadius} ${classes.buttonGhost}`}
                 >
                   Read more
                 </Link>
@@ -223,8 +328,8 @@ const HomePage = () => {
           >
             <ElectricBorder
               accent="amber"
-              className="rounded-[34px]"
-              contentClassName={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
+              className={sectionRadius}
+              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -234,7 +339,7 @@ const HomePage = () => {
                 </div>
                 <Link
                   to="/resume"
-                  className={`inline-flex self-start rounded-full px-5 py-2.5 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                  className={`inline-flex self-start px-5 py-2.5 text-[13px] font-medium transition ${controlRadius} ${classes.buttonGhost}`}
                 >
                   My journey
                 </Link>
@@ -247,8 +352,8 @@ const HomePage = () => {
                     as="article"
                     accent="amber"
                     variant="soft"
-                    className="rounded-[28px]"
-                    contentClassName={`rounded-[28px] p-5 shadow-[0_14px_34px_rgba(2,6,23,0.18)] ${classes.surfaceMuted}`}
+                    className={cardRadius}
+                    contentClassName={`${cardRadius} p-5 shadow-[0_14px_34px_rgba(2,6,23,0.18)] ${classes.surfaceMuted}`}
                   >
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div>
@@ -266,7 +371,7 @@ const HomePage = () => {
                     <ul className="mt-5 space-y-3">
                       {item.bullets.map((bullet) => (
                         <li key={bullet} className="flex items-start gap-3">
-                          <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-amber-400" />
+                          <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-sky-400" />
                           <span className={`max-w-3xl text-[14.5px] leading-7 ${classes.text}`}>
                             {bullet}
                           </span>
@@ -303,8 +408,8 @@ const HomePage = () => {
           >
             <ElectricBorder
               accent="cyan"
-              className="rounded-[34px]"
-              contentClassName={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
+              className={sectionRadius}
+              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
             >
               <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
                 Tech-Stack
@@ -326,11 +431,11 @@ const HomePage = () => {
                             to="/skills"
                             accent="cyan"
                             variant="soft"
-                            className="mx-2 rounded-[22px]"
-                            contentClassName={`group inline-flex min-w-[172px] items-center gap-3 rounded-[22px] px-4 py-3 transition hover:-translate-y-0.5 ${classes.surfaceMuted}`}
+                            className={`mx-2 ${cardRadius}`}
+                            contentClassName={`group inline-flex min-w-[172px] items-center gap-3 px-4 py-3 transition hover:-translate-y-0.5 ${cardRadius} ${classes.surfaceMuted}`}
                           >
                             <span
-                              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset ${
+                              className={`flex h-9 w-9 shrink-0 items-center justify-center ring-1 ring-inset ${controlRadius} ${
                                 isDark ? 'bg-slate-950/80 ring-white/10' : 'bg-white ring-slate-200/90'
                               }`}
                             >
@@ -355,21 +460,21 @@ const HomePage = () => {
           >
             <ElectricBorder
               accent="amber"
-              className="rounded-[34px]"
-              contentClassName={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
+              className={sectionRadius}
+              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
                     Projects
                   </h2>
-                  <p className={`mt-3 max-w-2xl text-[14px] leading-7 ${classes.textMuted}`}>
+                  <p className={`mt-3 max-w-2xl text-[14px] leading-6 sm:leading-7 ${classes.textMuted}`}>
                     The full project list stays on the landing page. Open any card to view the separate case-study page with images and full implementation details.
                   </p>
                 </div>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="-mx-1 mt-6 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
                 {publicCategoryFilters.map((filter) => {
                   const isActive = selectedProjectCategory === filter.key
 
@@ -378,7 +483,7 @@ const HomePage = () => {
                       key={filter.key}
                       type="button"
                       onClick={() => setSelectedProjectCategory(filter.key)}
-                      className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
+                      className={`shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition ${controlRadius} ${focusRingClass} ${
                         isActive ? classes.navActive : classes.buttonGhost
                       }`}
                     >
@@ -394,6 +499,7 @@ const HomePage = () => {
                   const technologies = (project.technologies ?? []).map((technology) =>
                     getTechnologyVisual(technology),
                   )
+                  const projectMeta = [project.category, project.date].filter(Boolean)
 
                   return (
                     <ElectricBorder
@@ -401,29 +507,41 @@ const HomePage = () => {
                       as="article"
                       accent="amber"
                       variant="soft"
-                      className="rounded-[28px]"
-                      contentClassName={`flex h-full flex-col rounded-[28px] p-5 ${classes.surfaceMuted}`}
+                      className={cardRadius}
+                      contentClassName={`flex h-full flex-col p-4 sm:p-5 ${cardRadius} ${classes.surfaceMuted}`}
                     >
                       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0 flex-1">
-                          <h3 className={`text-[1.3rem] font-semibold tracking-tight sm:text-[1.55rem] ${classes.heading}`}>
+                          <h3 className={`text-[1.12rem] font-semibold tracking-tight sm:text-[1.55rem] ${classes.heading}`}>
                             {project.title}
                           </h3>
+                          {projectMeta.length ? (
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              {projectMeta.map((item) => (
+                                <span
+                                  key={`${project.slug}-${item}`}
+                                  className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] ${classes.badgeMuted}`}
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
                         </div>
 
-                        <div className="flex flex-wrap gap-3">
+                        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
                           <Link
                             to={`/projects/${project.slug}`}
-                            className={`inline-flex rounded-full px-4 py-2 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                            className={`inline-flex min-h-11 items-center justify-center px-4 py-2.5 text-sm font-medium transition ${controlRadius} ${classes.buttonGhost} ${focusRingClass}`}
                           >
-                            View
+                            Case Study
                           </Link>
                           {externalLinks.liveLink ? (
                             <a
                               href={externalLinks.liveLink}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`inline-flex rounded-full px-4 py-2 text-[13px] font-medium transition ${classes.buttonGhost}`}
+                              className={`inline-flex min-h-11 items-center justify-center px-4 py-2.5 text-sm font-medium transition ${controlRadius} ${classes.buttonGhost} ${focusRingClass}`}
                             >
                               Live
                             </a>
@@ -431,18 +549,18 @@ const HomePage = () => {
                         </div>
                       </div>
 
-                      <p className={`mt-4 flex-1 text-[14.5px] leading-7 ${classes.text}`}>
+                      <p className={`mt-4 flex-1 text-[14px] leading-6 sm:text-[14.5px] sm:leading-7 ${classes.text}`}>
                         {summarizeProjectDescription(project.description, 140)}
                       </p>
 
-                      <div className="mt-5 flex flex-wrap gap-2">
+                      <div className="mt-5 flex flex-wrap gap-2.5">
                         {technologies.map((technology) => {
                           const TechIcon = technology.Icon
 
                           return (
                             <span
                               key={`${project.slug}-${technology.label}`}
-                              className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
+                              className={`inline-flex min-h-9 items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
                             >
                               <TechIcon className={`h-3.5 w-3.5 ${technology.iconClass}`} />
                               <span>{technology.label}</span>
@@ -458,8 +576,8 @@ const HomePage = () => {
                   <ElectricBorder
                     accent="amber"
                     variant="soft"
-                    className="rounded-[28px] lg:col-span-2"
-                    contentClassName={`rounded-[28px] p-8 text-center ${classes.surfaceMuted}`}
+                    className={`${cardRadius} lg:col-span-2`}
+                    contentClassName={`${cardRadius} p-8 text-center ${classes.surfaceMuted}`}
                   >
                     <p className={`text-sm ${classes.textMuted}`}>No projects found for this category.</p>
                   </ElectricBorder>
@@ -474,8 +592,8 @@ const HomePage = () => {
           >
             <ElectricBorder
               accent="cyan"
-              className="rounded-[34px]"
-              contentClassName={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
+              className={sectionRadius}
+              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
             >
               <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
                 Certificates
@@ -493,12 +611,12 @@ const HomePage = () => {
                         as="article"
                         accent="cyan"
                         variant="soft"
-                        className="rounded-[26px]"
-                        contentClassName={`rounded-[26px] p-5 sm:p-6 ${classes.surfaceMuted}`}
+                        className={cardRadius}
+                        contentClassName={`${cardRadius} p-5 sm:p-6 ${classes.surfaceMuted}`}
                       >
                         <div className="flex items-start gap-4">
                           <span
-                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset ${
+                            className={`flex h-11 w-11 shrink-0 items-center justify-center ring-1 ring-inset ${controlRadius} ${
                               isDark ? 'bg-slate-950/80 ring-white/10' : 'bg-white ring-slate-200/90'
                             }`}
                           >
@@ -529,8 +647,8 @@ const HomePage = () => {
           >
             <ElectricBorder
               accent="amber"
-              className="rounded-[34px]"
-              contentClassName={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
+              className={sectionRadius}
+              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
             >
               <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
                 Education
@@ -543,8 +661,8 @@ const HomePage = () => {
                     as="article"
                     accent="amber"
                     variant="soft"
-                    className="rounded-[26px]"
-                    contentClassName={`rounded-[26px] px-5 py-5 sm:px-6 ${classes.surfaceMuted}`}
+                    className={cardRadius}
+                    contentClassName={`${cardRadius} px-5 py-5 sm:px-6 ${classes.surfaceMuted}`}
                   >
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                       <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full ${classes.surface}`}>
@@ -584,8 +702,8 @@ const HomePage = () => {
           >
             <ElectricBorder
               accent="cyan"
-              className="rounded-[34px]"
-              contentClassName={`overflow-hidden rounded-[34px] ${classes.shell}`}
+              className={sectionRadius}
+              contentClassName={`overflow-hidden ${sectionRadius} ${classes.shell}`}
             >
               <div className="grid gap-6 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-8">
                 <div>
@@ -635,13 +753,20 @@ const HomePage = () => {
             className="pb-2 pt-2 text-center"
             {...fadeInUp}
           >
-            <p className={`text-[0.95rem] italic ${classes.textMuted}`}>
-              &ldquo;{footerQuote.text}&rdquo;
-            </p>
-            <p className={`mt-2 text-[14px] ${classes.textMuted}`}>- {footerQuote.attribution}</p>
-            <p className={`mt-6 text-sm ${classes.textSubtle}`}>
-              All rights reserved Edgar Orosa {new Date().getFullYear()}
-            </p>
+            <ElectricBorder
+              accent="rose"
+              variant="soft"
+              className={cardRadius}
+              contentClassName={`${cardRadius} px-5 py-6 sm:px-7 ${classes.shell}`}
+            >
+              <p className={`text-[0.95rem] italic ${classes.textMuted}`}>
+                &ldquo;{footerQuote.text}&rdquo;
+              </p>
+              <p className={`mt-2 text-[14px] ${classes.textMuted}`}>- {footerQuote.attribution}</p>
+              <p className={`mt-6 text-sm ${classes.textSubtle}`}>
+                All rights reserved Edgar Orosa {new Date().getFullYear()}
+              </p>
+            </ElectricBorder>
           </Motion.section>
         </div>
       </main>

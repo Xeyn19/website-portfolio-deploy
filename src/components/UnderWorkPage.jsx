@@ -12,7 +12,7 @@ const UnderWorkPage = () => {
             <p className="text-gray-600 mt-2">
                 This page is currently under development. We appreciate your patience.
             </p>
-            <button onClick={() => navigate('/')} className=" px-4 py-2 cursor-pointer bg-yellow-600 text-white rounded">Go to Home</button>
+            <button onClick={() => navigate('/')} className=" px-4 py-2 cursor-pointer bg-sky-600 text-white rounded">Go to Home</button>
         </div>
     </>
   )

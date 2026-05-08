@@ -151,7 +151,7 @@ const NavBar = () => {
       }`}
     >
       <div className="mx-auto max-w-[980px]">
-        <div className={`rounded-[30px] ${classes.shell}`}>
+        <div className={`rounded-2xl ${classes.shell}`}>
           <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
             <button
               type="button"

@@ -83,17 +83,17 @@ const Resume = () => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}
-        className={`mx-auto max-w-5xl overflow-hidden rounded-[32px] ${classes.shell}`}
+        className={`mx-auto max-w-5xl overflow-hidden rounded-2xl ${classes.shell}`}
       >
         <div className="grid lg:grid-cols-[320px_1fr]">
           <aside className={`relative overflow-hidden px-6 py-7 text-white ${classes.panelDark}`}>
-            <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-amber-400/10 blur-3xl" />
+            <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-sky-400/10 blur-3xl" />
             <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
 
             <div className="relative space-y-8">
               <div className="text-center">
-                <div className={`w-full rounded-[28px] p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ${classes.darkFrame}`}>
-                  <div className="flex h-72 w-full items-end justify-center overflow-hidden rounded-[22px] bg-white pt-4">
+                <div className={`w-full rounded-2xl p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ${classes.darkFrame}`}>
+                  <div className="flex h-72 w-full items-end justify-center overflow-hidden rounded-2xl bg-white pt-4">
                     <img
                       src={profileImage}
                       alt="Edgar R Orosa Jr"
@@ -101,7 +101,7 @@ const Resume = () => {
                     />
                   </div>
                 </div>
-                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.35em] text-amber-300/90">
+                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.35em] text-sky-300/90">
                   Full-Stack Dev Applicant
                 </p>
                 <h1 className="mt-3 text-[1.75rem] font-semibold leading-tight">Edgar R Orosa Jr</h1>
@@ -110,8 +110,8 @@ const Resume = () => {
                 </p>
               </div>
 
-              <section className={`rounded-[24px] p-4 ${classes.darkTile}`}>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
+              <section className={`rounded-2xl p-4 ${classes.darkTile}`}>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300/90">
                   Contact
                 </p>
                 <div className="mt-4 space-y-4">
@@ -126,8 +126,8 @@ const Resume = () => {
                 </div>
               </section>
 
-              <section className={`rounded-[24px] p-4 ${classes.darkTile}`}>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-300/90">
+              <section className={`rounded-2xl p-4 ${classes.darkTile}`}>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300/90">
                   Technical Skill
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -145,7 +145,7 @@ const Resume = () => {
           </aside>
 
           <main className="px-5 py-6 sm:px-7 lg:px-8">
-            <div className={`rounded-[28px] p-5 ${classes.panelSoft}`}>
+            <div className={`rounded-2xl p-5 ${classes.panelSoft}`}>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Profile Summary
               </p>
@@ -157,7 +157,7 @@ const Resume = () => {
             </div>
 
             <div className="mt-7 grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-              <section className={`rounded-[28px] p-5 ${classes.surface}`}>
+              <section className={`rounded-2xl p-5 ${classes.surface}`}>
                 <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.labelMuted}`}>
                   Education
                 </p>
@@ -165,10 +165,10 @@ const Resume = () => {
                   {education.map((item) => (
                     <article
                       key={item.school}
-                      className="border-l-2 border-amber-500/70 pl-4"
+                      className="border-l-2 border-sky-500/70 pl-4"
                     >
                       <p className={`text-[15px] font-semibold ${classes.heading}`}>{item.school}</p>
-                      <p className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-amber-700">
+                      <p className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-sky-700">
                         {item.years}
                       </p>
                       <p className={`mt-2 text-[13px] leading-6 ${classes.text}`}>{item.details}</p>
@@ -177,7 +177,7 @@ const Resume = () => {
                 </div>
               </section>
 
-              <section className={`rounded-[28px] p-5 ${classes.surface}`}>
+              <section className={`rounded-2xl p-5 ${classes.surface}`}>
                 <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.labelMuted}`}>
                   Certifications
                 </p>
@@ -194,7 +194,7 @@ const Resume = () => {
               </section>
             </div>
 
-            <section className={`mt-6 rounded-[28px] p-5 ${classes.surface}`}>
+            <section className={`mt-6 rounded-2xl p-5 ${classes.surface}`}>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.labelMuted}`}>
                 Projects
               </p>
@@ -202,7 +202,7 @@ const Resume = () => {
                 {projects.map((project) => (
                   <article
                     key={project.title}
-                    className={`rounded-[24px] p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}
+                    className={`rounded-2xl p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}
                   >
                     <h2 className={`text-[15px] font-semibold leading-6 ${classes.heading}`}>
                       {project.title}
@@ -210,7 +210,7 @@ const Resume = () => {
                     <ul className={`mt-4 space-y-2 text-sm leading-6 ${classes.text}`}>
                       {project.details.map((detail) => (
                         <li key={detail} className="flex gap-3">
-                          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+                          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-sky-500" />
                           <span>{detail}</span>
                         </li>
                       ))}

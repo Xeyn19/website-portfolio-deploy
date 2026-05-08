@@ -33,7 +33,7 @@ const About = () => {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className={`rounded-[34px] p-6 sm:p-8 ${classes.shell}`}
+          className={`rounded-2xl p-6 sm:p-8 ${classes.shell}`}
         >
           <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>
             Personal Profile
@@ -57,7 +57,7 @@ const About = () => {
                 key={section.title}
                 {...fadeInUp}
                 transition={{ ...fadeInUp.transition, delay: index * 0.04 }}
-                className={`rounded-[28px] p-5 sm:p-6 ${classes.surfaceMuted}`}
+                className={`rounded-2xl p-5 sm:p-6 ${classes.surfaceMuted}`}
               >
                 <h3 className={`text-[1.12rem] font-semibold tracking-tight sm:text-[1.24rem] ${classes.heading}`}>
                   {section.title}

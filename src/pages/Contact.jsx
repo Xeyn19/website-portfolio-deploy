@@ -91,16 +91,16 @@ const Contact = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className={`mx-auto max-w-5xl overflow-hidden rounded-[32px] ${classes.shell}`}
+        className={`mx-auto max-w-5xl overflow-hidden rounded-2xl ${classes.shell}`}
       >
         <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
           <aside className={`relative overflow-hidden px-6 py-7 text-white ${classes.panelDark}`}>
-            <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-amber-400/10 blur-3xl" />
+            <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-sky-400/10 blur-3xl" />
             <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
 
             <div className="relative space-y-7">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-300/90">
+                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-sky-300/90">
                   Contact
                 </p>
                 <h1 className="mt-3 text-[1.95rem] font-semibold tracking-tight text-white sm:text-[2.2rem]">
@@ -112,8 +112,8 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className={`w-full rounded-[28px] p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ${classes.darkFrame}`}>
-                <div className="flex h-full w-full items-end justify-center overflow-hidden rounded-[22px] bg-white pt-4">
+              <div className={`w-full rounded-2xl p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ${classes.darkFrame}`}>
+                <div className="flex h-full w-full items-end justify-center overflow-hidden rounded-2xl bg-white pt-4">
                   <img
                     src={profileImage}
                     alt="Edgar R Orosa Jr"
@@ -123,13 +123,13 @@ const Contact = () => {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                <div className={`rounded-[24px] p-4 ${classes.darkTile}`}>
+                <div className={`rounded-2xl p-4 ${classes.darkTile}`}>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                     Email
                   </p>
                   <p className="mt-2 text-sm text-slate-100">edgarrodilorosa@gmail.com</p>
                 </div>
-                <div className={`rounded-[24px] p-4 ${classes.darkTile}`}>
+                <div className={`rounded-2xl p-4 ${classes.darkTile}`}>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                     Phone
                   </p>
@@ -140,7 +140,7 @@ const Contact = () => {
           </aside>
 
           <main className="px-5 py-6 sm:px-7 lg:px-8">
-            <div className={`rounded-[28px] p-5 ${classes.panelSoft}`}>
+            <div className={`rounded-2xl p-5 ${classes.panelSoft}`}>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Send a Message
               </p>
@@ -157,7 +157,7 @@ const Contact = () => {
               transition={{ duration: 0.5, ease: 'easeOut' }}
               viewport={{ once: true, amount: 0.2 }}
               onSubmit={handleSubmit}
-              className={`mt-6 rounded-[28px] p-5 sm:p-6 ${classes.surface}`}
+              className={`mt-6 rounded-2xl p-5 sm:p-6 ${classes.surface}`}
             >
               <div className="grid gap-6">
                 <div className="grid gap-2">
