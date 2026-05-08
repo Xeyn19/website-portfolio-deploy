@@ -457,6 +457,7 @@ const HomePage = () => {
             id="projects"
             className="scroll-mt-32"
             {...fadeInUp}
+            viewport={{ once: true, amount: 0.05 }}
           >
             <ElectricBorder
               accent="amber"

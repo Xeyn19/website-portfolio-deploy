@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { motion as Motion } from 'framer-motion'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import Spinner from '../components/Spinner'
 import useAdminAuth from '../hooks/useAdminAuth'
 import useProjectsData from '../hooks/useProjectsData'
 import useSiteTheme from '../hooks/useSiteTheme'
 import { supabase } from '../lib/supabaseClient'
 import {
+  getFallbackProjects,
   getProjectExternalLinks,
   getTechnologyVisual,
   summarizeProjectDescription,
@@ -75,6 +75,7 @@ const Projects = () => {
   const { classes } = useSiteTheme()
   const { projects, loading: projectsLoading, refreshProjects } = useProjectsData()
   const { isAdmin, loading: authLoading, signOut, userEmail } = useAdminAuth()
+  const safeProjects = Array.isArray(projects) && projects.length > 0 ? projects : getFallbackProjects()
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
@@ -118,7 +119,7 @@ const Projects = () => {
     setProjectForm((currentForm) => ({ ...currentForm, [name]: value }))
   }
 
-  const filteredProjects = projects.filter((project) => {
+  const filteredProjects = safeProjects.filter((project) => {
     if (selectedCategory === 'all') {
       return true
     }
@@ -223,14 +224,6 @@ const Projects = () => {
     }
   }
 
-  if (authLoading) {
-    return <Spinner />
-  }
-
-  if (!isAdmin) {
-    return <Navigate to="/#projects" replace />
-  }
-
   return (
     <div className="relative overflow-hidden px-4 pb-14 pt-28 sm:px-6 sm:pt-32 lg:pb-20">
       <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
@@ -257,7 +250,7 @@ const Projects = () => {
             </div>
 
             <div className="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap">
-              {isAdmin ? (
+              {!authLoading && isAdmin ? (
                 <>
                   <button
                     type="button"
@@ -278,7 +271,7 @@ const Projects = () => {
             </div>
           </div>
 
-          {isAdmin ? (
+          {!authLoading && isAdmin ? (
             <p className={`mt-5 break-all text-xs sm:text-sm ${classes.textMuted}`}>Admin: {userEmail}</p>
           ) : null}
 
@@ -387,7 +380,7 @@ const Projects = () => {
                     })}
                   </div>
 
-                  {isAdmin ? (
+                  {!authLoading && isAdmin ? (
                     <div className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
                       <button
                         type="button"

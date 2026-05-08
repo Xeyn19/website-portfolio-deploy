@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import fallbackSkills from '../assets/techdata.json'
 import { supabase } from '../lib/supabaseClient'
 import useProjectsData from './useProjectsData'
-import { normalizeAssetPath } from '../lib/projectContent'
+import { getFallbackProjects, normalizeAssetPath } from '../lib/projectContent'
 
 const normalizeSkill = (skill) => ({
   ...skill,
@@ -12,6 +12,7 @@ const normalizeSkill = (skill) => ({
 
 const usePortfolioHomeData = () => {
   const { projects } = useProjectsData()
+  const safeProjects = Array.isArray(projects) && projects.length > 0 ? projects : getFallbackProjects()
   const [skills, setSkills] = useState(
     fallbackSkills.map(normalizeSkill),
   )
@@ -46,7 +47,7 @@ const usePortfolioHomeData = () => {
   }, [])
 
   return {
-    projects,
+    projects: safeProjects,
     skills,
   }
 }
