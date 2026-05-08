@@ -14,7 +14,7 @@ const navItems = [
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('about')
+  const [activeSection, setActiveSection] = useState('')
   const [isVisible, setIsVisible] = useState(true)
   const { isDark, theme, handleTheme, classes } = useSiteTheme()
   const location = useLocation()
@@ -93,7 +93,7 @@ const NavBar = () => {
 
     const updateActiveSection = () => {
       const offset = 180
-      let currentSection = 'about'
+      let currentSection = ''
 
       navItems.forEach(({ id }) => {
         const element = document.getElementById(id)
