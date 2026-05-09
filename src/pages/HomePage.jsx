@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, lazy, startTransition, useEffect, useState } from 'react'
 import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
 import ElectricBorder from '../components/ElectricBorder'
-import GitHubContributionCalendar from '../components/GitHubContributionCalendar'
 import Spinner from '../components/Spinner'
 import { siteContent } from '../data/siteContent'
 import usePageLoader from '../hooks/usePageLoader'
@@ -14,6 +13,22 @@ import {
   getTechnologyVisual,
   summarizeProjectDescription,
 } from '../lib/projectContent'
+
+const GitHubContributionCalendar = lazy(() => import('../components/GitHubContributionCalendar'))
+const preferredTechStackOrder = [
+  'html 5',
+  'css',
+  'vanilla js',
+  'tailwind css',
+  'react js',
+  'typescript',
+  'front-end development',
+  'daisy ui',
+  'github',
+  'git',
+  'material ui',
+  'next js',
+]
 
 const publicCategoryFilters = [
   { key: 'all', label: 'All Projects' },
@@ -43,6 +58,13 @@ const normalizeCategory = (value = '') =>
     .trim()
     .toLowerCase()
     .replace(/\s+/g, '-')
+
+const normalizeTechName = (value = '') =>
+  value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
 
 const buildMarqueeItems = (items) => {
   if (items.length === 0) {
@@ -82,7 +104,12 @@ const HomePage = () => {
   const [selectedProjectCategory, setSelectedProjectCategory] = useState('all')
   const [selectedGithubYear, setSelectedGithubYear] = useState(currentCalendarYear)
   const [activeHeroTitleIndex, setActiveHeroTitleIndex] = useState(0)
-  const marqueeSkills = buildMarqueeItems(skills)
+  const orderedTechStack = preferredTechStackOrder
+    .map((techName) =>
+      skills.find((skill) => normalizeTechName(skill.techname) === techName),
+    )
+    .filter(Boolean)
+  const marqueeSkills = buildMarqueeItems(orderedTechStack.length ? orderedTechStack : skills.slice(0, 12))
   const firstRowSkills = marqueeSkills.filter((_, index) => index % 2 === 0)
   const secondRowSkills = marqueeSkills.filter((_, index) => index % 2 === 1)
   const heroRotatingTitles =
@@ -167,7 +194,7 @@ const HomePage = () => {
 
     const intervalId = window.setInterval(() => {
       setActiveHeroTitleIndex((currentIndex) => (currentIndex + 1) % heroRotatingTitles.length)
-    }, 2000)
+    }, 2200)
 
     return () => window.clearInterval(intervalId)
   }, [heroRotatingTitles, shouldReduceMotion])
@@ -196,22 +223,22 @@ const HomePage = () => {
             className={sectionRadius}
             contentClassName={`overflow-hidden ${sectionRadius} ${classes.shell}`}
           >
-            <div className="px-5 py-5 sm:px-7 sm:py-6">
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+            <div className="px-5 py-5 sm:px-6 sm:py-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                 <img
                   src="/edgar.jpg"
                   alt="Edgar Orosa"
-                  className="h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-[0_10px_24px_rgba(2,6,23,0.24)] sm:h-20 sm:w-20"
+                  className="h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-[0_8px_18px_rgba(2,6,23,0.18)] sm:h-18 sm:w-18"
                 />
 
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                       <Motion.h1
-                        initial={shouldReduceMotion ? false : { opacity: 0, filter: 'blur(8px)' }}
-                        animate={shouldReduceMotion ? undefined : { opacity: 1, filter: 'blur(0px)' }}
-                        transition={{ duration: 0.55, ease: 'easeOut' }}
-                        className={`hero-name-shell ${isDark ? 'hero-name-shell--dark' : 'hero-name-shell--light'} text-[1.72rem] font-bold tracking-tight sm:text-[2.3rem] lg:text-[2.55rem]`}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, ease: 'easeOut' }}
+                        className={`hero-name-shell ${isDark ? 'hero-name-shell--dark' : 'hero-name-shell--light'} text-[1.72rem] font-bold tracking-tight sm:text-[2.15rem] lg:text-[2.35rem]`}
                       >
                         <span aria-hidden="true" className="hero-name-layer hero-name-layer--cyan">
                           {hero.name}
@@ -221,7 +248,7 @@ const HomePage = () => {
                         </span>
                         <span className="hero-name-core">{hero.name}</span>
                       </Motion.h1>
-                      <div className="mt-1.5 min-h-[2.9rem] sm:min-h-[1.75rem]">
+                      <div className="mt-1 min-h-[1.75rem]">
                         <AnimatePresence mode="wait" initial={false}>
                           <Motion.p
                             key={activeHeroTitle}
@@ -229,7 +256,7 @@ const HomePage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
                             transition={{ duration: 0.35, ease: 'easeOut' }}
-                            className={`max-w-[26ch] overflow-hidden text-ellipsis whitespace-nowrap text-[0.9rem] font-medium leading-6 sm:max-w-[30ch] sm:text-[1rem] ${classes.text}`}
+                            className={`text-[0.95rem] font-medium leading-6 sm:text-[1rem] ${classes.text}`}
                           >
                             {activeHeroTitle}
                           </Motion.p>
@@ -256,9 +283,9 @@ const HomePage = () => {
                     </div>
                   </div>
 
-                  <div className="mt-5 grid gap-x-6 gap-y-3 sm:mt-6 sm:grid-cols-2">
+                  <div className="mt-4 grid gap-x-5 gap-y-2.5 sm:mt-5 sm:grid-cols-2">
                     {heroMeta.map((item) => (
-                      <div key={item.label} className={`flex items-center gap-2.5 text-[13px] leading-5 sm:text-[13.5px] ${classes.textMuted}`}>
+                      <div key={item.label} className={`flex items-center gap-2.5 text-[12.5px] leading-5 sm:text-[13px] ${classes.textMuted}`}>
                         <span className="shrink-0 opacity-90">{item.icon}</span>
                         <span>{item.value}</span>
                       </div>
@@ -288,7 +315,7 @@ const HomePage = () => {
                   GitHub Contributions
                 </h2>
                 <p className={`mt-1 text-[13px] ${classes.textMuted}`}>
-                  Public activity from {githubCalendarStartYear} to today.
+                  Public activity from {githubCalendarStartYear} to now.
                 </p>
               </div>
               <a
@@ -322,7 +349,7 @@ const HomePage = () => {
                         type="button"
                         onClick={() => setSelectedGithubYear(year)}
                         aria-pressed={isActive}
-                        className={`min-h-10 min-w-[72px] shrink-0 whitespace-nowrap px-4 py-2 text-[12px] font-medium transition ${controlRadius} ${focusRingClass} ${
+                        className={`min-h-10 min-w-[72px] shrink-0 whitespace-nowrap px-4 py-2 text-[12px] font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${
                           isActive ? classes.navActive : classes.buttonGhost
                         }`}
                       >
@@ -335,21 +362,29 @@ const HomePage = () => {
 
               <div className={`mt-4 ${cardRadius} border border-white/8 bg-slate-950/10 p-3 sm:p-4`}>
                 <div className="overflow-x-auto pb-2">
-                <GitHubContributionCalendar
-                  username="Xeyn19"
-                  className={`text-[12px] ${classes.textMuted}`}
-                  year={selectedGithubYear}
-                  colorScheme={isDark ? 'dark' : 'light'}
-                  blockSize={13}
-                  blockMargin={4}
-                  fontSize={12}
-                  showWeekdayLabels={false}
-                  theme={githubCalendarTheme}
-                  labels={{
-                    totalCount: '{{count}} contributions in {{year}}',
-                  }}
-                  errorMessage="GitHub activity is unavailable right now."
-                />
+                  <Suspense
+                    fallback={
+                      <div className={`flex min-h-[140px] items-center justify-center text-[13px] ${classes.textMuted}`}>
+                        Loading activity...
+                      </div>
+                    }
+                  >
+                    <GitHubContributionCalendar
+                      username="Xeyn19"
+                      className={`text-[12px] ${classes.textMuted}`}
+                      year={selectedGithubYear}
+                      colorScheme={isDark ? 'dark' : 'light'}
+                      blockSize={13}
+                      blockMargin={4}
+                      fontSize={12}
+                      showWeekdayLabels={false}
+                      theme={githubCalendarTheme}
+                      labels={{
+                        totalCount: '{{count}} contributions in {{year}}',
+                      }}
+                      errorMessage="GitHub activity is unavailable right now."
+                    />
+                  </Suspense>
                 </div>
               </div>
             </div>
@@ -365,11 +400,11 @@ const HomePage = () => {
             <ElectricBorder
               accent="cyan"
               className={sectionRadius}
-              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
+              contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
+                  <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
                     {about.title}
                   </h2>
                 </div>
@@ -380,7 +415,7 @@ const HomePage = () => {
                   Read more
                 </Link>
               </div>
-              <p className={`mt-5 max-w-4xl text-[15px] leading-7 sm:text-[15.5px] ${classes.textMuted}`}>
+              <p className={`mt-4 max-w-3xl text-[14px] leading-6 sm:text-[14.5px] ${classes.textMuted}`}>
                 {about.body}
               </p>
             </ElectricBorder>
@@ -394,11 +429,11 @@ const HomePage = () => {
             <ElectricBorder
               accent="amber"
               className={sectionRadius}
-              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
+              contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
+                  <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
                     Experience
                   </h2>
                 </div>
@@ -412,12 +447,12 @@ const HomePage = () => {
                     accent="amber"
                     variant="soft"
                     className={cardRadius}
-                    contentClassName={`${cardRadius} p-5 shadow-[0_14px_34px_rgba(2,6,23,0.18)] ${classes.surfaceMuted}`}
+                    contentClassName={`${cardRadius} p-4 shadow-[0_10px_22px_rgba(2,6,23,0.12)] ${classes.surfaceMuted}`}
                   >
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div>
-                        <h3 className={`text-[1.18rem] font-semibold tracking-tight sm:text-[1.35rem] ${classes.heading}`}>{item.role}</h3>
-                        <p className={`mt-1 text-[14px] ${classes.textMuted}`}>{item.company}</p>
+                        <h3 className={`text-[1.05rem] font-semibold tracking-tight sm:text-[1.2rem] ${classes.heading}`}>{item.role}</h3>
+                        <p className={`mt-1 text-[13px] ${classes.textMuted}`}>{item.company}</p>
                       </div>
                       <div className="flex flex-wrap items-center gap-2 text-[13px] sm:text-sm">
                         <span className={classes.textMuted}>{item.dateRange}</span>
@@ -431,7 +466,7 @@ const HomePage = () => {
                       {item.bullets.map((bullet) => (
                         <li key={bullet} className="flex items-start gap-3">
                           <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-sky-400" />
-                          <span className={`max-w-3xl text-[14.5px] leading-7 ${classes.text}`}>
+                          <span className={`max-w-3xl text-[13.5px] leading-6 ${classes.text}`}>
                             {bullet}
                           </span>
                         </li>
@@ -468,20 +503,19 @@ const HomePage = () => {
             <ElectricBorder
               accent="cyan"
               className={sectionRadius}
-              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
+              contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
             >
-              <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
+              <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
                 Tech-Stack
               </h2>
 
-              <div className="mt-7 space-y-4 overflow-hidden">
+              <div className="mt-6 space-y-4 overflow-hidden">
                 {[firstRowSkills, secondRowSkills].map((rowItems, rowIndex) => (
                   <div key={`tech-row-${rowIndex}`} className="overflow-hidden">
                     <div className={`marquee-track ${rowIndex === 1 ? 'marquee-track-reverse' : ''}`}>
-                      {[...rowItems, ...rowItems].map((skill, index) => (
-                        (() => {
-                          const techVisual = getTechnologyVisual(skill.techname)
-                          const TechIcon = techVisual.Icon
+                      {[...rowItems, ...rowItems].map((skill, index) => {
+                        const techVisual = getTechnologyVisual(skill.techname)
+                        const TechIcon = techVisual.Icon
 
                         return (
                           <ElectricBorder
@@ -489,20 +523,19 @@ const HomePage = () => {
                             accent="cyan"
                             variant="soft"
                             className={`mx-2 ${cardRadius}`}
-                            contentClassName={`group inline-flex min-w-[172px] items-center gap-3 px-4 py-3 transition ${cardRadius} ${classes.surfaceMuted}`}
+                            contentClassName={`inline-flex min-w-[172px] items-center gap-3 px-4 py-3 ${cardRadius} ${classes.surfaceMuted}`}
                           >
                             <span
                               className={`flex h-9 w-9 shrink-0 items-center justify-center ring-1 ring-inset ${controlRadius} ${
                                 isDark ? 'bg-slate-950/80 ring-white/10' : 'bg-white ring-slate-200/90'
                               }`}
                             >
-                              <TechIcon className={`h-4 w-4 transition ${techVisual.iconClass}`} />
+                              <TechIcon className={`h-4 w-4 ${techVisual.iconClass}`} />
                             </span>
-                            <span className={`text-[14px] font-medium ${classes.heading}`}>{skill.techname}</span>
+                            <span className={`text-[13.5px] font-medium ${classes.heading}`}>{skill.techname}</span>
                           </ElectricBorder>
                         )
-                      })()
-                    ))}
+                      })}
                     </div>
                   </div>
                 ))}
@@ -518,18 +551,18 @@ const HomePage = () => {
             <ElectricBorder
               accent="amber"
               className={sectionRadius}
-              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
+              contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
+                  <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
                     Projects
                   </h2>
-                  <p className={`mt-3 max-w-2xl text-[14px] leading-6 sm:leading-7 ${classes.textMuted}`}>
-                    The full project list stays on the landing page. Open any card to view the separate case-study page with images and full implementation details.
+                  <p className={`mt-2 max-w-xl text-[13.5px] leading-6 ${classes.textMuted}`}>
+                    Selected front-end and full-stack work.
                   </p>
                 </div>
-                <div className={`self-start rounded-full px-4 py-2 text-sm font-medium ${classes.surfaceMuted} ${classes.heading}`}>
+                <div className={`self-start rounded-full px-3 py-1.5 text-[12px] font-medium ${classes.surfaceMuted} ${classes.heading}`}>
                   {visibleProjects.length} / {projects.length} {selectedProjectFilter.label}
                 </div>
               </div>
@@ -542,8 +575,8 @@ const HomePage = () => {
                     <button
                       key={filter.key}
                       type="button"
-                      onClick={() => setSelectedProjectCategory(filter.key)}
-                      className={`shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition ${controlRadius} ${focusRingClass} ${
+                      onClick={() => startTransition(() => setSelectedProjectCategory(filter.key))}
+                      className={`shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${
                         isActive ? classes.navActive : classes.buttonGhost
                       }`}
                     >
@@ -568,19 +601,19 @@ const HomePage = () => {
                       accent="amber"
                       variant="soft"
                       className={cardRadius}
-                      contentClassName={`flex h-full flex-col p-4 sm:p-5 ${cardRadius} ${classes.surfaceMuted}`}
+                      contentClassName={`flex h-full flex-col p-4 ${cardRadius} ${classes.surfaceMuted}`}
                     >
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0 flex-1">
-                          <h3 className={`text-[1.12rem] font-semibold tracking-tight sm:text-[1.55rem] ${classes.heading}`}>
+                          <h3 className={`text-[1.02rem] font-semibold tracking-tight sm:text-[1.2rem] ${classes.heading}`}>
                             {project.title}
                           </h3>
                           {projectMeta.length ? (
-                            <div className="mt-3 flex flex-wrap gap-2">
+                            <div className="mt-2.5 flex flex-wrap gap-2">
                               {projectMeta.map((item) => (
                                 <span
                                   key={`${project.slug}-${item}`}
-                                  className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] ${classes.badgeMuted}`}
+                                  className={`inline-flex min-h-8 items-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${classes.badgeMuted}`}
                                 >
                                   {item}
                                 </span>
@@ -592,7 +625,7 @@ const HomePage = () => {
                         <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
                           <Link
                             to={`/projects/${project.slug}`}
-                            className={`inline-flex min-h-11 items-center justify-center px-4 py-2.5 text-sm font-medium transition ${controlRadius} ${classes.buttonGhost} ${focusRingClass}`}
+                            className={`inline-flex min-h-10 items-center justify-center px-4 py-2 text-[13px] font-medium transition ${controlRadius} ${classes.buttonGhost} ${focusRingClass}`}
                           >
                             View
                           </Link>
@@ -601,7 +634,7 @@ const HomePage = () => {
                               href={externalLinks.liveLink}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`inline-flex min-h-11 items-center justify-center px-4 py-2.5 text-sm font-medium transition ${controlRadius} ${classes.buttonGhost} ${focusRingClass}`}
+                              className={`inline-flex min-h-10 items-center justify-center px-4 py-2 text-[13px] font-medium transition ${controlRadius} ${classes.buttonGhost} ${focusRingClass}`}
                             >
                               Live
                             </a>
@@ -609,20 +642,20 @@ const HomePage = () => {
                         </div>
                       </div>
 
-                      <p className={`mt-4 flex-1 text-[14px] leading-6 sm:text-[14.5px] sm:leading-7 ${classes.text}`}>
-                        {summarizeProjectDescription(project.description, 140)}
+                      <p className={`mt-3 flex-1 text-[13.5px] leading-6 ${classes.text}`}>
+                        {summarizeProjectDescription(project.description, 108)}
                       </p>
 
-                      <div className="mt-5 flex flex-wrap gap-2.5">
+                      <div className="mt-4 flex flex-wrap gap-2">
                         {technologies.map((technology) => {
                           const TechIcon = technology.Icon
 
                           return (
                             <span
                               key={`${project.slug}-${technology.label}`}
-                              className={`inline-flex min-h-9 items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
+                              className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
                             >
-                              <TechIcon className={`h-3.5 w-3.5 ${technology.iconClass}`} />
+                              <TechIcon className={`h-3 w-3 ${technology.iconClass}`} />
                               <span>{technology.label}</span>
                             </span>
                           )
@@ -653,9 +686,9 @@ const HomePage = () => {
             <ElectricBorder
               accent="cyan"
               className={sectionRadius}
-              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
+              contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
             >
-              <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
+              <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
                 Certificates
               </h2>
 
@@ -672,7 +705,7 @@ const HomePage = () => {
                         accent="cyan"
                         variant="soft"
                         className={cardRadius}
-                        contentClassName={`${cardRadius} p-5 sm:p-6 ${classes.surfaceMuted}`}
+                        contentClassName={`${cardRadius} p-4 sm:p-5 ${classes.surfaceMuted}`}
                       >
                         <div className="flex items-start gap-4">
                           <span
@@ -687,7 +720,7 @@ const HomePage = () => {
                             <p className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${classes.labelMuted}`}>
                               {item.provider}
                             </p>
-                            <h3 className={`mt-3 text-[1rem] font-semibold leading-7 sm:text-[1.08rem] ${classes.heading}`}>
+                            <h3 className={`mt-2.5 text-[0.95rem] font-semibold leading-6 sm:text-[1rem] ${classes.heading}`}>
                               {item.title}
                             </h3>
                           </div>
@@ -708,9 +741,9 @@ const HomePage = () => {
             <ElectricBorder
               accent="amber"
               className={sectionRadius}
-              contentClassName={`${sectionRadius} p-6 sm:p-8 ${classes.shell}`}
+              contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
             >
-              <h2 className={`text-[1.75rem] font-semibold tracking-tight sm:text-[1.95rem] ${classes.heading}`}>
+              <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
                 Education
               </h2>
 
@@ -722,7 +755,7 @@ const HomePage = () => {
                     accent="amber"
                     variant="soft"
                     className={cardRadius}
-                    contentClassName={`${cardRadius} px-5 py-5 sm:px-6 ${classes.surfaceMuted}`}
+                    contentClassName={`${cardRadius} px-4 py-4 sm:px-5 ${classes.surfaceMuted}`}
                   >
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                       <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full ${classes.surface}`}>
@@ -740,10 +773,10 @@ const HomePage = () => {
                       </div>
 
                       <div className="min-w-0">
-                        <h3 className={`text-[1.08rem] font-semibold tracking-tight sm:text-[1.18rem] ${classes.heading}`}>
+                        <h3 className={`text-[1rem] font-semibold tracking-tight sm:text-[1.08rem] ${classes.heading}`}>
                           {item.title}
                         </h3>
-                        <p className={`mt-1 text-[14px] sm:text-[14.5px] ${classes.text}`}>
+                        <p className={`mt-1 text-[13.5px] ${classes.text}`}>
                           {item.school}
                         </p>
                         <p className={`mt-1 text-sm ${classes.textMuted}`}>{item.location}</p>
@@ -765,12 +798,12 @@ const HomePage = () => {
               className={sectionRadius}
               contentClassName={`overflow-hidden ${sectionRadius} ${classes.shell}`}
             >
-              <div className="grid gap-6 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-8">
+              <div className="grid gap-5 px-5 py-5 sm:px-6 sm:py-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-7">
                 <div>
-                  <h2 className={`text-[1.7rem] font-semibold tracking-tight sm:text-[1.85rem] ${classes.heading}`}>
+                  <h2 className={`text-[1.5rem] font-semibold tracking-tight sm:text-[1.65rem] ${classes.heading}`}>
                     {contact.title}
                   </h2>
-                  <p className={`mt-3 text-[14px] leading-7 ${classes.textMuted}`}>{contact.body}</p>
+                  <p className={`mt-2 text-[13.5px] leading-6 ${classes.textMuted}`}>{contact.body}</p>
                 </div>
 
                 <div className="grid gap-3">
@@ -780,7 +813,7 @@ const HomePage = () => {
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className={`flex items-center gap-3 text-[14px] transition hover:opacity-80 ${classes.textMuted}`}
+                      className={`flex items-center gap-3 text-[13.5px] transition hover:opacity-80 ${classes.textMuted}`}
                     >
                       <span className="shrink-0">
                         {item.label === 'Email' ? (
@@ -817,9 +850,9 @@ const HomePage = () => {
               accent="rose"
               variant="soft"
               className={cardRadius}
-              contentClassName={`${cardRadius} px-5 py-6 sm:px-7 ${classes.shell}`}
+              contentClassName={`${cardRadius} px-5 py-5 sm:px-6 ${classes.shell}`}
             >
-              <p className={`text-[0.95rem] italic ${classes.textMuted}`}>
+              <p className={`text-[0.9rem] italic ${classes.textMuted}`}>
                 &ldquo;{footerQuote.text}&rdquo;
               </p>
               <p className={`mt-2 text-[14px] ${classes.textMuted}`}>- {footerQuote.attribution}</p>

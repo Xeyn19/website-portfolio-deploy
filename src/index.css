@@ -312,7 +312,7 @@ body {
 
 .site-app-background {
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll;
 }
 
 .site-app-background--dark {
@@ -358,9 +358,8 @@ body {
         radial-gradient(circle at 82% 18%, transparent 0 12%, rgba(56, 189, 248, 0.82) 12.6%, rgba(56, 189, 248, 0.2) 14.2%, transparent 15.2%),
         radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.18) 0 8%, transparent 16%),
         radial-gradient(circle at 76% 72%, transparent 0 7%, rgba(96, 165, 250, 0.62) 7.6%, rgba(96, 165, 250, 0.16) 9%, transparent 10%);
-    filter: blur(8px);
+    filter: blur(6px);
     opacity: 0.98;
-    animation: glass-orb-drift 18s ease-in-out infinite;
 }
 
 .site-page-background--dark::after {
@@ -369,9 +368,8 @@ body {
         radial-gradient(circle at 10% 36%, rgba(251, 191, 36, 0.18), transparent 16%),
         radial-gradient(circle at 90% 22%, rgba(56, 189, 248, 0.24), transparent 18%),
         linear-gradient(180deg, transparent 0 72%, rgba(148, 163, 184, 0.08) 72% 73%, transparent 73% 100%);
-    filter: blur(16px);
+    filter: blur(10px);
     opacity: 0.9;
-    animation: glass-beam-shift 20s ease-in-out infinite;
 }
 
 .site-page-background--light {
@@ -394,9 +392,8 @@ body {
         radial-gradient(circle at 82% 18%, transparent 0 12%, rgba(14, 165, 233, 0.54) 12.6%, rgba(56, 189, 248, 0.16) 14.2%, transparent 15.2%),
         radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.14) 0 8%, transparent 16%),
         radial-gradient(circle at 82% 70%, transparent 0 7%, rgba(96, 165, 250, 0.42) 7.6%, rgba(191, 219, 254, 0.16) 9%, transparent 10%);
-    filter: blur(6px);
+    filter: blur(4px);
     opacity: 0.94;
-    animation: glass-orb-drift 20s ease-in-out infinite;
 }
 
 .site-page-background--light::after {
@@ -405,9 +402,27 @@ body {
         radial-gradient(circle at 8% 34%, rgba(251, 191, 36, 0.14), transparent 14%),
         radial-gradient(circle at 92% 20%, rgba(96, 165, 250, 0.18), transparent 16%),
         linear-gradient(180deg, transparent 0 72%, rgba(148, 163, 184, 0.08) 72% 73%, transparent 73% 100%);
-    filter: blur(12px);
+    filter: blur(8px);
     opacity: 0.8;
-    animation: glass-beam-shift 22s ease-in-out infinite;
+}
+
+.hero-name-static {
+    letter-spacing: -0.03em;
+}
+
+.hero-name-static--dark {
+    color: #f8fafc;
+    text-shadow:
+        0 0 14px rgba(255, 255, 255, 0.12),
+        0 0 24px rgba(56, 189, 248, 0.24),
+        0 0 42px rgba(251, 191, 36, 0.12);
+}
+
+.hero-name-static--light {
+    color: #0f172a;
+    text-shadow:
+        0 0 10px rgba(56, 189, 248, 0.12),
+        0 0 20px rgba(251, 191, 36, 0.1);
 }
 
 .home-stage {

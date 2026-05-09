@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { startTransition, useEffect, useState } from 'react'
 import { motion as Motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageBackLink from '../components/PageBackLink'
@@ -85,7 +85,7 @@ const Projects = () => {
   const [actionError, setActionError] = useState('')
   const [saving, setSaving] = useState(false)
   const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70'
-  const pillButtonClass = `inline-flex min-h-11 items-center justify-center rounded-full px-4 py-2.5 text-sm font-medium transition ${focusRingClass}`
+  const pillButtonClass = `inline-flex min-h-10 items-center justify-center rounded-full px-4 py-2 text-[13px] font-medium transition active:scale-[0.98] ${focusRingClass}`
   const primaryButtonClass = `${pillButtonClass} ${classes.buttonPrimary}`
   const ghostButtonClass = `${pillButtonClass} ${classes.buttonGhost}`
   const inputClass = `mt-2 w-full rounded-2xl px-4 py-3 text-base sm:text-sm ${classes.input} ${focusRingClass}`
@@ -243,24 +243,23 @@ const Projects = () => {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className={`rounded-2xl p-5 sm:p-8 ${classes.shell}`}
+          className={`rounded-2xl p-5 sm:p-6 ${classes.shell}`}
         >
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0">
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Selected Work
               </p>
-              <h1 className={`mt-3 text-[1.6rem] font-semibold tracking-tight sm:text-[2rem] ${classes.heading}`}>
+              <h1 className={`mt-3 text-[1.45rem] font-semibold tracking-tight sm:text-[1.8rem] ${classes.heading}`}>
                 Projects
               </h1>
-              <p className={`mt-3 max-w-2xl text-[14px] leading-6 sm:mt-4 sm:text-[14.5px] sm:leading-7 ${classes.textMuted}`}>
-                A focused list of front-end and full-stack work. Open a project to read the full case
-                study, responsibilities, tech stack, and implementation details.
+              <p className={`mt-2 max-w-xl text-[13.5px] leading-6 ${classes.textMuted}`}>
+                A compact list of front-end and full-stack work.
               </p>
             </div>
 
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:items-end">
-              <div className={`self-start rounded-full px-4 py-2 text-sm font-medium sm:self-auto ${classes.surfaceMuted} ${classes.heading}`}>
+              <div className={`self-start rounded-full px-3 py-1.5 text-[12px] font-medium sm:self-auto ${classes.surfaceMuted} ${classes.heading}`}>
                 {filteredProjects.length} / {safeProjects.length} {selectedProjectFilter.label}
               </div>
 
@@ -297,7 +296,7 @@ const Projects = () => {
                 <button
                   key={filter.key}
                   type="button"
-                  onClick={() => setSelectedCategory(filter.key)}
+                  onClick={() => startTransition(() => setSelectedCategory(filter.key))}
                   className={`shrink-0 whitespace-nowrap ${pillButtonClass} ${
                     isActive ? classes.navActive : classes.buttonGhost
                   }`}
@@ -321,21 +320,21 @@ const Projects = () => {
                   key={project.slug}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, ease: 'easeOut', delay: index * 0.04 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  className={`rounded-2xl p-4 sm:p-5 ${classes.surfaceMuted}`}
+                  transition={{ duration: 0.38, ease: 'easeOut', delay: index * 0.03 }}
+                  viewport={{ once: false, amount: 0.15 }}
+                  className={`rounded-2xl p-4 ${classes.surfaceMuted}`}
                 >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="min-w-0 max-w-3xl">
-                      <h2 className={`text-[1.08rem] font-semibold tracking-tight sm:text-[1.34rem] ${classes.heading}`}>
+                      <h2 className={`text-[1rem] font-semibold tracking-tight sm:text-[1.16rem] ${classes.heading}`}>
                         {project.title}
                       </h2>
                       {projectMeta.length ? (
-                        <div className="mt-3 flex flex-wrap gap-2">
+                        <div className="mt-2.5 flex flex-wrap gap-2">
                           {projectMeta.map((item) => (
                             <span
                               key={`${project.slug}-${item}`}
-                              className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] ${classes.badgeMuted}`}
+                              className={`inline-flex min-h-8 items-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${classes.badgeMuted}`}
                             >
                               {item}
                             </span>
@@ -368,26 +367,26 @@ const Projects = () => {
                           rel="noopener noreferrer"
                           className={ghostButtonClass}
                         >
-                          Repository
+                          Code
                         </a>
                       ) : null}
                     </div>
                   </div>
 
-                  <p className={`mt-4 max-w-3xl text-[14px] leading-6 sm:text-[14.5px] sm:leading-7 ${classes.text}`}>
-                    {summarizeProjectDescription(project.description, 170)}
+                  <p className={`mt-3 max-w-3xl text-[13.5px] leading-6 ${classes.text}`}>
+                    {summarizeProjectDescription(project.description, 118)}
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2.5">
+                  <div className="mt-4 flex flex-wrap gap-2">
                     {technologies.map((technology) => {
                       const TechIcon = technology.Icon
 
                       return (
                         <span
                           key={`${project.slug}-${technology.label}`}
-                          className={`inline-flex min-h-9 items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
+                          className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
                         >
-                          <TechIcon className={`h-3.5 w-3.5 ${technology.iconClass}`} />
+                          <TechIcon className={`h-3 w-3 ${technology.iconClass}`} />
                           <span>{technology.label}</span>
                         </span>
                       )
@@ -395,7 +394,7 @@ const Projects = () => {
                   </div>
 
                   {!authLoading && isAdmin ? (
-                    <div className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+                    <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
                       <button
                         type="button"
                         onClick={() => openEditProject(project)}

@@ -43,10 +43,10 @@ const experienceItems = [
     dateRange: 'Feb 2026 - May 2026',
     durationLabel: '3 months',
     bullets: [
-      'Built the iPay International website using Next.js and Supabase, including admin dashboard, data analytics, and request proposal features.',
-      'Built and enhanced the X-Meta System backend using PHP, JavaScript, HTML, Bootstrap, and MySQL.',
-      'Automated manual processes such as program plays monitoring, daily dashboards, and email reporting for offline devices.',
-      'Improved backend security, system performance, and developed user management and dashboard modules.',
+      'Built the iPay International website with Next.js and Supabase, including admin and analytics tools.',
+      'Enhanced internal business systems using PHP, JavaScript, HTML, Bootstrap, and MySQL.',
+      'Automated monitoring, dashboard, and reporting workflows for offline devices.',
+      'Improved security, performance, and user management modules.',
     ],
     stackTags: [
       'Next.js',
@@ -136,10 +136,8 @@ export const siteContent = {
       'Designing intuitive UI',
       "Let's build your product",
     ],
-    summary:
-      'I build responsive web applications with strong front-end execution and growing full-stack depth across React, TypeScript, Node.js, PHP, MySQL, and Supabase.',
-    bio:
-      'My work focuses on practical products, clean UI structure, and maintainable implementation. I am building toward becoming a reliable software engineer who can contribute across both interface and application layers.',
+    summary: 'I build fast, practical web apps for business, internal tools, and modern websites.',
+    bio: 'My work focuses on clean UI, reliable systems, and useful automation.',
     badge: 'Open to work',
     stats: heroStats,
     socialLinks,
@@ -150,27 +148,27 @@ export const siteContent = {
       "I'm a full-stack developer who builds production-ready web applications from frontend to backend, with a focus on clean interfaces, reliable systems, and practical solutions. I also automate workflows and build tools that make processes faster, simpler, and easier for people to manage.",
     detailTitle: 'Who I Am',
     detailIntro:
-      "I'm Edgar Orosa, a full-stack web developer based in Las Pinas City, Philippines. I got into programming while pursuing my BS in Information Systems and quickly realized that building for the web was the path I wanted to keep growing in. Since then, I've been learning by building real systems — from business tools and monitoring platforms to personal products designed to solve practical problems.",
+      "I'm Edgar Orosa, a full-stack web developer based in Las Pinas City, Philippines. I grow by building real products for business, internal workflows, and practical everyday use.",
     sections: [
       {
         title: 'My Background',
         body:
-          "My foundation started with HTML, CSS, JavaScript, PHP, and MySQL, then expanded into React, TypeScript, Next.js, Node.js, and Supabase. During my internship at X-META Technologies Inc., I worked on internal systems, admin tools, dashboards, and real-time monitoring features. Outside of internship work, I built projects like TRACKY for personal finance and Coop-Tracker for cooperative management, which helped strengthen both my front-end and full-stack development skills.",
+          "My foundation started with HTML, CSS, JavaScript, PHP, and MySQL, then expanded into React, TypeScript, Next.js, Node.js, and Supabase. I've worked on dashboards, admin tools, and internal systems that improved daily operations.",
       },
       {
         title: 'Interests & Hobbies',
         body:
-          "When I'm not coding, I enjoy exploring new web technologies, experimenting with AI tools, and finding ways to automate repetitive tasks. I also enjoy gaming and spending quiet time improving small details in personal projects while learning better development practices.",
+          'I enjoy exploring modern web tools, experimenting with AI workflows, and improving small details in personal projects.',
       },
       {
         title: 'What Motivates Me',
         body:
-          "What motivates me most is turning ideas into working software that is actually useful. I enjoy breaking down complex requirements into clear interfaces, reliable logic, and maintainable code. Seeing a feature move from concept to something people can use gives me the strongest sense of progress as a developer.",
+          'I enjoy turning ideas into useful software with clear interfaces, solid logic, and maintainable code.',
       },
       {
         title: 'Career Goals',
         body:
-          "My goal is to keep growing into a stronger full-stack developer and eventually take on more senior technical responsibility. I want to work on products that create real value, especially in areas like fintech, business systems, and practical web tools. I'm also committed to staying current with modern frameworks, AI-assisted workflows, and software engineering best practices.",
+          'My goal is to grow into a stronger full-stack developer and build products that create real value for users and teams.',
       },
     ],
   },
@@ -179,7 +177,7 @@ export const siteContent = {
   certificates: certificateItems,
   contact: {
     title: 'Get in touch',
-    body: 'Open to collaborations.',
+    body: 'Open to work, freelance projects, and collaborations.',
     methods: contactMethods,
     compactLinks: compactContactLinks,
   },

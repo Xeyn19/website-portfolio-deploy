@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { LuMoon, LuSun } from 'react-icons/lu'
 import useSiteTheme from '../hooks/useSiteTheme'
 
@@ -16,7 +16,7 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
   const [isVisible, setIsVisible] = useState(true)
-  const { isDark, theme, handleTheme, classes } = useSiteTheme()
+  const { isDark, handleTheme, classes } = useSiteTheme()
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
@@ -189,7 +189,7 @@ const NavBar = () => {
                     key={item.id}
                     type="button"
                     onClick={() => scrollToSection(item.id)}
-                    className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
+                    className={`rounded-full px-4 py-2 text-[13px] font-medium transition active:scale-[0.98] ${
                       isActive ? classes.navActive : classes.navMuted
                     }`}
                   >
@@ -200,28 +200,10 @@ const NavBar = () => {
             </nav>
 
             <div className="flex items-center gap-2">
-              <a
-                href="/Resume%20-%20updated_1.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={closeMenu}
-                className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition lg:hidden ${classes.buttonGhost}`}
-              >
-                Resume PDF
-              </a>
-
-              <Link
-                to="/login"
-                onClick={closeMenu}
-                className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition lg:hidden ${classes.buttonGhost}`}
-              >
-                Admin
-              </Link>
-
               <button
                 type="button"
                 onClick={() => scrollToSection('contact')}
-                className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition lg:hidden ${classes.buttonGhost}`}
+                className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition active:scale-[0.98] lg:hidden ${classes.buttonGhost}`}
               >
                 Let&apos;s work
               </button>
@@ -233,7 +215,7 @@ const NavBar = () => {
                 aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
                 aria-pressed={isDark}
               >
-                <ThemeIcon className="h-4.5 w-4.5" />
+                <ThemeIcon className={`h-4.5 w-4.5 transition-transform duration-200 ease-out ${isDark ? 'rotate-180' : 'rotate-0'}`} />
               </button>
 
               <button
@@ -243,13 +225,13 @@ const NavBar = () => {
                 aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
                 aria-pressed={isDark}
               >
-                <ThemeIcon className="h-4.5 w-4.5" />
+                <ThemeIcon className={`h-4.5 w-4.5 transition-transform duration-200 ease-out ${isDark ? 'rotate-180' : 'rotate-0'}`} />
               </button>
 
               <button
                 type="button"
                 onClick={() => scrollToSection('contact')}
-                className={`hidden rounded-full px-5 py-3 text-[13px] font-medium transition lg:inline-flex ${classes.buttonGhost}`}
+                className={`hidden rounded-full px-5 py-3 text-[13px] font-medium transition active:scale-[0.98] lg:inline-flex ${classes.buttonGhost}`}
               >
                 Let&apos;s work
               </button>
@@ -265,7 +247,7 @@ const NavBar = () => {
                     key={item.id}
                     type="button"
                     onClick={() => scrollToSection(item.id)}
-                    className={`rounded-2xl px-4 py-3 text-left text-base font-medium transition ${
+                    className={`rounded-2xl px-4 py-3 text-left text-base font-medium transition active:scale-[0.98] ${
                       isHome && activeSection === item.id ? classes.navActive : classes.navMuted
                     }`}
                   >

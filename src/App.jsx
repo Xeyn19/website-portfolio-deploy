@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {  Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import MainLayout from './layout/MainLayout'
 import HomePage from './pages/HomePage'
-import About from './pages/About'
 import ProjectsLayout from './layout/ProjectsLayout'
-import Projects from './pages/Projects'
-import ProjectDetail from './pages/ProjectDetail'
 import ContactLayout from './layout/ContactLayout'
-import Contact from './pages/Contact'
 import Page404 from './components/Page404'
 import ThemeProvider from './context/ThemeProvider'
-import Certificates from './pages/Certificates'
-import Login from './pages/Login'
+import Spinner from './components/Spinner'
+
+const About = lazy(() => import('./pages/About'))
+const Projects = lazy(() => import('./pages/Projects'))
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const Contact = lazy(() => import('./pages/Contact'))
+const Certificates = lazy(() => import('./pages/Certificates'))
+const Login = lazy(() => import('./pages/Login'))
+
+const withSuspense = (Component) => (
+  <Suspense fallback={<Spinner />}>
+    <Component />
+  </Suspense>
+)
 
 const App = () => {
 
@@ -22,17 +30,17 @@ const App = () => {
         <Route path='/' element={<MainLayout />}>
         <Route path='*' element={<Page404 />} /> 
           <Route index element={<HomePage />}/> 
-          <Route path='about' element={<About />} />
+          <Route path='about' element={withSuspense(About)} />
           <Route path='projects' element={<ProjectsLayout />}>
-            <Route index element ={<Projects />}/> 
-            <Route path=':slug' element={<ProjectDetail />}/>
+            <Route index element ={withSuspense(Projects)}/> 
+            <Route path=':slug' element={withSuspense(ProjectDetail)}/>
           </Route>
           <Route path='contact' element={<ContactLayout />}>
-            <Route index element ={<Contact />}/> 
+            <Route index element ={withSuspense(Contact)}/> 
           </Route>
-          <Route path='login' element={<Login />} />
+          <Route path='login' element={withSuspense(Login)} />
            <Route path='certificates' element={<ContactLayout />}>
-            <Route index element ={<Certificates />}/> 
+            <Route index element ={withSuspense(Certificates)}/> 
           </Route>
         </Route>
     )

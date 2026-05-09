@@ -1,8 +1,14 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, startTransition, useEffect, useState } from 'react'
 
 export const ThemeContext = createContext();
 const ThemeProvider = ({children}) => {
-    const [theme, setTheme] = useState('dark');
+    const [theme, setTheme] = useState(() => {
+        if (typeof window === 'undefined') {
+            return 'dark';
+        }
+
+        return localStorage.getItem('theme') || 'dark';
+    });
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
@@ -11,7 +17,9 @@ const ThemeProvider = ({children}) => {
     }, [theme])
 
     function handleTheme(){
-        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+        startTransition(() => {
+            setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+        });
     }
 
   return (
