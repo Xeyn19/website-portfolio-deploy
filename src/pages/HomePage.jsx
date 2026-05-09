@@ -851,7 +851,7 @@ const HomePage = () => {
               </p>
               <p className={`mt-2 text-[14px] ${classes.textMuted}`}>- {footerQuote.attribution}</p>
               <p className={`mt-6 text-sm ${classes.textSubtle}`}>
-                All rights reserved Edgar Orosa {new Date().getFullYear()}
+                &copy; Edgar Orosa {new Date().getFullYear()}. All rights reserved.
               </p>
             </ElectricBorder>
           </Motion.section>
