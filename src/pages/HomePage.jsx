@@ -105,6 +105,7 @@ const HomePage = () => {
   })
   const githubProfileLink =
     hero.socialLinks.find((item) => item.label === 'GitHub')?.href ?? 'https://github.com/Xeyn19'
+  const resumePdfHref = '/Resume%20-%20updated_1.pdf'
   const activeHeroTitle = heroRotatingTitles[activeHeroTitleIndex] ?? hero.title
   const heroMeta = [
     {
@@ -245,13 +246,23 @@ const HomePage = () => {
                       </div>
                     </div>
 
-                    <span className={`inline-flex w-fit items-center gap-2 border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-[12px] font-medium text-emerald-400 ${controlRadius}`}>
-                      <span className="relative flex h-2.5 w-2.5">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
-                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href={resumePdfHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex min-h-10 items-center justify-center px-4 py-2 text-[12px] font-medium transition ${controlRadius} ${classes.buttonGhost}`}
+                      >
+                        Resume
+                      </a>
+                      <span className={`inline-flex w-fit items-center gap-2 border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-[12px] font-medium text-emerald-400 ${controlRadius}`}>
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
+                          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                        </span>
+                        Open to Work
                       </span>
-                      Open to Work
-                    </span>
+                    </div>
                   </div>
 
                   <div className="mt-5 grid gap-x-6 gap-y-3 sm:mt-6 sm:grid-cols-2">
@@ -400,12 +411,14 @@ const HomePage = () => {
                     Experience
                   </h2>
                 </div>
-                <Link
-                  to="/resume"
+                <a
+                  href={resumePdfHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`inline-flex self-start px-5 py-2.5 text-[13px] font-medium transition ${controlRadius} ${classes.buttonGhost}`}
                 >
-                  My journey
-                </Link>
+                  Open resume PDF
+                </a>
               </div>
 
               <div className="mt-6 space-y-4">

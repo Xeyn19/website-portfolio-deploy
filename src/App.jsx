@@ -5,8 +5,6 @@ import {  Route, RouterProvider, createBrowserRouter, createRoutesFromElements }
 import MainLayout from './layout/MainLayout'
 import HomePage from './pages/HomePage'
 import About from './pages/About'
-import ResumeLayout from './layout/ResumeLayout'
-import Resume from './pages/Resume'
 import ProjectsLayout from './layout/ProjectsLayout'
 import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
@@ -27,9 +25,6 @@ const App = () => {
         <Route path='*' element={<Page404 />} /> 
           <Route index element={<HomePage />}/> 
           <Route path='about' element={<About />} />
-          <Route path='resume' element={<ResumeLayout />}>
-            <Route index element ={<Resume />}/> 
-          </Route>
           <Route path='projects' element={<ProjectsLayout />}>
             <Route index element ={<Projects />}/> 
             <Route path=':slug' element={<ProjectDetail />}/>

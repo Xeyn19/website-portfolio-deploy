@@ -200,13 +200,15 @@ const NavBar = () => {
             </nav>
 
             <div className="flex items-center gap-2">
-              <Link
-                to="/resume"
+              <a
+                href="/Resume%20-%20updated_1.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={closeMenu}
                 className={`inline-flex rounded-full px-2.5 py-2 text-[11px] font-medium transition lg:hidden ${classes.buttonGhost}`}
               >
-                Resume
-              </Link>
+                Resume PDF
+              </a>
 
               <Link
                 to="/login"

@@ -17,8 +17,8 @@ const Footer = () => {
               Portfolio
             </p>
             <p className={`mt-3 max-w-md text-[13px] leading-6 ${classes.textMuted}`}>
-              Built around a single scrolling homepage with project case-study detail pages, plus
-              separate resume, skills, contact, and admin management screens.
+              Built around a single scrolling homepage with project case-study detail pages, direct
+              resume access, skills, contact, and admin management screens.
             </p>
           </div>
 
@@ -45,18 +45,30 @@ const Footer = () => {
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {[
-                { to: '/resume', label: 'Resume' },
+                { href: '/Resume%20-%20updated_1.pdf', label: 'Resume PDF', external: true },
                 { to: '/skills', label: 'Skills' },
                 { to: '/contact', label: 'Contact' },
-              ].map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className={`rounded-full px-3 py-2 text-[13px] transition ${classes.buttonGhost}`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              ].map((item) =>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`rounded-full px-3 py-2 text-[13px] transition ${classes.buttonGhost}`}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className={`rounded-full px-3 py-2 text-[13px] transition ${classes.buttonGhost}`}
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </div>
           </div>
 
