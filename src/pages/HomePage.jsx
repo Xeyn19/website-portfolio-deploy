@@ -15,13 +15,6 @@ import {
   summarizeProjectDescription,
 } from '../lib/projectContent'
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.55, ease: 'easeOut' },
-}
-
 const publicCategoryFilters = [
   { key: 'all', label: 'All Projects' },
   { key: 'full-stack', label: 'Full-Stack' },
@@ -114,6 +107,14 @@ const HomePage = () => {
   }
   const selectedProjectFilter =
     publicCategoryFilters.find((filter) => filter.key === selectedProjectCategory) ?? publicCategoryFilters[0]
+  const sectionReveal = shouldReduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 18 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: false, amount: 0.18 },
+        transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+      }
   const heroMeta = [
     {
       label: 'Education',
@@ -359,7 +360,7 @@ const HomePage = () => {
           <Motion.section
             id="about"
             className="scroll-mt-32"
-            {...fadeInUp}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="cyan"
@@ -388,7 +389,7 @@ const HomePage = () => {
           <Motion.section
             id="experience"
             className="scroll-mt-32"
-            {...fadeInUp}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="amber"
@@ -462,7 +463,7 @@ const HomePage = () => {
           <Motion.section
             id="skills"
             className="scroll-mt-32"
-            {...fadeInUp}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="cyan"
@@ -512,8 +513,7 @@ const HomePage = () => {
           <Motion.section
             id="projects"
             className="scroll-mt-32"
-            {...fadeInUp}
-            viewport={{ once: true, amount: 0.05 }}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="amber"
@@ -648,7 +648,7 @@ const HomePage = () => {
 
           <Motion.section
             id="certificates"
-            {...fadeInUp}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="cyan"
@@ -703,7 +703,7 @@ const HomePage = () => {
           <Motion.section
             id="education"
             className="scroll-mt-32"
-            {...fadeInUp}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="amber"
@@ -758,7 +758,7 @@ const HomePage = () => {
           <Motion.section
             id="contact"
             className="scroll-mt-32"
-            {...fadeInUp}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="cyan"
@@ -811,7 +811,7 @@ const HomePage = () => {
 
           <Motion.section
             className="pb-2 pt-2 text-center"
-            {...fadeInUp}
+            {...sectionReveal}
           >
             <ElectricBorder
               accent="rose"
