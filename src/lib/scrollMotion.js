@@ -26,7 +26,7 @@ export const getScrollRevealProps = (shouldReduceMotion, overrides = {}) => {
     },
     viewport: {
       once: true,
-      amount: 0.18,
+      amount: 0.08,
       ...viewport,
     },
     transition: {
