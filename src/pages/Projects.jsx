@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion as Motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import PageBackLink from '../components/PageBackLink'
 import { toast } from 'react-toastify'
 import useAdminAuth from '../hooks/useAdminAuth'
 import useProjectsData from '../hooks/useProjectsData'
@@ -229,6 +230,8 @@ const Projects = () => {
       <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
 
       <main className="mx-auto max-w-[860px]">
+        <PageBackLink to="/#projects" label="Back to portfolio" />
+
         <Motion.section
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

@@ -147,7 +147,7 @@ export const siteContent = {
   about: {
     title: 'About Me',
     body:
-      "I'm a full-stack web developer with hands-on experience building internal tools, management systems, and practical web applications. Proficient in PHP, JavaScript, TypeScript, and modern frameworks like React and Next.js, I focus on creating production-ready solutions — from AI-assisted budget tracking to cooperative and internal business platforms.",
+      "I'm a full-stack developer who builds production-ready web applications from frontend to backend, with a focus on clean interfaces, reliable systems, and practical solutions. I also automate workflows and build tools that make processes faster, simpler, and easier for people to manage.",
     detailTitle: 'Who I Am',
     detailIntro:
       "I'm Edgar Orosa, a full-stack web developer based in Las Pinas City, Philippines. I got into programming while pursuing my BS in Information Systems and quickly realized that building for the web was the path I wanted to keep growing in. Since then, I've been learning by building real systems — from business tools and monitoring platforms to personal products designed to solve practical problems.",

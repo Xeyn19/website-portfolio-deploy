@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { motion as Motion } from 'framer-motion'
 import { toast } from 'react-toastify'
+import PageBackLink from '../components/PageBackLink'
 import Spinner from '../components/Spinner'
 import useAdminAuth from '../hooks/useAdminAuth'
 import useSiteTheme from '../hooks/useSiteTheme'
@@ -182,6 +183,8 @@ const Skills = () => {
       <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
       <div className="mx-auto max-w-5xl space-y-6">
+        <PageBackLink to="/#skills" label="Back to portfolio" />
+
         <Motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

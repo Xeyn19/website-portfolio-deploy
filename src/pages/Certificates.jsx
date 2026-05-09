@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion as Motion } from 'framer-motion'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
+import PageBackLink from '../components/PageBackLink'
 import Spinner from '../components/Spinner'
 import usePageLoader from '../hooks/usePageLoader'
 import useSiteTheme from '../hooks/useSiteTheme'
@@ -56,6 +57,8 @@ const Certificates = () => {
       <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
       <div className="mx-auto max-w-5xl space-y-6">
+        <PageBackLink to="/#certificates" label="Back to portfolio" />
+
         <Motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

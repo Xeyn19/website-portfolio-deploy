@@ -411,14 +411,6 @@ const HomePage = () => {
                     Experience
                   </h2>
                 </div>
-                <a
-                  href={resumePdfHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex self-start px-5 py-2.5 text-[13px] font-medium transition ${controlRadius} ${classes.buttonGhost}`}
-                >
-                  Open resume PDF
-                </a>
               </div>
 
               <div className="mt-6 space-y-4">

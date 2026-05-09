@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion as Motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import PageBackLink from '../components/PageBackLink'
 import { siteContent } from '../data/siteContent'
 import useSiteTheme from '../hooks/useSiteTheme'
 
@@ -20,14 +20,7 @@ const About = () => {
       <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
 
       <main className="mx-auto max-w-[860px]">
-        <div className={`mb-8 border-b px-1 pb-5 ${classes.badgeMuted}`}>
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Link to="/#about" className={`inline-flex items-center gap-2 transition ${classes.textMuted}`}>
-              <span aria-hidden="true">←</span>
-              <span>Back to portfolio</span>
-            </Link>
-          </div>
-        </div>
+        <PageBackLink to="/#about" label="Back to portfolio" />
 
         <Motion.section
           initial={{ opacity: 0, y: 28 }}

@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { motion as Motion } from 'framer-motion'
 import profileImage from '/edgar.jpg'
 import emailjs from '@emailjs/browser'
+import PageBackLink from '../components/PageBackLink'
 import Spinner from '../components/Spinner'
 import usePageLoader from '../hooks/usePageLoader'
 import useSiteTheme from '../hooks/useSiteTheme'
@@ -87,13 +88,16 @@ const Contact = () => {
     <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
       <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
-      <Motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className={`mx-auto max-w-5xl overflow-hidden rounded-2xl ${classes.shell}`}
-      >
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="mx-auto max-w-5xl space-y-6">
+        <PageBackLink to="/#contact" label="Back to portfolio" />
+
+        <Motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className={`overflow-hidden rounded-2xl ${classes.shell}`}
+        >
+          <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
           <aside className={`relative overflow-hidden px-6 py-7 text-white ${classes.panelDark}`}>
             <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-sky-400/10 blur-3xl" />
             <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
@@ -139,7 +143,7 @@ const Contact = () => {
             </div>
           </aside>
 
-          <main className="px-5 py-6 sm:px-7 lg:px-8">
+            <main className="px-5 py-6 sm:px-7 lg:px-8">
             <div className={`rounded-2xl p-5 ${classes.panelSoft}`}>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Send a Message
@@ -213,9 +217,10 @@ const Contact = () => {
                 </button>
               </div>
             </Motion.form>
-          </main>
-        </div>
-      </Motion.div>
+            </main>
+          </div>
+        </Motion.div>
+      </div>
     </div>
   )
 }

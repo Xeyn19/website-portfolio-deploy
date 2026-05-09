@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion as Motion } from 'framer-motion'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import PageBackLink from '../components/PageBackLink'
 import Page404 from '../components/Page404'
 import { projectCaseStudies } from '../data/projectCaseStudies'
 import useProjectsData from '../hooks/useProjectsData'
@@ -78,16 +79,7 @@ const ProjectDetail = () => {
       <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
 
       <main className="mx-auto max-w-[1080px]">
-        <div className={`mb-8 border-b px-1 pb-5 ${classes.badgeMuted}`}>
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Link to="/#projects" className={`inline-flex items-center gap-2 transition ${classes.textMuted}`}>
-              <span aria-hidden="true">&larr;</span>
-              <span>Back</span>
-            </Link>
-            <span className={classes.textSubtle}>/</span>
-            <span className={`font-medium ${classes.heading}`}>{project.title}</span>
-          </div>
-        </div>
+        <PageBackLink to="/#projects" label="Back to projects" currentLabel={project.title} />
 
         <Motion.section
           initial={{ opacity: 0, y: 24 }}
