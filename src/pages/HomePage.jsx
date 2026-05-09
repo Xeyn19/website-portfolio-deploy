@@ -13,6 +13,7 @@ import {
   getTechnologyVisual,
   summarizeProjectDescription,
 } from '../lib/projectContent'
+import { getScrollRevealProps } from '../lib/scrollMotion'
 
 const GitHubContributionCalendar = lazy(() => import('../components/GitHubContributionCalendar'))
 const preferredTechStackOrder = [
@@ -134,14 +135,7 @@ const HomePage = () => {
   }
   const selectedProjectFilter =
     publicCategoryFilters.find((filter) => filter.key === selectedProjectCategory) ?? publicCategoryFilters[0]
-  const sectionReveal = shouldReduceMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 18 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: false, amount: 0.18 },
-        transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-      }
+  const sectionReveal = getScrollRevealProps(shouldReduceMotion)
   const heroMeta = [
     {
       label: 'Education',

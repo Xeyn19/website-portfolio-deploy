@@ -1,5 +1,5 @@
 import React, { startTransition, useEffect, useState } from 'react'
-import { motion as Motion } from 'framer-motion'
+import { motion as Motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageBackLink from '../components/PageBackLink'
 import { toast } from 'react-toastify'
@@ -13,6 +13,7 @@ import {
   getTechnologyVisual,
   summarizeProjectDescription,
 } from '../lib/projectContent'
+import { getScrollRevealProps } from '../lib/scrollMotion'
 
 const projectCategoryChoices = ['Front-End', 'Full-Stack']
 const publicCategoryFilters = [
@@ -74,6 +75,7 @@ const normalizeCategory = (value = '') =>
 
 const Projects = () => {
   const { classes } = useSiteTheme()
+  const shouldReduceMotion = useReducedMotion()
   const { projects, loading: projectsLoading, refreshProjects } = useProjectsData()
   const { isAdmin, loading: authLoading, signOut, userEmail } = useAdminAuth()
   const safeProjects = Array.isArray(projects) && projects.length > 0 ? projects : getFallbackProjects()
@@ -134,6 +136,10 @@ const Projects = () => {
   }
   const selectedProjectFilter =
     publicCategoryFilters.find((filter) => filter.key === selectedCategory) ?? publicCategoryFilters[0]
+  const sectionReveal = getScrollRevealProps(shouldReduceMotion)
+  const cardReveal = getScrollRevealProps(shouldReduceMotion, {
+    viewport: { amount: 0.14 },
+  })
 
   useEffect(() => {
     if (!isProjectModalOpen && !deleteTarget) {
@@ -240,9 +246,7 @@ const Projects = () => {
         <PageBackLink to="/#projects" label="Back to portfolio" />
 
         <Motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: 'easeOut' }}
+          {...sectionReveal}
           className={`rounded-2xl p-5 sm:p-6 ${classes.shell}`}
         >
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
@@ -318,10 +322,8 @@ const Projects = () => {
               return (
                 <Motion.article
                   key={project.slug}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.38, ease: 'easeOut', delay: index * 0.03 }}
-                  viewport={{ once: false, amount: 0.15 }}
+                  {...cardReveal}
+                  transition={{ ...cardReveal.transition, delay: index * 0.03 }}
                   className={`rounded-2xl p-4 ${classes.surfaceMuted}`}
                 >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

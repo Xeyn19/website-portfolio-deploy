@@ -116,15 +116,25 @@ const NavBar = () => {
 
   useEffect(() => {
     let lastScrollY = window.scrollY
+    const topThreshold = 72
+    const hideThreshold = 140
+    const hideDelta = 18
+    const showDelta = 10
 
     const updateHeaderVisibility = () => {
-      const currentScrollY = window.scrollY
+      if (isOpen) {
+        setIsVisible(true)
+        return
+      }
 
-      if (currentScrollY <= 24) {
+      const currentScrollY = window.scrollY
+      const scrollDelta = currentScrollY - lastScrollY
+
+      if (currentScrollY <= topThreshold) {
         setIsVisible(true)
-      } else if (currentScrollY < lastScrollY) {
+      } else if (scrollDelta <= -showDelta) {
         setIsVisible(true)
-      } else if (currentScrollY > lastScrollY) {
+      } else if (currentScrollY >= hideThreshold && scrollDelta >= hideDelta) {
         setIsVisible(false)
       }
 
@@ -136,7 +146,7 @@ const NavBar = () => {
     return () => {
       window.removeEventListener('scroll', updateHeaderVisibility)
     }
-  }, [])
+  }, [isOpen])
 
   useEffect(() => {
     if (isOpen) {

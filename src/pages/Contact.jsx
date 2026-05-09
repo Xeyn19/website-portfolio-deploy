@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react'
-import { motion as Motion } from 'framer-motion'
+import { motion as Motion, useReducedMotion } from 'framer-motion'
 import profileImage from '/edgar.jpg'
 import emailjs from '@emailjs/browser'
 import PageBackLink from '../components/PageBackLink'
 import Spinner from '../components/Spinner'
 import usePageLoader from '../hooks/usePageLoader'
+import { getScrollRevealProps } from '../lib/scrollMotion'
 import useSiteTheme from '../hooks/useSiteTheme'
 
 const Contact = () => {
@@ -12,6 +13,8 @@ const Contact = () => {
   const [sending, setSending] = useState(false)
   const loading = usePageLoader()
   const { classes } = useSiteTheme()
+  const shouldReduceMotion = useReducedMotion()
+  const sectionReveal = getScrollRevealProps(shouldReduceMotion)
 
   const getToday = () => {
     const now = new Date()
@@ -92,9 +95,7 @@ const Contact = () => {
         <PageBackLink to="/#contact" label="Back to portfolio" />
 
         <Motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          {...sectionReveal}
           className={`overflow-hidden rounded-2xl ${classes.shell}`}
         >
           <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
@@ -156,10 +157,7 @@ const Contact = () => {
 
             <Motion.form
               ref={formRef}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              viewport={{ once: true, amount: 0.2 }}
+              {...sectionReveal}
               onSubmit={handleSubmit}
               className={`mt-6 rounded-2xl p-5 sm:p-6 ${classes.surface}`}
             >

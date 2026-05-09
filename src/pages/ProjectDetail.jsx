@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { motion as Motion } from 'framer-motion'
+import { motion as Motion, useReducedMotion } from 'framer-motion'
 import { useParams } from 'react-router-dom'
 import PageBackLink from '../components/PageBackLink'
 import Page404 from '../components/Page404'
 import { projectCaseStudies } from '../data/projectCaseStudies'
 import useProjectsData from '../hooks/useProjectsData'
 import { getProjectExternalLinks, getTechnologyVisual } from '../lib/projectContent'
+import { getScrollRevealProps } from '../lib/scrollMotion'
 import useSiteTheme from '../hooks/useSiteTheme'
 
 const fallbackSections = (project) => ({
@@ -31,6 +32,7 @@ const fallbackSections = (project) => ({
 const ProjectDetail = () => {
   const { slug } = useParams()
   const { classes } = useSiteTheme()
+  const shouldReduceMotion = useReducedMotion()
   const { projects } = useProjectsData()
   const project = projects.find((entry) => entry.slug === slug)
 
@@ -53,6 +55,7 @@ const ProjectDetail = () => {
   const hasMultipleSlides = imageSlides.length > 1
   const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70'
   const actionButtonClass = `inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition ${classes.buttonGhost} ${focusRingClass}`
+  const sectionReveal = getScrollRevealProps(shouldReduceMotion)
 
   const goToPreviousSlide = () => {
     if (!hasMultipleSlides) {
@@ -82,9 +85,7 @@ const ProjectDetail = () => {
         <PageBackLink to="/#projects" label="Back to projects" currentLabel={project.title} />
 
         <Motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: 'easeOut' }}
+          {...sectionReveal}
         >
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-3xl">
@@ -241,10 +242,7 @@ const ProjectDetail = () => {
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <Motion.section
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
+            {...sectionReveal}
             className={`rounded-2xl p-5 sm:p-7 ${classes.shell}`}
           >
             <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
@@ -256,10 +254,7 @@ const ProjectDetail = () => {
           </Motion.section>
 
           <Motion.section
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
+            {...sectionReveal}
             className={`rounded-2xl p-5 sm:p-7 ${classes.shell}`}
           >
             <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
@@ -272,10 +267,7 @@ const ProjectDetail = () => {
         </div>
 
         <Motion.section
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
+          {...sectionReveal}
           className={`mt-6 rounded-2xl p-5 sm:p-7 ${classes.shell}`}
         >
           <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>

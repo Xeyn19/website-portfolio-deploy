@@ -1,9 +1,10 @@
 import React from 'react'
-import { motion as Motion } from 'framer-motion'
+import { motion as Motion, useReducedMotion } from 'framer-motion'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
 import PageBackLink from '../components/PageBackLink'
 import Spinner from '../components/Spinner'
 import usePageLoader from '../hooks/usePageLoader'
+import { getScrollRevealProps } from '../lib/scrollMotion'
 import useSiteTheme from '../hooks/useSiteTheme'
 
 const certificates = [
@@ -47,6 +48,8 @@ const getCertificateVisual = (certificate = {}) => {
 const Certificates = () => {
   const loading = usePageLoader()
   const { classes, isDark } = useSiteTheme()
+  const shouldReduceMotion = useReducedMotion()
+  const sectionReveal = getScrollRevealProps(shouldReduceMotion)
 
   if (loading) {
     return <Spinner />
@@ -60,9 +63,7 @@ const Certificates = () => {
         <PageBackLink to="/#certificates" label="Back to portfolio" />
 
         <Motion.section
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          {...sectionReveal}
           className={`overflow-hidden rounded-2xl p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
         >
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
@@ -100,10 +101,8 @@ const Certificates = () => {
               return (
                 <Motion.article
                   key={certificate.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, ease: 'easeOut', delay: index * 0.05 }}
-                  viewport={{ once: true, amount: 0.15 }}
+                  {...sectionReveal}
+                  transition={{ ...sectionReveal.transition, delay: index * 0.05 }}
                   className={`rounded-2xl p-5 ${classes.surface}`}
                 >
                   <div className={`rounded-2xl p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}>
