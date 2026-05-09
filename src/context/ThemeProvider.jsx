@@ -1,4 +1,4 @@
-import React, { createContext, startTransition, useEffect, useState } from 'react'
+import React, { createContext, startTransition, useEffect, useRef, useState } from 'react'
 
 export const ThemeContext = createContext();
 const ThemeProvider = ({children}) => {
@@ -9,6 +9,8 @@ const ThemeProvider = ({children}) => {
 
         return localStorage.getItem('theme') || 'dark';
     });
+    const [isThemeSwitching, setIsThemeSwitching] = useState(false);
+    const themeSwitchTimeoutRef = useRef(null);
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
@@ -16,14 +18,35 @@ const ThemeProvider = ({children}) => {
         document.documentElement.classList.toggle('dark', theme === 'dark');
     }, [theme])
 
+    useEffect(() => {
+        return () => {
+            if (themeSwitchTimeoutRef.current) {
+                window.clearTimeout(themeSwitchTimeoutRef.current);
+            }
+        };
+    }, []);
+
     function handleTheme(){
-        startTransition(() => {
-            setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-        });
+        if (themeSwitchTimeoutRef.current) {
+            window.clearTimeout(themeSwitchTimeoutRef.current);
+        }
+
+        setIsThemeSwitching(true);
+
+        themeSwitchTimeoutRef.current = window.setTimeout(() => {
+            startTransition(() => {
+                setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+            });
+
+            window.requestAnimationFrame(() => {
+                setIsThemeSwitching(false);
+                themeSwitchTimeoutRef.current = null;
+            });
+        }, 320);
     }
 
   return (
-    <ThemeContext.Provider value={{theme, handleTheme}}>
+    <ThemeContext.Provider value={{theme, handleTheme, isThemeSwitching}}>
         {children}
     </ThemeContext.Provider>
   )

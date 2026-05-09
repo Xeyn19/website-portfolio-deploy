@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeProvider'
 
 const useSiteTheme = () => {
-  const { theme, handleTheme } = useContext(ThemeContext)
+  const { theme, handleTheme, isThemeSwitching } = useContext(ThemeContext)
   const isDark = theme === 'dark'
   const themeTransition = 'transition-[background-color,border-color,color,box-shadow,opacity,transform] duration-200 ease-out'
 
@@ -10,6 +10,7 @@ const useSiteTheme = () => {
     theme,
     isDark,
     handleTheme,
+    isThemeSwitching,
     classes: {
       appBackground: isDark
         ? `site-app-background site-app-background--dark text-slate-100 ${themeTransition}`
