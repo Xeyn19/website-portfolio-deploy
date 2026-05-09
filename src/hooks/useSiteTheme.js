@@ -11,14 +11,14 @@ const useSiteTheme = () => {
     handleTheme,
     classes: {
       appBackground: isDark
-        ? 'bg-[linear-gradient(180deg,_#020617_0%,_#0f172a_42%,_#111827_100%)] text-slate-100'
-        : 'bg-slate-100 text-slate-900',
+        ? 'site-app-background site-app-background--dark text-slate-100'
+        : 'site-app-background site-app-background--light text-slate-900',
       pageBackground: isDark
-        ? 'bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.12),_transparent_24%),linear-gradient(135deg,_#020617_0%,_#0f172a_58%,_#111827_100%)]'
-        : 'bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.12),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.1),_transparent_24%),linear-gradient(135deg,_#f8fafc_0%,_#eff6ff_45%,_#f0f9ff_100%)]',
+        ? 'site-page-background site-page-background--dark'
+        : 'site-page-background site-page-background--light',
       shell: isDark
-        ? 'border border-slate-800/80 bg-[linear-gradient(180deg,_rgba(15,23,42,0.86),_rgba(2,6,23,0.88))] shadow-[0_30px_80px_rgba(2,6,23,0.48)] backdrop-blur-xl'
-        : 'border border-white/70 bg-[linear-gradient(180deg,_rgba(255,255,255,0.92),_rgba(248,250,252,0.92))] shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur-xl',
+        ? 'border border-slate-800/72 bg-[linear-gradient(180deg,_rgba(8,15,28,0.52),_rgba(6,12,24,0.7))] shadow-[0_30px_80px_rgba(2,6,23,0.36)] backdrop-blur-2xl'
+        : 'border border-white/82 bg-[linear-gradient(180deg,_rgba(255,255,255,0.64),_rgba(248,250,252,0.76))] shadow-[0_30px_80px_rgba(15,23,42,0.08)] backdrop-blur-2xl',
       panelDark: isDark
         ? 'bg-[linear-gradient(180deg,_#020617_0%,_#0f172a_55%,_#1e293b_100%)] text-white shadow-[0_18px_40px_rgba(2,6,23,0.4)]'
         : 'bg-[linear-gradient(180deg,_#0f172a_0%,_#1e293b_55%,_#334155_100%)] text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)]',
@@ -55,18 +55,18 @@ const useSiteTheme = () => {
         ? 'bg-sky-400 text-slate-950 shadow-[0_10px_24px_rgba(56,189,248,0.25)]'
         : 'bg-sky-600 text-white shadow-[0_10px_24px_rgba(14,165,233,0.22)]',
       iconButton: isDark
-        ? 'border border-slate-800 bg-slate-950/80 text-slate-200 shadow-[0_10px_24px_rgba(2,6,23,0.24)] hover:border-sky-300 hover:text-sky-300'
-        : 'border border-slate-200 bg-white text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.08)] hover:border-sky-400 hover:text-sky-700',
+        ? 'border border-slate-800 bg-slate-950/80 text-slate-200 shadow-[0_10px_24px_rgba(2,6,23,0.24)] hover:border-sky-300 hover:bg-white/6 hover:text-sky-300'
+        : 'border border-slate-200 bg-white text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.08)] hover:border-sky-400 hover:bg-sky-50 hover:text-sky-700',
       socialPill: isDark
-        ? 'border border-slate-800 bg-slate-950/80 shadow-[0_10px_24px_rgba(2,6,23,0.18)] hover:-translate-y-1 hover:border-sky-300'
-        : 'border border-slate-200 bg-white shadow-[0_10px_24px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-sky-400',
+        ? 'border border-slate-800 bg-slate-950/80 shadow-[0_10px_24px_rgba(2,6,23,0.18)] hover:border-sky-300 hover:bg-white/4'
+        : 'border border-slate-200 bg-white shadow-[0_10px_24px_rgba(15,23,42,0.06)] hover:border-sky-400 hover:bg-sky-50',
       socialText: isDark ? 'text-slate-200' : 'text-slate-700',
       input: isDark
         ? 'border border-slate-800 bg-slate-950/70 text-slate-100 focus:border-sky-400 focus:bg-slate-900'
         : 'border border-slate-200 bg-slate-50 text-slate-900 focus:border-sky-400 focus:bg-white',
       buttonPrimary: isDark
-        ? 'bg-sky-400 text-slate-950 hover:bg-sky-300 hover:text-slate-950'
-        : 'bg-sky-600 text-white hover:bg-sky-500 hover:text-white',
+        ? 'bg-sky-400 text-slate-950 shadow-[0_10px_24px_rgba(56,189,248,0.16)] hover:bg-sky-300 hover:text-slate-950 hover:shadow-[0_14px_28px_rgba(56,189,248,0.22)]'
+        : 'bg-sky-600 text-white shadow-[0_10px_24px_rgba(14,165,233,0.14)] hover:bg-sky-500 hover:text-white hover:shadow-[0_14px_28px_rgba(14,165,233,0.18)]',
       buttonGhost: isDark
         ? 'border border-slate-700/90 text-slate-200 hover:border-sky-300 hover:bg-white/6 hover:text-sky-300'
         : 'border border-slate-200 text-slate-700 hover:border-sky-400 hover:bg-sky-50 hover:text-slate-900',

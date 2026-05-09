@@ -127,6 +127,13 @@ const Projects = () => {
 
     return normalizeCategory(project.category) === selectedCategory
   })
+  const projectCategoryCounts = {
+    all: safeProjects.length,
+    'full-stack': safeProjects.filter((project) => normalizeCategory(project.category) === 'full-stack').length,
+    'front-end': safeProjects.filter((project) => normalizeCategory(project.category) === 'front-end').length,
+  }
+  const selectedProjectFilter =
+    publicCategoryFilters.find((filter) => filter.key === selectedCategory) ?? publicCategoryFilters[0]
 
   useEffect(() => {
     if (!isProjectModalOpen && !deleteTarget) {
@@ -252,9 +259,13 @@ const Projects = () => {
               </p>
             </div>
 
-            <div className="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap">
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:items-end">
+              <div className={`self-start rounded-full px-4 py-2 text-sm font-medium sm:self-auto ${classes.surfaceMuted} ${classes.heading}`}>
+                {filteredProjects.length} / {safeProjects.length} {selectedProjectFilter.label}
+              </div>
+
               {!authLoading && isAdmin ? (
-                <>
+                <div className="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap sm:justify-end">
                   <button
                     type="button"
                     onClick={openCreateProject}
@@ -269,7 +280,7 @@ const Projects = () => {
                   >
                     Logout
                   </button>
-                </>
+                </div>
               ) : null}
             </div>
           </div>
@@ -291,7 +302,7 @@ const Projects = () => {
                     isActive ? classes.navActive : classes.buttonGhost
                   }`}
                 >
-                  {filter.label}
+                  {filter.label} ({projectCategoryCounts[filter.key] ?? 0})
                 </button>
               )
             })}
@@ -338,7 +349,7 @@ const Projects = () => {
                         to={`/projects/${project.slug}`}
                         className={ghostButtonClass}
                       >
-                        Case Study
+                        View
                       </Link>
                       {liveLink ? (
                         <a

@@ -46,7 +46,7 @@ const getCertificateVisual = (certificate = {}) => {
 
 const Certificates = () => {
   const loading = usePageLoader()
-  const { classes } = useSiteTheme()
+  const { classes, isDark } = useSiteTheme()
 
   if (loading) {
     return <Spinner />
@@ -110,7 +110,7 @@ const Certificates = () => {
                     <div className="flex items-start gap-4">
                       <span
                         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset ${
-                          classes.pageBackground.includes('slate')
+                          isDark
                             ? 'bg-slate-950/80 ring-white/10'
                             : 'bg-white ring-slate-200/90'
                         }`}

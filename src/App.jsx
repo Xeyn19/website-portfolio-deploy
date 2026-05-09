@@ -8,8 +8,6 @@ import About from './pages/About'
 import ProjectsLayout from './layout/ProjectsLayout'
 import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
-import SkillsLayout from './layout/SkillsLayout'
-import Skills from './pages/Skills'
 import ContactLayout from './layout/ContactLayout'
 import Contact from './pages/Contact'
 import Page404 from './components/Page404'
@@ -28,9 +26,6 @@ const App = () => {
           <Route path='projects' element={<ProjectsLayout />}>
             <Route index element ={<Projects />}/> 
             <Route path=':slug' element={<ProjectDetail />}/>
-          </Route>
-          <Route path='skills' element={<SkillsLayout />}>
-            <Route index element ={<Skills />}/> 
           </Route>
           <Route path='contact' element={<ContactLayout />}>
             <Route index element ={<Contact />}/> 

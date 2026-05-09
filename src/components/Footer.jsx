@@ -46,7 +46,6 @@ const Footer = () => {
             <div className="mt-3 flex flex-wrap gap-2">
               {[
                 { href: '/Resume%20-%20updated_1.pdf', label: 'Resume PDF', external: true },
-                { to: '/skills', label: 'Skills' },
                 { to: '/contact', label: 'Contact' },
               ].map((item) =>
                 item.external ? (

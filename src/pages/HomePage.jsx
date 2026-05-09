@@ -107,6 +107,13 @@ const HomePage = () => {
     hero.socialLinks.find((item) => item.label === 'GitHub')?.href ?? 'https://github.com/Xeyn19'
   const resumePdfHref = '/Resume%20-%20updated_1.pdf'
   const activeHeroTitle = heroRotatingTitles[activeHeroTitleIndex] ?? hero.title
+  const projectCategoryCounts = {
+    all: projects.length,
+    'full-stack': projects.filter((project) => normalizeCategory(project.category) === 'full-stack').length,
+    'front-end': projects.filter((project) => normalizeCategory(project.category) === 'front-end').length,
+  }
+  const selectedProjectFilter =
+    publicCategoryFilters.find((filter) => filter.key === selectedProjectCategory) ?? publicCategoryFilters[0]
   const heroMeta = [
     {
       label: 'Education',
@@ -172,20 +179,10 @@ const HomePage = () => {
     <div className="relative overflow-hidden px-4 pb-14 pt-28 sm:px-6 sm:pt-32 lg:pb-20">
       <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
       <div
-        className={`pointer-events-none absolute inset-0 -z-10 bg-[size:90px_90px] ${
-          isDark
-            ? 'home-grid-overlay home-grid-overlay--dark'
-            : 'home-grid-overlay home-grid-overlay--light'
+        className={`pointer-events-none absolute inset-0 -z-10 ${
+          isDark ? 'home-stage home-stage--dark' : 'home-stage home-stage--light'
         }`}
       />
-      <div className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-80 bg-[radial-gradient(circle_at_left,rgba(180,83,9,0.24),transparent_65%)]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-80 bg-[radial-gradient(circle_at_right,rgba(14,116,144,0.18),transparent_65%)]" />
-      {isDark ? (
-        <>
-          <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.2),transparent_62%)]" />
-          <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-52 w-[34rem] -translate-x-1/2 rounded-full bg-sky-300/10 blur-3xl" />
-        </>
-      ) : null}
 
       <main className="mx-auto max-w-[980px]">
         <Motion.section
@@ -198,13 +195,6 @@ const HomePage = () => {
             className={sectionRadius}
             contentClassName={`overflow-hidden ${sectionRadius} ${classes.shell}`}
           >
-            {isDark ? (
-              <div className="hero-ambient" aria-hidden="true">
-                <span className="hero-ambient__orb hero-ambient__orb--cyan" />
-                <span className="hero-ambient__orb hero-ambient__orb--amber" />
-                <span className="hero-ambient__beam" />
-              </div>
-            ) : null}
             <div className="px-5 py-5 sm:px-7 sm:py-6">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                 <img
@@ -495,19 +485,17 @@ const HomePage = () => {
                         return (
                           <ElectricBorder
                             key={`${skill.techname}-${rowIndex}-${index}`}
-                            as={Link}
-                            to="/skills"
                             accent="cyan"
                             variant="soft"
                             className={`mx-2 ${cardRadius}`}
-                            contentClassName={`group inline-flex min-w-[172px] items-center gap-3 px-4 py-3 transition hover:-translate-y-0.5 ${cardRadius} ${classes.surfaceMuted}`}
+                            contentClassName={`group inline-flex min-w-[172px] items-center gap-3 px-4 py-3 transition ${cardRadius} ${classes.surfaceMuted}`}
                           >
                             <span
                               className={`flex h-9 w-9 shrink-0 items-center justify-center ring-1 ring-inset ${controlRadius} ${
                                 isDark ? 'bg-slate-950/80 ring-white/10' : 'bg-white ring-slate-200/90'
                               }`}
                             >
-                              <TechIcon className={`h-4 w-4 transition group-hover:scale-105 ${techVisual.iconClass}`} />
+                              <TechIcon className={`h-4 w-4 transition ${techVisual.iconClass}`} />
                             </span>
                             <span className={`text-[14px] font-medium ${classes.heading}`}>{skill.techname}</span>
                           </ElectricBorder>
@@ -541,6 +529,9 @@ const HomePage = () => {
                     The full project list stays on the landing page. Open any card to view the separate case-study page with images and full implementation details.
                   </p>
                 </div>
+                <div className={`self-start rounded-full px-4 py-2 text-sm font-medium ${classes.surfaceMuted} ${classes.heading}`}>
+                  {visibleProjects.length} / {projects.length} {selectedProjectFilter.label}
+                </div>
               </div>
 
               <div className="-mx-1 mt-6 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
@@ -556,7 +547,7 @@ const HomePage = () => {
                         isActive ? classes.navActive : classes.buttonGhost
                       }`}
                     >
-                      {filter.label}
+                      {filter.label} ({projectCategoryCounts[filter.key] ?? 0})
                     </button>
                   )
                 })}
@@ -603,7 +594,7 @@ const HomePage = () => {
                             to={`/projects/${project.slug}`}
                             className={`inline-flex min-h-11 items-center justify-center px-4 py-2.5 text-sm font-medium transition ${controlRadius} ${classes.buttonGhost} ${focusRingClass}`}
                           >
-                            Case Study
+                            View
                           </Link>
                           {externalLinks.liveLink ? (
                             <a
