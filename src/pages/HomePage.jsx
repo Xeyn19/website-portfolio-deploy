@@ -170,9 +170,21 @@ const HomePage = () => {
   return (
     <div className="relative overflow-hidden px-4 pb-14 pt-28 sm:px-6 sm:pt-32 lg:pb-20">
       <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:90px_90px]" />
+      <div
+        className={`pointer-events-none absolute inset-0 -z-10 bg-[size:90px_90px] ${
+          isDark
+            ? 'home-grid-overlay home-grid-overlay--dark'
+            : 'home-grid-overlay home-grid-overlay--light'
+        }`}
+      />
       <div className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-80 bg-[radial-gradient(circle_at_left,rgba(180,83,9,0.24),transparent_65%)]" />
       <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-80 bg-[radial-gradient(circle_at_right,rgba(14,116,144,0.18),transparent_65%)]" />
+      {isDark ? (
+        <>
+          <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.2),transparent_62%)]" />
+          <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-52 w-[34rem] -translate-x-1/2 rounded-full bg-sky-300/10 blur-3xl" />
+        </>
+      ) : null}
 
       <main className="mx-auto max-w-[980px]">
         <Motion.section
@@ -185,6 +197,13 @@ const HomePage = () => {
             className={sectionRadius}
             contentClassName={`overflow-hidden ${sectionRadius} ${classes.shell}`}
           >
+            {isDark ? (
+              <div className="hero-ambient" aria-hidden="true">
+                <span className="hero-ambient__orb hero-ambient__orb--cyan" />
+                <span className="hero-ambient__orb hero-ambient__orb--amber" />
+                <span className="hero-ambient__beam" />
+              </div>
+            ) : null}
             <div className="px-5 py-5 sm:px-7 sm:py-6">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                 <img
@@ -200,7 +219,7 @@ const HomePage = () => {
                         initial={shouldReduceMotion ? false : { opacity: 0, filter: 'blur(8px)' }}
                         animate={shouldReduceMotion ? undefined : { opacity: 1, filter: 'blur(0px)' }}
                         transition={{ duration: 0.55, ease: 'easeOut' }}
-                        className={`hero-name-shell ${isDark ? '' : 'hero-name-shell--light'} text-[1.72rem] font-bold tracking-tight sm:text-[2.3rem] lg:text-[2.55rem]`}
+                        className={`hero-name-shell ${isDark ? 'hero-name-shell--dark' : 'hero-name-shell--light'} text-[1.72rem] font-bold tracking-tight sm:text-[2.3rem] lg:text-[2.55rem]`}
                       >
                         <span aria-hidden="true" className="hero-name-layer hero-name-layer--cyan">
                           {hero.name}
