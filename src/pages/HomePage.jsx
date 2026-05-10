@@ -245,7 +245,7 @@ const HomePage = () => {
                         </span>
                         <span className="hero-name-core">{hero.name}</span>
                       </Motion.h1>
-                      <div className="mt-1 min-h-[1.75rem]">
+                      <div className="relative mt-1 min-h-[3rem] sm:min-h-[1.75rem]">
                         <AnimatePresence mode="wait" initial={false}>
                           <Motion.p
                             key={activeHeroTitle}
@@ -253,7 +253,7 @@ const HomePage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
                             transition={{ duration: 0.35, ease: 'easeOut' }}
-                            className={`text-[0.95rem] font-medium leading-6 sm:text-[1rem] ${classes.text}`}
+                            className={`absolute inset-x-0 top-0 max-w-[17rem] pr-3 text-[0.95rem] font-medium leading-6 sm:max-w-none sm:pr-0 sm:text-[1rem] ${classes.text}`}
                           >
                             {activeHeroTitle}
                           </Motion.p>
