@@ -1,0 +1,82 @@
+Edgar Orosa Portfolio Knowledge Base
+
+Profile
+- Name: Edgar Orosa
+- Title: Full-Stack Developer
+- Location: Las Pinas City, Philippines
+- Education: BS in Information Systems
+- Status: Open to opportunities
+
+Summary
+- Edgar builds fast, practical web apps for business, internal tools, and modern websites.
+- His work focuses on clean UI, reliable systems, and useful automation.
+
+About Edgar
+- Edgar is a full-stack web developer based in Las Pinas City, Philippines.
+- He builds production-ready web applications from frontend to backend.
+- He focuses on clean interfaces, reliable systems, and practical solutions.
+- He also automates workflows and builds tools that make processes faster and easier to manage.
+
+Tech Stack
+- React, Next.js, TypeScript, Tailwind CSS, Supabase, PHP, MySQL, JavaScript
+
+Experience
+- Role: Full Stack Developer Intern
+- Company: X-META Technologies Inc.
+- Dates: Feb 2026 - May 2026
+- Duration: 3 months
+- Highlights:
+  - Built the iPay International website with Next.js and Supabase, including admin and analytics tools.
+  - Enhanced internal business systems using PHP, JavaScript, HTML, Bootstrap, and MySQL.
+  - Automated monitoring, dashboard, and reporting workflows for offline devices.
+  - Improved security, performance, and user management modules.
+
+Education
+- BS in Information Systems
+- Dr. Filemon C. Aguilar Memorial College of Las Pinas - IT Campus
+- 2022 - 2026
+- Las Pinas City
+
+Featured Projects
+- Ipay International Website (2026, Full-Stack) - /projects/ipay-international-website
+- Job Application Tracker (2026, Full-Stack) - /projects/job-application-tracker
+- Online Saving Goal system for Working Students (2025, Full-Stack) - /projects/online-saving-goal-system-for-working-students
+- Daily Monitoring Page - X-Meta System (2026, Full-Stack) - /projects/daily-monitoring-page-x-meta-system
+
+Project Highlights
+- Ipay International Website: I developed a modern iPay web application using Next.js 16, React 19, TypeScript, Tailwind CSS, and Supabase, delivering a secure, responsive, and production-ready payment platform for businesses in the Philippines.
+- Job Application Tracker: A full-stack web application built to help job seekers track company, role, status, dates, notes, and resume uploads with a clear hiring pipeline and live dashboard.
+- Online Saving Goal system for Working Students: A capstone full-stack app built with React.js, Tailwind CSS, PHP, and MySQL to help users create, track, and manage savings goals with analytics and protected routes.
+- Daily Monitoring Page - X-Meta System: A monitoring dashboard that tracks device play data with filters, AJAX data loading, summarized metrics, detailed tables, and responsive system feedback states.
+
+Certificates
+- HTML Fundamentals (CodeCred)
+- IT Beginner to Advance Roadmap (icreatechs)
+- CSS (Udemy)
+- Javascript Development Mastery (icreatechs)
+- Web Development Fundamentals (icreatechs)
+
+Testimonials
+- Keith Dwarren Vergara - Full-Stack Developer at X-Meta Technologies, Inc.
+- Sai Molales - IT Manager at X-Meta Technologies, Inc.
+- Natalie Julio - Marketing at X-Meta Technologies, Inc.
+
+Contact
+- Email: edgarrodilorosa@gmail.com
+- Phone: +63 994 258 6519
+- GitHub: https://github.com/Xeyn19
+- LinkedIn: https://www.linkedin.com/in/edgar-orosa-a43a15333/
+
+Useful Internal Links
+- About section: /#about
+- Experience section: /#experience
+- Skills section: /#skills
+- Projects section: /#projects
+- Certificates section: /#certificates
+- Testimonials section: /#testimonials
+- Education section: /#education
+- Contact section: /#contact
+- About page: /about
+- Projects page: /projects
+- Certificates page: /certificates
+- Contact page: /contact
