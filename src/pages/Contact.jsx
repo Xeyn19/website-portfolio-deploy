@@ -88,7 +88,7 @@ const Contact = () => {
   }
 
   return (
-    <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
+    <div className="relative overflow-hidden px-4 py-10 sm:px-6 sm:py-12 lg:px-10">
       <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
       <div className="mx-auto max-w-5xl space-y-6">
@@ -99,7 +99,7 @@ const Contact = () => {
           className={`overflow-hidden rounded-2xl ${classes.shell}`}
         >
           <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-          <aside className={`relative overflow-hidden px-6 py-7 text-white ${classes.panelDark}`}>
+          <aside className={`relative overflow-hidden px-5 py-6 text-white sm:px-6 sm:py-7 ${classes.panelDark}`}>
             <div className="absolute -right-16 top-8 h-40 w-40 rounded-full bg-sky-400/10 blur-3xl" />
             <div className="absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-sky-300/10 blur-3xl" />
 
@@ -118,11 +118,11 @@ const Contact = () => {
               </div>
 
               <div className={`w-full rounded-2xl p-3 shadow-[0_16px_40px_rgba(15,23,42,0.35)] ${classes.darkFrame}`}>
-                <div className="flex h-full w-full items-end justify-center overflow-hidden rounded-2xl bg-white pt-4">
+                <div className="flex min-h-[280px] h-full w-full items-end justify-center overflow-hidden rounded-2xl bg-white pt-4 sm:min-h-[360px]">
                   <img
                     src={profileImage}
                     alt="Edgar R Orosa Jr"
-                    className="h-full w-full object-cover object-center drop-shadow-[0_18px_30px_rgba(15,23,42,0.28)]"
+                    className="h-full w-full object-contain object-top drop-shadow-[0_18px_30px_rgba(15,23,42,0.28)] lg:object-cover lg:object-center"
                   />
                 </div>
               </div>
@@ -144,8 +144,8 @@ const Contact = () => {
             </div>
           </aside>
 
-            <main className="px-5 py-6 sm:px-7 lg:px-8">
-            <div className={`rounded-2xl p-5 ${classes.panelSoft}`}>
+            <main className="px-5 py-6 sm:px-6 sm:py-7 lg:px-7">
+            <div className={`rounded-2xl p-4 sm:p-5 ${classes.panelSoft}`}>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Send a Message
               </p>
@@ -159,7 +159,7 @@ const Contact = () => {
               ref={formRef}
               {...sectionReveal}
               onSubmit={handleSubmit}
-              className={`mt-6 rounded-2xl p-5 sm:p-6 ${classes.surface}`}
+              className={`mt-5 rounded-2xl p-4 sm:mt-6 sm:p-6 ${classes.surface}`}
             >
               <div className="grid gap-6">
                 <div className="grid gap-2">

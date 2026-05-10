@@ -22,12 +22,12 @@ const About = () => {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className={`rounded-2xl p-6 sm:p-8 ${classes.shell}`}
+          className={`rounded-2xl p-5 sm:p-7 ${classes.shell}`}
         >
           <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>
             Personal Profile
           </p>
-          <h1 className={`mt-3 text-[2rem] font-semibold tracking-tight sm:text-[2.45rem] ${classes.heading}`}>
+          <h1 className={`mt-3 text-[1.8rem] font-semibold tracking-tight sm:text-[2.35rem] ${classes.heading}`}>
             {about.title}
           </h1>
 
@@ -35,7 +35,7 @@ const About = () => {
             <h2 className={`text-[1.45rem] font-semibold tracking-tight sm:text-[1.7rem] ${classes.heading}`}>
               {about.detailTitle}
             </h2>
-            <p className={`mt-4 max-w-3xl text-[15px] leading-7 ${classes.text}`}>
+            <p className={`mt-4 max-w-3xl text-[14.5px] leading-7 sm:text-[15px] ${classes.text}`}>
               {about.detailIntro}
             </p>
           </Motion.div>
@@ -46,7 +46,7 @@ const About = () => {
                 key={section.title}
                 {...sectionReveal}
                 transition={{ ...sectionReveal.transition, delay: index * 0.04 }}
-                className={`rounded-2xl p-5 sm:p-6 ${classes.surfaceMuted}`}
+                className={`rounded-2xl p-4 sm:p-6 ${classes.surfaceMuted}`}
               >
                 <h3 className={`text-[1.12rem] font-semibold tracking-tight sm:text-[1.24rem] ${classes.heading}`}>
                   {section.title}

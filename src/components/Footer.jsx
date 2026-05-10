@@ -10,8 +10,8 @@ const Footer = () => {
 
   return (
     <footer className="px-4 pb-8 pt-6 sm:px-6 lg:px-10">
-      <div className={`mx-auto max-w-[980px] rounded-2xl px-5 py-5 sm:px-7 ${classes.shell}`}>
-        <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr_0.9fr_1fr_auto] lg:items-start">
+      <div className={`mx-auto max-w-[980px] rounded-2xl px-5 py-5 sm:px-6 sm:py-6 lg:px-7 ${classes.shell}`}>
+        <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-[1.1fr_0.9fr_0.9fr_1fr_auto] xl:items-start">
           <div>
             <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${classes.label}`}>
               Portfolio
@@ -71,14 +71,14 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-1">
             <div className={`rounded-2xl px-4 py-4 ${classes.surfaceMuted}`}>
               <p className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${classes.labelMuted}`}>
                 Phone
               </p>
               <div className="mt-3 flex items-center gap-3">
                 <img src={Phone} alt="Phone icon" className="h-7 w-7 object-contain" />
-                <p className={`text-[13px] ${classes.text}`}>+63 99 425 86519</p>
+                <p className={`break-words text-[13px] ${classes.text}`}>+63 99 425 86519</p>
               </div>
             </div>
 
@@ -93,7 +93,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className={`rounded-2xl px-5 py-4 text-center lg:min-w-40 ${classes.panelDark}`}>
+          <div className={`rounded-2xl px-5 py-4 text-center md:col-span-2 xl:col-span-1 xl:min-w-40 ${classes.panelDark}`}>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-sky-300/90">
               Portfolio
             </p>

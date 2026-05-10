@@ -247,7 +247,7 @@ const Projects = () => {
 
         <Motion.section
           {...sectionReveal}
-          className={`rounded-2xl p-5 sm:p-6 ${classes.shell}`}
+          className={`rounded-2xl p-4 sm:p-6 ${classes.shell}`}
         >
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0">
@@ -324,7 +324,7 @@ const Projects = () => {
                   key={project.slug}
                   {...cardReveal}
                   transition={{ ...cardReveal.transition, delay: index * 0.03 }}
-                  className={`rounded-2xl p-4 ${classes.surfaceMuted}`}
+                  className={`rounded-2xl p-4 sm:p-5 ${classes.surfaceMuted}`}
                 >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="min-w-0 max-w-3xl">
@@ -345,7 +345,7 @@ const Projects = () => {
                       ) : null}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-end">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
                       <Link
                         to={`/projects/${project.slug}`}
                         className={ghostButtonClass}
@@ -396,7 +396,7 @@ const Projects = () => {
                   </div>
 
                   {!authLoading && isAdmin ? (
-                    <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+                    <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                       <button
                         type="button"
                         onClick={() => openEditProject(project)}

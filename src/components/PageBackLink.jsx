@@ -13,10 +13,10 @@ const PageBackLink = ({ to = '/', label = 'Back to portfolio', currentLabel = ''
           : 'border border-white/80 bg-white/70'
       } backdrop-blur-xl`}
     >
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <Link
           to={to}
-          className={`inline-flex min-h-11 items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium transition ${classes.buttonGhost}`}
+          className={`inline-flex min-h-11 w-full items-center justify-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium transition sm:w-auto sm:justify-start ${classes.buttonGhost}`}
         >
           <span
             className={`flex h-8 w-8 items-center justify-center rounded-full ${
@@ -30,10 +30,10 @@ const PageBackLink = ({ to = '/', label = 'Back to portfolio', currentLabel = ''
         </Link>
 
         {currentLabel ? (
-          <>
+          <div className="flex min-w-0 items-center gap-2">
             <span className={`text-sm ${classes.textSubtle}`}>/</span>
-            <span className={`text-sm font-medium ${classes.heading}`}>{currentLabel}</span>
-          </>
+            <span className={`min-w-0 break-words text-sm font-medium ${classes.heading}`}>{currentLabel}</span>
+          </div>
         ) : null}
       </div>
     </div>

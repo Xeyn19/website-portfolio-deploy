@@ -138,11 +138,11 @@ const ProjectDetail = () => {
           <div className="mt-8 grid gap-8 sm:mt-10 sm:gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:items-start">
             <div>
               <div className={`overflow-hidden rounded-2xl ${classes.surfaceMuted}`}>
-                <div className="relative">
+                <div className="relative bg-slate-950/10">
                   <img
                     src={imageSlides[activeSlide]}
                     alt={`${project.title} screenshot ${activeSlide + 1}`}
-                    className="h-56 w-full object-cover sm:h-[420px] lg:h-[520px]"
+                    className="h-64 w-full object-contain object-top p-2 sm:h-[360px] sm:p-3 lg:h-[460px] lg:p-4 xl:h-[520px] xl:object-cover xl:object-center xl:p-0"
                   />
 
                   <button
@@ -243,7 +243,7 @@ const ProjectDetail = () => {
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <Motion.section
             {...sectionReveal}
-            className={`rounded-2xl p-5 sm:p-7 ${classes.shell}`}
+            className={`rounded-2xl p-5 sm:p-6 ${classes.shell}`}
           >
             <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
               Problem
@@ -255,7 +255,7 @@ const ProjectDetail = () => {
 
           <Motion.section
             {...sectionReveal}
-            className={`rounded-2xl p-5 sm:p-7 ${classes.shell}`}
+            className={`rounded-2xl p-5 sm:p-6 ${classes.shell}`}
           >
             <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
               Solution
@@ -268,7 +268,7 @@ const ProjectDetail = () => {
 
         <Motion.section
           {...sectionReveal}
-          className={`mt-6 rounded-2xl p-5 sm:p-7 ${classes.shell}`}
+          className={`mt-6 rounded-2xl p-5 sm:p-6 ${classes.shell}`}
         >
           <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
             Responsibilities

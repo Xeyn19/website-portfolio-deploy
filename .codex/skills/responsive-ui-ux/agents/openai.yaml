@@ -1,0 +1,4 @@
+interface:
+  display_name: "Responsive UI/UX"
+  short_description: "Mobile-first responsive UI and UX guidance"
+  default_prompt: "Use $responsive-ui-ux to design or review this interface for responsive UI/UX quality across mobile, tablet, and desktop."

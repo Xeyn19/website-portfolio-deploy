@@ -56,7 +56,7 @@ const Certificates = () => {
   }
 
   return (
-    <div className="relative overflow-hidden px-4 py-12 sm:px-6 lg:px-10">
+    <div className="relative overflow-hidden px-4 py-10 sm:px-6 sm:py-12 lg:px-10">
       <div className={`pointer-events-none absolute inset-0 -z-10 ${classes.pageBackground}`} />
 
       <div className="mx-auto max-w-5xl space-y-6">
@@ -64,9 +64,9 @@ const Certificates = () => {
 
         <Motion.section
           {...sectionReveal}
-          className={`overflow-hidden rounded-2xl p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
+          className={`overflow-hidden rounded-2xl p-5 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7 ${classes.shell}`}
         >
-          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${classes.label}`}>
                 Learning Record
@@ -80,7 +80,7 @@ const Certificates = () => {
               </p>
             </div>
 
-            <div className={`rounded-2xl p-5 ${classes.panelDark}`}>
+            <div className={`rounded-2xl p-4 sm:p-5 ${classes.panelDark}`}>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300/90">
                 Overview
               </p>
@@ -92,7 +92,7 @@ const Certificates = () => {
           </div>
         </Motion.section>
 
-        <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-2">
+        <section className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-2">
           {certificates.map((certificate, index) => (
             (() => {
               const certificateVisual = getCertificateVisual(certificate)
@@ -103,9 +103,9 @@ const Certificates = () => {
                   key={certificate.title}
                   {...sectionReveal}
                   transition={{ ...sectionReveal.transition, delay: index * 0.05 }}
-                  className={`rounded-2xl p-5 ${classes.surface}`}
+                  className={`rounded-2xl p-4 sm:p-5 ${classes.surface}`}
                 >
-                  <div className={`rounded-2xl p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}>
+                  <div className={`rounded-2xl p-4 sm:p-5 ${classes.surfaceMuted} ${classes.surfaceAccent}`}>
                     <div className="flex items-start gap-4">
                       <span
                         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset ${
@@ -122,7 +122,7 @@ const Certificates = () => {
                           {certificate.provider}
                         </p>
                         <h2 className={`mt-3 text-[1.08rem] font-semibold ${classes.heading}`}>{certificate.title}</h2>
-                        <p className={`mt-4 text-[13px] leading-6 ${classes.textMuted}`}>
+                        <p className={`mt-4 text-[12.5px] leading-6 sm:text-[13px] ${classes.textMuted}`}>
                           Completed certification in {certificate.title} from {certificate.provider}.
                         </p>
                       </div>

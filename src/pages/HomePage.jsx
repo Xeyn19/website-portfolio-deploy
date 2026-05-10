@@ -748,8 +748,8 @@ const HomePage = () => {
                     </h2>
                   </div>
                   {activeTestimonial ? (
-                    <div className="mt-3 flex items-center gap-2 self-start sm:mt-0">
-                      <div className={`hidden rounded-full px-3 py-1.5 text-[12px] font-medium sm:block ${classes.surfaceMuted} ${classes.heading}`}>
+                    <div className="mt-3 flex flex-wrap items-center gap-2 self-start sm:mt-0 sm:justify-end">
+                      <div className={`max-w-full rounded-full px-3 py-1.5 text-[12px] font-medium ${classes.surfaceMuted} ${classes.heading}`}>
                         {activeTestimonial.name}
                       </div>
                       <button
@@ -762,7 +762,7 @@ const HomePage = () => {
                             ),
                           )
                         }
-                        className={`inline-flex h-10 w-10 items-center justify-center text-sm font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${classes.buttonGhost}`}
+                        className={`inline-flex h-10 w-10 shrink-0 items-center justify-center text-sm font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${classes.buttonGhost}`}
                       >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4.5 w-4.5">
                           <path d="m15 18-6-6 6-6" />
@@ -781,7 +781,7 @@ const HomePage = () => {
                             ),
                           )
                         }
-                        className={`inline-flex h-10 w-10 items-center justify-center text-sm font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${classes.buttonGhost}`}
+                        className={`inline-flex h-10 w-10 shrink-0 items-center justify-center text-sm font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${classes.buttonGhost}`}
                       >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4.5 w-4.5">
                           <path d="m9 18 6-6-6-6" />
@@ -844,7 +844,7 @@ const HomePage = () => {
                               )}
                             </div>
 
-                            <div className="flex flex-col justify-between p-5 sm:p-6">
+                            <div className="flex flex-col justify-between p-4 sm:p-6">
                               <div>
                                 <span
                                   className={`inline-flex h-11 w-11 items-center justify-center ring-1 ring-inset ${controlRadius} ${
@@ -857,7 +857,7 @@ const HomePage = () => {
                                   </svg>
                                 </span>
 
-                                <blockquote className={`mt-4 text-[15px] leading-7 sm:text-[1rem] ${classes.text}`}>
+                                <blockquote className={`mt-4 text-[14px] leading-6 sm:text-[1rem] sm:leading-7 ${classes.text}`}>
                                   {activeTestimonial.quote}
                                 </blockquote>
                               </div>
@@ -952,14 +952,14 @@ const HomePage = () => {
                   <p className={`mt-2 text-[13.5px] leading-6 ${classes.textMuted}`}>{contact.body}</p>
                 </div>
 
-                <div className="grid gap-3">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                   {contact.compactLinks.map((item) => (
                     <a
                       key={item.label}
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className={`flex items-center gap-3 text-[13.5px] transition hover:opacity-80 ${classes.textMuted}`}
+                      className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-[13.5px] transition hover:opacity-80 ${classes.surfaceMuted} ${classes.textMuted}`}
                     >
                       <span className="shrink-0">
                         {item.label === 'Email' ? (
@@ -980,7 +980,7 @@ const HomePage = () => {
                           </svg>
                         )}
                       </span>
-                      <span>{item.value}</span>
+                      <span className="min-w-0 break-all">{item.value}</span>
                     </a>
                   ))}
                 </div>
