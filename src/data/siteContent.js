@@ -92,6 +92,32 @@ const certificateItems = [
   },
 ]
 
+const testimonialItems = [
+  {
+    name: 'Keith Dwarren Vergara',
+    role: 'Full-Stack Developer',
+    company: 'X-Meta Technologies, Inc.',
+    quote:
+      'Edgar is a dependable full-stack developer who turns requirements into usable features. He pays attention to both UI quality and system logic, which made his contributions valuable to our team.',
+    imageSrc: '/Keith.jpg',
+  },
+  {
+    name: 'Sai Molales',
+    role: 'IT Manager',
+    company: 'X-Meta Technologies, Inc.',
+    quote:
+      'Edgar is a reliable developer who delivers practical solutions with consistency. He understands both technical requirements and user needs, which made his work valuable to our team at X-Meta.',
+  },
+  {
+    name: 'Natalie Julio',
+    role: 'Marketing',
+    company: 'X-Meta Technologies, Inc.',
+    quote:
+      'Edgar creates work that is both polished and practical. He understands how to support business goals with clear execution, and his output consistently reflects care and professionalism.',
+    imageSrc: '/Natalie.jpg',
+  },
+]
+
 const contactMethods = [
   {
     label: 'Email',
@@ -175,6 +201,7 @@ export const siteContent = {
   experience: experienceItems,
   education: educationItems,
   certificates: certificateItems,
+  testimonials: testimonialItems,
   contact: {
     title: 'Get in touch',
     body: 'Open to work, freelance projects, and collaborations.',

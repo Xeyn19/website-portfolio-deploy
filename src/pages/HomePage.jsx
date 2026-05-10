@@ -99,11 +99,12 @@ const getCertificateVisual = (certificate = {}) => {
 const HomePage = () => {
   const loading = usePageLoader()
   const { classes, isDark } = useSiteTheme()
-  const { hero, about, experience, education, certificates, contact, footerQuote } = siteContent
+  const { hero, about, experience, education, certificates, testimonials, contact, footerQuote } = siteContent
   const { projects, skills } = usePortfolioHomeData()
   const shouldReduceMotion = useReducedMotion()
   const [selectedProjectCategory, setSelectedProjectCategory] = useState('all')
   const [selectedGithubYear, setSelectedGithubYear] = useState(currentCalendarYear)
+  const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0)
   const [activeHeroTitleIndex, setActiveHeroTitleIndex] = useState(0)
   const orderedTechStack = preferredTechStackOrder
     .map((techName) =>
@@ -135,6 +136,8 @@ const HomePage = () => {
   }
   const selectedProjectFilter =
     publicCategoryFilters.find((filter) => filter.key === selectedProjectCategory) ?? publicCategoryFilters[0]
+  const activeTestimonial = testimonials[selectedTestimonialIndex] ?? testimonials[0] ?? null
+  const totalTestimonials = testimonials.length
   const sectionReveal = getScrollRevealProps(shouldReduceMotion)
   const heroMeta = [
     {
@@ -726,6 +729,155 @@ const HomePage = () => {
               </div>
             </ElectricBorder>
           </Motion.section>
+
+          {testimonials.length ? (
+            <Motion.section
+              id="testimonials"
+              className="scroll-mt-32"
+              {...sectionReveal}
+            >
+              <ElectricBorder
+                accent="amber"
+                className={sectionRadius}
+                contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
+              >
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
+                      Testimonials
+                    </h2>
+                  </div>
+                  {activeTestimonial ? (
+                    <div className="mt-3 flex items-center gap-2 self-start sm:mt-0">
+                      <div className={`hidden rounded-full px-3 py-1.5 text-[12px] font-medium sm:block ${classes.surfaceMuted} ${classes.heading}`}>
+                        {activeTestimonial.name}
+                      </div>
+                      <button
+                        type="button"
+                        aria-label="Previous testimonial"
+                        onClick={() =>
+                          startTransition(() =>
+                            setSelectedTestimonialIndex((currentIndex) =>
+                              currentIndex === 0 ? totalTestimonials - 1 : currentIndex - 1,
+                            ),
+                          )
+                        }
+                        className={`inline-flex h-10 w-10 items-center justify-center text-sm font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${classes.buttonGhost}`}
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4.5 w-4.5">
+                          <path d="m15 18-6-6 6-6" />
+                        </svg>
+                      </button>
+                      <div className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${classes.surfaceMuted} ${classes.heading}`}>
+                        {selectedTestimonialIndex + 1} / {totalTestimonials}
+                      </div>
+                      <button
+                        type="button"
+                        aria-label="Next testimonial"
+                        onClick={() =>
+                          startTransition(() =>
+                            setSelectedTestimonialIndex((currentIndex) =>
+                              currentIndex === totalTestimonials - 1 ? 0 : currentIndex + 1,
+                            ),
+                          )
+                        }
+                        className={`inline-flex h-10 w-10 items-center justify-center text-sm font-medium transition active:scale-[0.98] ${controlRadius} ${focusRingClass} ${classes.buttonGhost}`}
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4.5 w-4.5">
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </button>
+                    </div>
+                  ) : null}
+                </div>
+
+                {activeTestimonial ? (
+                  <div className="mt-6">
+                    <AnimatePresence mode="wait" initial={false}>
+                      <Motion.div
+                        key={`${activeTestimonial.name}-${activeTestimonial.company}`}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={shouldReduceMotion ? undefined : { opacity: 0, y: -18 }}
+                        transition={{ duration: 0.28, ease: 'easeOut' }}
+                      >
+                        <ElectricBorder
+                          as="article"
+                          accent="amber"
+                          variant="soft"
+                          className={cardRadius}
+                          contentClassName={`${cardRadius} overflow-hidden ${classes.surfaceMuted}`}
+                        >
+                          <div className="grid gap-0 lg:grid-cols-[280px_minmax(0,1fr)]">
+                            <div className={`relative min-h-[420px] sm:min-h-[360px] lg:min-h-[300px] ${isDark ? 'bg-slate-950/70' : 'bg-slate-100'}`}>
+                              {activeTestimonial.imageSrc ? (
+                                <>
+                                  <img
+                                    src={activeTestimonial.imageSrc}
+                                    alt={activeTestimonial.name}
+                                    className="absolute inset-0 h-full w-full object-contain object-top p-2 sm:p-3 lg:object-cover lg:object-center lg:p-0"
+                                  />
+                                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08),rgba(15,23,42,0.46))]" />
+                                </>
+                              ) : (
+                                <div
+                                  className={`absolute inset-0 flex flex-col items-center justify-center gap-4 ${
+                                    isDark
+                                      ? 'bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.22),_rgba(15,23,42,0.96)_62%)] text-amber-200'
+                                      : 'bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.18),_rgba(241,245,249,1)_64%)] text-amber-700'
+                                  }`}
+                                >
+                                  <div
+                                    className={`flex h-24 w-24 items-center justify-center rounded-full text-[1.7rem] font-semibold tracking-[0.12em] ring-1 ring-inset ${
+                                      isDark ? 'bg-white/8 ring-white/10' : 'bg-white/80 ring-slate-200'
+                                    }`}
+                                  >
+                                    {activeTestimonial.name
+                                      .split(' ')
+                                      .filter(Boolean)
+                                      .slice(0, 2)
+                                      .map((part) => part[0])
+                                      .join('')
+                                      .toUpperCase()}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="flex flex-col justify-between p-5 sm:p-6">
+                              <div>
+                                <span
+                                  className={`inline-flex h-11 w-11 items-center justify-center ring-1 ring-inset ${controlRadius} ${
+                                    isDark ? 'bg-slate-950/80 ring-white/10 text-amber-300' : 'bg-white ring-slate-200/90 text-amber-600'
+                                  }`}
+                                  aria-hidden="true"
+                                >
+                                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                                    <path d="M9.86 5A5.86 5.86 0 0 0 4 10.86V19h8.14v-8.14H7.86A2.86 2.86 0 0 1 10.71 8H12V5H9.86Zm10 0A5.86 5.86 0 0 0 14 10.86V19h8.14v-8.14h-4.28A2.86 2.86 0 0 1 20.71 8H22V5h-2.14Z" />
+                                  </svg>
+                                </span>
+
+                                <blockquote className={`mt-4 text-[15px] leading-7 sm:text-[1rem] ${classes.text}`}>
+                                  {activeTestimonial.quote}
+                                </blockquote>
+                              </div>
+
+                              <div className="mt-6 border-t border-white/10 pt-4">
+                                <p className={`text-[1rem] font-semibold ${classes.heading}`}>{activeTestimonial.name}</p>
+                                <p className={`mt-1 text-[13px] ${classes.textMuted}`}>
+                                  {activeTestimonial.role} at {activeTestimonial.company}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </ElectricBorder>
+                      </Motion.div>
+                    </AnimatePresence>
+                  </div>
+                ) : null}
+              </ElectricBorder>
+            </Motion.section>
+          ) : null}
 
           <Motion.section
             id="education"
