@@ -44,6 +44,21 @@ const TECH_LABELS_BY_ASSET = {
   '/vercel.png': 'Vercel',
 }
 
+const PROJECT_OVERRIDE_ALIASES = {
+  'daily-monitoring-page-x-meta-system': 'daily-monitoring-page-x-meta-system',
+  'play-monitoring-page-x-meta-backend-system': 'daily-monitoring-page-x-meta-system',
+}
+
+const PROJECT_OVERRIDES = {
+  'daily-monitoring-page-x-meta-system': {
+    slug: 'daily-monitoring-page-x-meta-system',
+    title: 'Play Monitoring Page - X-Meta Backend System',
+    description:
+      'I developed a secured and responsive Daily Play Monitoring dashboard for the X-Meta Backend System that helps users analyze device play statistics through 1-day, weekly, monthly, and custom date-range reporting. The module includes validated inputs, permission-controlled access, asynchronous API fetching, URL state persistence, responsive device-type filters, active filter indicators, summary statistics, a report overview panel, and a dynamic data table for cron-backed historical records. I also integrated automated user guide PDF synchronization, copy-to-clipboard utilities, polished loading, error, and empty states, plus monthly Chart.js analytics with visual range summaries and daily record trend charts to improve usability, reporting accuracy, and operational visibility.',
+    image: '/playmonitoring1 (2).png',
+  },
+}
+
 export const normalizeAssetPath = (value = '') => {
   const trimmedValue = value.toString().trim()
 
@@ -63,8 +78,22 @@ export const slugifyProjectTitle = (value = '') =>
 
 export const normalizeProject = (project) => ({
   ...project,
-  slug: project.slug ?? slugifyProjectTitle(project.title),
-  image: normalizeAssetPath(project.image),
+  ...(() => {
+    const providedSlug = project.slug?.toString().trim().toLowerCase()
+    const titleSlug = slugifyProjectTitle(project.title)
+    const resolvedSlug =
+      PROJECT_OVERRIDE_ALIASES[providedSlug] ??
+      PROJECT_OVERRIDE_ALIASES[titleSlug] ??
+      providedSlug ??
+      titleSlug
+    const projectOverride = PROJECT_OVERRIDES[resolvedSlug] ?? {}
+
+    return {
+      ...projectOverride,
+      slug: projectOverride.slug ?? resolvedSlug,
+      image: normalizeAssetPath(projectOverride.image ?? project.image),
+    }
+  })(),
   link: project.link ?? '',
   technologies: Array.isArray(project.technologies)
     ? project.technologies.map((technology) => normalizeAssetPath(technology))

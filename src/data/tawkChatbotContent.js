@@ -7,7 +7,7 @@ const featuredProjectTitles = [
   'Ipay International Website',
   'Job Application Tracker',
   'Online Saving Goal system for Working Students',
-  'Daily Monitoring Page - X-Meta System',
+  'Play Monitoring Page - X-Meta Backend System',
 ]
 
 const featuredProjects = featuredProjectTitles
@@ -175,7 +175,7 @@ export const tawkFaqEntries = [
   {
     question: "What are Edgar's featured projects?",
     answer:
-      'Featured work includes Ipay International Website, Job Application Tracker, Online Saving Goal System for Working Students, and Daily Monitoring Page - X-Meta System.',
+      'Featured work includes Ipay International Website, Job Application Tracker, Online Saving Goal System for Working Students, and Play Monitoring Page - X-Meta Backend System.',
   },
   {
     question: 'How can I contact Edgar?',

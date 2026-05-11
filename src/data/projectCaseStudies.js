@@ -21,24 +21,27 @@ export const projectCaseStudies = {
     liveLink: 'https://ipays.ph/',
   },
   'daily-monitoring-page-x-meta-system': {
-    headline: 'Operational dashboard for monitoring real-time device activity and daily metrics.',
+    headline: 'Secured daily play monitoring dashboard with flexible reporting, responsive controls, and historical analytics.',
     overview:
-      'This dashboard was built as part of the X-Meta System to help the team monitor device play activity, filter records by date and device type, and review summarized metrics in a cleaner operational interface.',
+      'I built this Daily Play Monitoring module for the X-Meta Backend System to give users a secure and responsive way to review device play statistics across 1-day, weekly, monthly, and custom date ranges. The interface combines validated reporting controls, permission-aware access, cron-backed historical records, summary panels, and Chart.js analytics so operational teams can review monitoring data faster and with better context.',
     problem:
-      'Monitoring workflows were too manual and fragmented, which made it harder to track online and offline device activity quickly and consistently across the day.',
+      'The monitoring workflow needed a clearer and more reliable way to analyze play records across multiple time ranges, device types, and screen sizes without exposing unauthorized users or forcing operators through fragmented reporting steps.',
     solution:
-      'I developed a dashboard that combines filtered data views, summarized monitoring output, and asynchronous data loading so operators can review device activity in a more usable and maintainable workflow.',
+      'I implemented a dashboard flow backed by asynchronous API requests, validated filters, persistent URL state, and responsive controls so users can move between reporting ranges, inspect cron-backed history, copy key values, and review monthly analytics from one polished interface.',
     responsibilities: [
-      'Developed the frontend dashboard layout and interactive filtering flows.',
-      'Integrated AJAX-driven data loading for monitoring records and summary panels.',
-      'Improved empty, loading, and error states for more reliable daily use.',
+      'Developed the secure dashboard UI in PHP and JavaScript with permission-controlled access and validated date-range inputs.',
+      'Integrated the reporting flow across the view, frontend script, and backend API for asynchronous monitoring data retrieval.',
+      'Implemented responsive date controls, mobile and desktop device-type filters, active filter indicators, and utility actions like copy-to-clipboard.',
+      'Added automated user guide PDF synchronization, polished loading overlays, and resilient loading, error, and empty states.',
     ],
     features: [
-      'Date and device-type filtering.',
-      'Summary cards and detailed monitoring tables.',
-      'Responsive dashboard interaction patterns.',
-      'Cleaner handling of loading and no-data states.',
+      '1-day, weekly, monthly, and custom date-range reporting with validated inputs.',
+      'Permission-controlled access with asynchronous API fetching and URL state persistence.',
+      'Report overview cards, summary statistics, and a dynamic table for cron-backed historical records.',
+      'Chart.js monthly range summaries and daily record trend charts.',
+      'Responsive desktop and mobile filters, active filter indicators, and copy-to-clipboard helpers.',
     ],
+    galleryImages: ['/playmonitoring2 (2).png', '/playmonitoring3.png'],
   },
   'users-management-page-x-meta-system': {
     headline: 'Role-aware user management interface for internal operations and permission control.',

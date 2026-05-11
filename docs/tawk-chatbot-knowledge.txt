@@ -41,13 +41,13 @@ Featured Projects
 - Ipay International Website (2026, Full-Stack) - /projects/ipay-international-website
 - Job Application Tracker (2026, Full-Stack) - /projects/job-application-tracker
 - Online Saving Goal system for Working Students (2025, Full-Stack) - /projects/online-saving-goal-system-for-working-students
-- Daily Monitoring Page - X-Meta System (2026, Full-Stack) - /projects/daily-monitoring-page-x-meta-system
+- Play Monitoring Page - X-Meta Backend System (2026, Full-Stack) - /projects/daily-monitoring-page-x-meta-system
 
 Project Highlights
 - Ipay International Website: I developed a modern iPay web application using Next.js 16, React 19, TypeScript, Tailwind CSS, and Supabase, delivering a secure, responsive, and production-ready payment platform for businesses in the Philippines.
 - Job Application Tracker: A full-stack web application built to help job seekers track company, role, status, dates, notes, and resume uploads with a clear hiring pipeline and live dashboard.
 - Online Saving Goal system for Working Students: A capstone full-stack app built with React.js, Tailwind CSS, PHP, and MySQL to help users create, track, and manage savings goals with analytics and protected routes.
-- Daily Monitoring Page - X-Meta System: A monitoring dashboard that tracks device play data with filters, AJAX data loading, summarized metrics, detailed tables, and responsive system feedback states.
+- Play Monitoring Page - X-Meta Backend System: A monitoring dashboard focused on device play analytics, operational trends, responsive dashboard views, and clearer backend monitoring insights.
 
 Certificates
 - HTML Fundamentals (CodeCred)

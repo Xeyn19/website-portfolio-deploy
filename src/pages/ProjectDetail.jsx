@@ -138,11 +138,11 @@ const ProjectDetail = () => {
           <div className="mt-8 grid gap-8 sm:mt-10 sm:gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:items-start">
             <div>
               <div className={`overflow-hidden rounded-2xl ${classes.surfaceMuted}`}>
-                <div className="relative bg-slate-950/10">
+                <div className="relative rounded-2xl border border-white/8 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),rgba(2,6,23,0.08)_42%,rgba(2,6,23,0.16))]">
                   <img
                     src={imageSlides[activeSlide]}
                     alt={`${project.title} screenshot ${activeSlide + 1}`}
-                    className="h-64 w-full object-contain object-top p-2 sm:h-[360px] sm:p-3 lg:h-[460px] lg:p-4 xl:h-[520px] xl:object-cover xl:object-center xl:p-0"
+                    className="mx-auto h-64 w-full object-contain object-center p-3 sm:h-[360px] sm:p-4 lg:h-[460px] lg:p-5 xl:h-[520px] xl:p-6"
                   />
 
                   <button
@@ -190,6 +190,12 @@ const ProjectDetail = () => {
                   />
                 ))}
               </div>
+
+              {hasMultipleSlides ? (
+                <p className={`mt-3 text-center text-[12px] sm:text-[13px] ${classes.textSubtle}`}>
+                  {activeSlide + 1} of {imageSlides.length}
+                </p>
+              ) : null}
 
               <div className="mt-10">
                 <h2 className={`text-[1.32rem] font-semibold tracking-tight sm:text-[1.45rem] ${classes.heading}`}>

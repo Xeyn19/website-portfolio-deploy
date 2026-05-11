@@ -42,7 +42,7 @@ Q: What experience does Edgar have at X-META?
 A: Edgar worked as a Full Stack Developer Intern at X-META Technologies Inc. from February 2026 to May 2026, building the iPay International website and improving internal systems, dashboards, automation, and user management tools.
 
 Q: What are Edgar's featured projects?
-A: Featured work includes Ipay International Website, Job Application Tracker, Online Saving Goal System for Working Students, and Daily Monitoring Page - X-Meta System.
+A: Featured work includes Ipay International Website, Job Application Tracker, Online Saving Goal System for Working Students, and Play Monitoring Page - X-Meta Backend System.
 
 Q: How can I contact Edgar?
 A: You can reach Edgar by email at edgarrodilorosa@gmail.com, on LinkedIn at linkedin.com/in/edgar-orosa-a43a15333, or on GitHub at github.com/Xeyn19.
@@ -284,7 +284,7 @@ Here are strong portfolio highlights:
 - Ipay International Website - /projects/ipay-international-website
 - Job Application Tracker - /projects/job-application-tracker
 - Online Saving Goal system for Working Students - /projects/online-saving-goal-system-for-working-students
-- Daily Monitoring Page - X-Meta System - /projects/daily-monitoring-page-x-meta-system
+- Play Monitoring Page - X-Meta Backend System - /projects/daily-monitoring-page-x-meta-system
 
 Browse all work on the Projects page: /projects
 
