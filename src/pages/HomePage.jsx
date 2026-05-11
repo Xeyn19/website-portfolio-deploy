@@ -106,12 +106,17 @@ const HomePage = () => {
   const [selectedGithubYear, setSelectedGithubYear] = useState(currentCalendarYear)
   const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0)
   const [activeHeroTitleIndex, setActiveHeroTitleIndex] = useState(0)
-  const orderedTechStack = preferredTechStackOrder
-    .map((techName) =>
-      skills.find((skill) => normalizeTechName(skill.techname) === techName),
-    )
-    .filter(Boolean)
-  const marqueeSkills = buildMarqueeItems(orderedTechStack.length ? orderedTechStack : skills.slice(0, 12))
+  const orderedTechStack = [
+    ...preferredTechStackOrder
+      .map((techName) =>
+        skills.find((skill) => normalizeTechName(skill.techname) === techName),
+      )
+      .filter(Boolean),
+    ...skills.filter(
+      (skill) => !preferredTechStackOrder.includes(normalizeTechName(skill.techname)),
+    ),
+  ]
+  const marqueeSkills = buildMarqueeItems(orderedTechStack)
   const firstRowSkills = marqueeSkills.filter((_, index) => index % 2 === 0)
   const secondRowSkills = marqueeSkills.filter((_, index) => index % 2 === 1)
   const heroRotatingTitles =
