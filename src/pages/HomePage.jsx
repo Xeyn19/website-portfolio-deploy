@@ -32,7 +32,6 @@ const preferredTechStackOrder = [
 ]
 
 const publicCategoryFilters = [
-  { key: 'all', label: 'All Projects' },
   { key: 'full-stack', label: 'Full-Stack' },
   { key: 'front-end', label: 'Front-End' },
 ]
@@ -102,7 +101,7 @@ const HomePage = () => {
   const { hero, about, experience, education, certificates, testimonials, contact, footerQuote } = siteContent
   const { projects, skills } = usePortfolioHomeData()
   const shouldReduceMotion = useReducedMotion()
-  const [selectedProjectCategory, setSelectedProjectCategory] = useState('all')
+  const [selectedProjectCategory, setSelectedProjectCategory] = useState('full-stack')
   const [selectedGithubYear, setSelectedGithubYear] = useState(currentCalendarYear)
   const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0)
   const [activeHeroTitleIndex, setActiveHeroTitleIndex] = useState(0)
@@ -124,10 +123,6 @@ const HomePage = () => {
       ? hero.rotatingTitles
       : [hero.title]
   const visibleProjects = projects.filter((project) => {
-    if (selectedProjectCategory === 'all') {
-      return true
-    }
-
     return normalizeCategory(project.category) === selectedProjectCategory
   })
   const githubProfileLink =
@@ -135,7 +130,6 @@ const HomePage = () => {
   const resumePdfHref = '/Resume%20-%20updated_1.pdf'
   const activeHeroTitle = heroRotatingTitles[activeHeroTitleIndex] ?? hero.title
   const projectCategoryCounts = {
-    all: projects.length,
     'full-stack': projects.filter((project) => normalizeCategory(project.category) === 'full-stack').length,
     'front-end': projects.filter((project) => normalizeCategory(project.category) === 'front-end').length,
   }

@@ -20,7 +20,6 @@ import { getScrollRevealProps } from '../lib/scrollMotion'
 
 const projectCategoryChoices = ['Front-End', 'Full-Stack']
 const publicCategoryFilters = [
-  { key: 'all', label: 'All Projects' },
   { key: 'full-stack', label: 'Full-Stack' },
   { key: 'front-end', label: 'Front-End' },
 ]
@@ -121,7 +120,7 @@ const Projects = () => {
   const { skills } = useSkillsData()
   const { isAdmin, loading: authLoading, signOut, userEmail } = useAdminAuth()
   const safeProjects = Array.isArray(projects) && projects.length > 0 ? projects : getFallbackProjects()
-  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedCategory, setSelectedCategory] = useState('full-stack')
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
   const [projectForm, setProjectForm] = useState(emptyProjectForm)
@@ -203,14 +202,9 @@ const Projects = () => {
   }
 
   const filteredProjects = safeProjects.filter((project) => {
-    if (selectedCategory === 'all') {
-      return true
-    }
-
     return normalizeCategory(project.category) === selectedCategory
   })
   const projectCategoryCounts = {
-    all: safeProjects.length,
     'full-stack': safeProjects.filter((project) => normalizeCategory(project.category) === 'full-stack').length,
     'front-end': safeProjects.filter((project) => normalizeCategory(project.category) === 'front-end').length,
   }
