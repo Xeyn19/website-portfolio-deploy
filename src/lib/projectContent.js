@@ -19,6 +19,7 @@ import {
   SiSupabase,
   SiTailwindcss,
   SiTypescript,
+  SiVercel,
 } from 'react-icons/si'
 
 const TECH_LABELS_BY_ASSET = {
@@ -59,6 +60,90 @@ const PROJECT_OVERRIDES = {
   },
 }
 
+const TECHNOLOGY_LABEL_ALIASES = {
+  html: 'HTML',
+  'html 5': 'HTML 5',
+  html5: 'HTML 5',
+  css: 'CSS',
+  css3: 'CSS',
+  bootstrap: 'Bootstrap',
+  javascript: 'JavaScript',
+  js: 'JavaScript',
+  'vanilla js': 'Vanilla JS',
+  vanillajs: 'Vanilla JS',
+  tailwind: 'Tailwind CSS',
+  'tailwind css': 'Tailwind CSS',
+  react: 'React',
+  'react js': 'React JS',
+  reactjs: 'React JS',
+  typescript: 'TypeScript',
+  ts: 'TypeScript',
+  'front-end development': 'Front-end Development',
+  'frontend development': 'Front-end Development',
+  daisyui: 'Daisy UI',
+  'daisy ui': 'Daisy UI',
+  github: 'GitHub',
+  git: 'Git',
+  mui: 'Material UI',
+  'material ui': 'Material UI',
+  next: 'Next JS',
+  nextjs: 'Next JS',
+  'next js': 'Next JS',
+  express: 'Express JS',
+  expressjs: 'Express JS',
+  'express js': 'Express JS',
+  node: 'Node JS',
+  nodejs: 'Node JS',
+  'node js': 'Node JS',
+  mysql: 'MySQL',
+  php: 'PHP',
+  postgres: 'PostgreSQL',
+  postgresql: 'PostgreSQL',
+  supabase: 'Supabase',
+  vercel: 'Vercel',
+}
+
+const TECHNOLOGY_KEY_ALIASES = {
+  html: 'html',
+  html5: 'html',
+  css: 'css',
+  css3: 'css',
+  bootstrap: 'bootstrap',
+  javascript: 'javascript',
+  js: 'javascript',
+  vanillajs: 'javascript',
+  tailwind: 'tailwind',
+  tailwindcss: 'tailwind',
+  react: 'react',
+  reactjs: 'react',
+  typescript: 'typescript',
+  ts: 'typescript',
+  frontenddevelopment: 'frontend',
+  daisyui: 'daisyui',
+  github: 'github',
+  git: 'git',
+  mui: 'materialui',
+  materialui: 'materialui',
+  next: 'nextjs',
+  nextjs: 'nextjs',
+  express: 'expressjs',
+  expressjs: 'expressjs',
+  node: 'nodejs',
+  nodejs: 'nodejs',
+  mysql: 'mysql',
+  php: 'php',
+  postgres: 'postgresql',
+  postgresql: 'postgresql',
+  supabase: 'supabase',
+  vercel: 'vercel',
+}
+
+const looksLikeAssetPath = (value = '') =>
+  /^https?:\/\//i.test(value) ||
+  value.startsWith('/') ||
+  value.includes('/') ||
+  /\.(png|jpe?g|svg|webp|gif|avif)$/i.test(value)
+
 export const normalizeAssetPath = (value = '') => {
   const trimmedValue = value.toString().trim()
 
@@ -67,6 +152,16 @@ export const normalizeAssetPath = (value = '') => {
   }
 
   return `/${trimmedValue}`
+}
+
+export const normalizeTechnologyValue = (value = '') => {
+  const trimmedValue = value.toString().trim()
+
+  if (!trimmedValue) {
+    return ''
+  }
+
+  return looksLikeAssetPath(trimmedValue) ? normalizeAssetPath(trimmedValue) : trimmedValue
 }
 
 export const slugifyProjectTitle = (value = '') =>
@@ -96,7 +191,12 @@ export const normalizeProject = (project) => ({
   })(),
   link: project.link ?? '',
   technologies: Array.isArray(project.technologies)
-    ? project.technologies.map((technology) => normalizeAssetPath(technology))
+    ? project.technologies.map((technology) => normalizeTechnologyValue(technology)).filter(Boolean)
+    : [],
+  galleryImages: Array.isArray(project.galleryImages ?? project.gallery_images)
+    ? (project.galleryImages ?? project.gallery_images)
+        .map((image) => normalizeAssetPath(image))
+        .filter(Boolean)
     : [],
 })
 
@@ -132,7 +232,18 @@ export const summarizeProjectDescription = (description = '', maxLength = 170) =
 }
 
 export const mapTechnologyToLabel = (technology = '') => {
-  const normalizedTechnology = normalizeAssetPath(technology).toLowerCase()
+  const trimmedTechnology = technology.toString().trim()
+  const normalizedTechnologyKey = trimmedTechnology
+    .toLowerCase()
+    .replace(/[/_.-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  if (TECHNOLOGY_LABEL_ALIASES[normalizedTechnologyKey]) {
+    return TECHNOLOGY_LABEL_ALIASES[normalizedTechnologyKey]
+  }
+
+  const normalizedTechnology = normalizeTechnologyValue(technology).toLowerCase()
 
   if (TECH_LABELS_BY_ASSET[normalizedTechnology]) {
     return TECH_LABELS_BY_ASSET[normalizedTechnology]
@@ -146,9 +257,16 @@ export const mapTechnologyToLabel = (technology = '') => {
     .replace(/\b\w/g, (match) => match.toUpperCase())
 }
 
+export const getTechnologyKey = (technology = '') => {
+  const label = mapTechnologyToLabel(technology)
+  const normalizedKey = label.toLowerCase().replace(/[^a-z0-9]+/g, '')
+
+  return TECHNOLOGY_KEY_ALIASES[normalizedKey] ?? normalizedKey
+}
+
 export const getTechnologyVisual = (technology = '') => {
   const label = mapTechnologyToLabel(technology)
-  const key = label.toLowerCase().replace(/[^a-z0-9]+/g, '')
+  const key = getTechnologyKey(technology)
 
   if (['html', 'html5'].includes(key)) {
     return { label, Icon: SiHtml5, iconClass: 'text-orange-400' }
@@ -224,6 +342,10 @@ export const getTechnologyVisual = (technology = '') => {
 
   if (['supabase'].includes(key)) {
     return { label, Icon: SiSupabase, iconClass: 'text-emerald-400' }
+  }
+
+  if (['vercel'].includes(key)) {
+    return { label, Icon: SiVercel, iconClass: 'text-slate-200' }
   }
 
   return { label, Icon: LuCode, iconClass: 'text-slate-300' }

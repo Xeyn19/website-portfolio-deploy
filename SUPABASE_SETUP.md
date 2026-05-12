@@ -66,6 +66,7 @@ create table if not exists public.projects (
   description text not null,
   technologies text[] not null default '{}',
   image text not null,
+  gallery_images text[] not null default '{}',
   date integer,
   category text,
   link text,
@@ -185,6 +186,7 @@ Field mapping for `projects`:
 - `description` -> `description`
 - `technologies` -> `technologies`
 - `image` -> `image`
+- `gallery_images` -> `gallery_images`
 - `date` -> `date`
 - `category` -> `category`
 - `link` -> `link`
@@ -225,8 +227,15 @@ The Projects page reads from `public.projects`.
 ```js
 const { data, error } = await supabase
   .from('projects')
-  .select('id, source_id, title, description, technologies, image, date, category, link')
+  .select('id, source_id, title, description, technologies, image, gallery_images, date, category, link')
   .order('date', { ascending: false })
+```
+
+If the `projects` table already exists, add the new gallery field with:
+
+```sql
+alter table public.projects
+add column if not exists gallery_images text[] not null default '{}';
 ```
 
 Admin users can also create, update, and delete rows from `public.projects`.

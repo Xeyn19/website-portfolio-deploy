@@ -5,12 +5,15 @@ import PageBackLink from '../components/PageBackLink'
 import { toast } from 'react-toastify'
 import useAdminAuth from '../hooks/useAdminAuth'
 import useProjectsData from '../hooks/useProjectsData'
+import useSkillsData from '../hooks/useSkillsData'
 import useSiteTheme from '../hooks/useSiteTheme'
 import { supabase } from '../lib/supabaseClient'
 import {
   getFallbackProjects,
   getProjectExternalLinks,
+  getTechnologyKey,
   getTechnologyVisual,
+  mapTechnologyToLabel,
   summarizeProjectDescription,
 } from '../lib/projectContent'
 import { getScrollRevealProps } from '../lib/scrollMotion'
@@ -25,12 +28,22 @@ const publicCategoryFilters = [
 const emptyProjectForm = {
   title: '',
   description: '',
-  technologies: '',
+  technologies: [],
   image: '',
+  galleryImages: [],
   date: '',
   category: 'Front-End',
   link: '',
 }
+
+const dedupeStrings = (values = []) =>
+  values.filter(
+    (value, index, collection) =>
+      Boolean(value) &&
+      collection.findIndex(
+        (entry) => entry.toString().trim().toLowerCase() === value.toString().trim().toLowerCase(),
+      ) === index,
+  )
 
 const toOptionalNumber = (value) => {
   const trimmedValue = value.toString().trim()
@@ -46,8 +59,9 @@ const toOptionalNumber = (value) => {
 const toProjectForm = (project) => ({
   title: project.title ?? '',
   description: project.description ?? '',
-  technologies: (project.technologies ?? []).join(', '),
+  technologies: dedupeStrings((project.technologies ?? []).map((technology) => mapTechnologyToLabel(technology))),
   image: project.image ?? '',
+  galleryImages: [...(project.galleryImages ?? [])],
   date: project.date?.toString() ?? '',
   category: project.category ?? 'Front-End',
   link: project.link ?? '',
@@ -56,11 +70,9 @@ const toProjectForm = (project) => ({
 const buildProjectPayload = (form) => ({
   title: form.title.trim(),
   description: form.description.trim(),
-  technologies: form.technologies
-    .split(',')
-    .map((technology) => technology.trim())
-    .filter(Boolean),
+  technologies: dedupeStrings(form.technologies.map((technology) => technology.toString().trim())),
   image: form.image.trim(),
+  gallery_images: form.galleryImages.map((imagePath) => imagePath.trim()).filter(Boolean),
   date: toOptionalNumber(form.date),
   category: form.category.trim(),
   link: form.link.trim() || null,
@@ -73,10 +85,40 @@ const normalizeCategory = (value = '') =>
     .toLowerCase()
     .replace(/\s+/g, '-')
 
+const buildTechStackChoices = (skills = [], projects = []) => {
+  const choices = []
+  const seenChoices = new Set()
+
+  const registerChoice = (value = '') => {
+    const label = mapTechnologyToLabel(value)
+    const technologyKey = getTechnologyKey(value)
+
+    if (!label || seenChoices.has(technologyKey)) {
+      return
+    }
+
+    seenChoices.add(technologyKey)
+    choices.push(label)
+  }
+
+  skills.forEach((skill) => registerChoice(skill.techname))
+  projects.forEach((project) => {
+    ;(project.technologies ?? []).forEach((technology) => registerChoice(technology))
+  })
+
+  return choices
+}
+
+const isMissingGalleryImagesError = (error) => {
+  const errorText = `${error?.message ?? ''} ${error?.details ?? ''} ${error?.hint ?? ''}`.toLowerCase()
+  return errorText.includes('gallery_images')
+}
+
 const Projects = () => {
   const { classes } = useSiteTheme()
   const shouldReduceMotion = useReducedMotion()
   const { projects, loading: projectsLoading, refreshProjects } = useProjectsData()
+  const { skills } = useSkillsData()
   const { isAdmin, loading: authLoading, signOut, userEmail } = useAdminAuth()
   const safeProjects = Array.isArray(projects) && projects.length > 0 ? projects : getFallbackProjects()
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -91,6 +133,8 @@ const Projects = () => {
   const primaryButtonClass = `${pillButtonClass} ${classes.buttonPrimary}`
   const ghostButtonClass = `${pillButtonClass} ${classes.buttonGhost}`
   const inputClass = `mt-2 w-full rounded-2xl px-4 py-3 text-base sm:text-sm ${classes.input} ${focusRingClass}`
+  const inlineInputClass = `w-full rounded-2xl px-4 py-3 text-base sm:text-sm ${classes.input} ${focusRingClass}`
+  const techStackChoices = buildTechStackChoices(skills, safeProjects)
 
   const openCreateProject = () => {
     setEditingProject(null)
@@ -120,6 +164,42 @@ const Projects = () => {
   const handleProjectChange = (event) => {
     const { name, value } = event.target
     setProjectForm((currentForm) => ({ ...currentForm, [name]: value }))
+  }
+
+  const toggleProjectTechnology = (technologyLabel) => {
+    setProjectForm((currentForm) => {
+      const hasTechnology = currentForm.technologies.includes(technologyLabel)
+
+      return {
+        ...currentForm,
+        technologies: hasTechnology
+          ? currentForm.technologies.filter((technology) => technology !== technologyLabel)
+          : [...currentForm.technologies, technologyLabel],
+      }
+    })
+  }
+
+  const handleGalleryImageChange = (index, value) => {
+    setProjectForm((currentForm) => ({
+      ...currentForm,
+      galleryImages: currentForm.galleryImages.map((imagePath, imageIndex) =>
+        imageIndex === index ? value : imagePath,
+      ),
+    }))
+  }
+
+  const addGalleryImageField = () => {
+    setProjectForm((currentForm) => ({
+      ...currentForm,
+      galleryImages: [...currentForm.galleryImages, ''],
+    }))
+  }
+
+  const removeGalleryImageField = (index) => {
+    setProjectForm((currentForm) => ({
+      ...currentForm,
+      galleryImages: currentForm.galleryImages.filter((_, imageIndex) => imageIndex !== index),
+    }))
   }
 
   const filteredProjects = safeProjects.filter((project) => {
@@ -181,19 +261,33 @@ const Projects = () => {
     const payload = buildProjectPayload(projectForm)
 
     if (!payload.title || !payload.description || !payload.image || !payload.category) {
-      setActionError('Title, description, category, and image path are required.')
-      toast.error('Title, description, category, and image path are required.')
+      setActionError('Title, description, category, and main detail image path are required.')
+      toast.error('Title, description, category, and main detail image path are required.')
       return
     }
 
     setSaving(true)
 
     try {
-      const request = editingProject
-        ? supabase.from('projects').update(payload).eq('id', editingProject.id)
-        : supabase.from('projects').insert([payload])
+      const runSave = (requestPayload) =>
+        editingProject
+          ? supabase.from('projects').update(requestPayload).eq('id', editingProject.id)
+          : supabase.from('projects').insert([requestPayload])
 
-      const { error } = await request
+      let { error } = await runSave(payload)
+
+      if (error && isMissingGalleryImagesError(error)) {
+        const legacyPayload = { ...payload }
+        delete legacyPayload.gallery_images
+
+        if (payload.gallery_images.length > 0) {
+          throw new Error(
+            'Your Supabase projects table is missing the gallery_images column. Add that column first to save multiple detail images.',
+          )
+        }
+
+        ;({ error } = await runSave(legacyPayload))
+      }
 
       if (error) {
         throw error
@@ -518,7 +612,7 @@ const Projects = () => {
                 </label>
 
                 <label className={`block text-sm font-medium ${classes.text}`}>
-                  Image Path
+                  Main Detail Image
                   <input
                     name="image"
                     value={projectForm.image}
@@ -527,21 +621,88 @@ const Projects = () => {
                     placeholder="/project-image.png"
                     required
                   />
+                  <span className={`mt-2 block text-xs leading-5 ${classes.textMuted}`}>
+                    Required first image shown on the project detail page.
+                  </span>
                 </label>
 
                 <label className={`block text-sm font-medium sm:col-span-2 ${classes.text}`}>
-                  Technology Icon Paths
-                  <input
-                    name="technologies"
-                    value={projectForm.technologies}
-                    onChange={handleProjectChange}
-                    className={inputClass}
-                    placeholder="/html.png, /tailwindcss.png, /reactjs.svg"
-                  />
+                  Tech Stack
                   <span className={`mt-2 block text-xs leading-5 ${classes.textMuted}`}>
-                    Separate each local public-folder image path with a comma.
+                    Select every technology used in this project. {projectForm.technologies.length} selected.
+                  </span>
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    {techStackChoices.map((technologyLabel) => {
+                      const technology = getTechnologyVisual(technologyLabel)
+                      const TechIcon = technology.Icon
+                      const isSelected = projectForm.technologies.includes(technologyLabel)
+
+                      return (
+                        <button
+                          key={technologyLabel}
+                          type="button"
+                          onClick={() => toggleProjectTechnology(technologyLabel)}
+                          aria-pressed={isSelected}
+                          className={`flex min-h-12 items-center justify-start gap-3 rounded-2xl px-4 py-3 text-left text-sm transition ${focusRingClass} ${
+                            isSelected ? classes.navActive : classes.buttonGhost
+                          }`}
+                        >
+                          <TechIcon className={`h-4 w-4 shrink-0 ${technology.iconClass}`} />
+                          <span className="min-w-0 flex-1 truncate">{technologyLabel}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <span className={`mt-2 block text-xs leading-5 ${classes.textMuted}`}>
+                    This list is based on your existing portfolio skills and current project stack.
                   </span>
                 </label>
+
+                <div className={`sm:col-span-2 ${classes.text}`}>
+                  <div className={`rounded-2xl p-4 sm:p-5 ${classes.surfaceMuted}`}>
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <p className="text-sm font-medium">Additional Images</p>
+                        <p className={`mt-2 text-xs leading-5 ${classes.textMuted}`}>
+                          Optional extra screenshots shown after the main detail image.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={addGalleryImageField}
+                        className={`w-full sm:w-auto ${ghostButtonClass}`}
+                      >
+                        Add Image
+                      </button>
+                    </div>
+
+                    {projectForm.galleryImages.length ? (
+                      <div className="mt-4 space-y-3">
+                        {projectForm.galleryImages.map((imagePath, index) => (
+                          <div key={`gallery-image-${index}`} className="flex flex-col gap-3 sm:flex-row sm:items-start">
+                            <input
+                              value={imagePath}
+                              onChange={(event) => handleGalleryImageChange(index, event.target.value)}
+                              className={inlineInputClass}
+                              placeholder="/project-image-detail.png"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeGalleryImageField(index)}
+                              className={`w-full sm:w-auto ${ghostButtonClass}`}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className={`mt-4 text-sm leading-6 ${classes.textMuted}`}>
+                        No additional images added yet.
+                      </p>
+                    )}
+                  </div>
+                </div>
 
                 <label className={`block text-sm font-medium sm:col-span-2 ${classes.text}`}>
                   Link
@@ -552,6 +713,9 @@ const Projects = () => {
                     className={inputClass}
                     placeholder="https://example.com"
                   />
+                  <span className={`mt-2 block text-xs leading-5 ${classes.textMuted}`}>
+                    Optional. Add a live site or repository link only if this project has one.
+                  </span>
                 </label>
               </div>
 

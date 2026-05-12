@@ -34,6 +34,7 @@ const ProjectDetail = () => {
   const { classes } = useSiteTheme()
   const shouldReduceMotion = useReducedMotion()
   const { projects } = useProjectsData()
+  const [activeSlide, setActiveSlide] = useState(0)
   const project = projects.find((entry) => entry.slug === slug)
 
   if (!project) {
@@ -48,10 +49,9 @@ const ProjectDetail = () => {
   const technologies = (project.technologies ?? []).map((technology) => getTechnologyVisual(technology))
   const { liveLink, repoLink } = getProjectExternalLinks(project, caseStudy)
   const projectMeta = [project.category, project.date].filter(Boolean)
-  const imageSlides = [project.image, ...(detail.galleryImages ?? [])].filter(
+  const imageSlides = [project.image, ...(project.galleryImages ?? []), ...(detail.galleryImages ?? [])].filter(
     (image, index, collection) => Boolean(image) && collection.indexOf(image) === index,
   )
-  const [activeSlide, setActiveSlide] = useState(0)
   const hasMultipleSlides = imageSlides.length > 1
   const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70'
   const actionButtonClass = `inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition ${classes.buttonGhost} ${focusRingClass}`
