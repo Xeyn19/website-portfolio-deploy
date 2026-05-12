@@ -3,7 +3,10 @@
 A modern personal portfolio built with React, Vite, and Tailwind CSS.
 
 ## Highlights
-- Project gallery with category and year filters (sorted newest first)
+- Project gallery with category filters and newest-first sorting
+- Full-Stack projects shown by default on the public project views
+- Admin CRUD for projects and skills through Supabase Auth
+- Project detail pages with carousel-ready multiple screenshots
 - Motion-driven sections using Framer Motion
 - Light/dark theme styling
 - Contact form powered by EmailJS with basic rate limiting
@@ -25,6 +28,12 @@ Projects and skills are loaded from Supabase tables:
 Local JSON files in `src/assets/` are the original source data/reference files.
 
 Images and icons are not stored in Supabase. They stay in the Vite `public` folder, while Supabase stores only path strings such as `/project1.png` or `/html.png`.
+
+Projects support:
+- a required main detail image
+- optional additional detail images through `gallery_images`
+- tech stack values stored as a `text[]` array
+- optional external link values for live sites or repositories
 
 ## Supabase Setup
 Create a local `.env.local` file with your own Supabase values:
@@ -73,6 +82,12 @@ To use CRUD:
 - Add the admin-only write policies from `SUPABASE_SETUP.md`.
 - Visit `/login` directly in the browser to open the admin login modal.
 
+Project admin form notes:
+- The main image field is for the first image shown on the project detail page.
+- Additional project screenshots are optional and feed the detail-page carousel.
+- Tech stack is selected from one multi-select list based on your portfolio skills/current project data.
+- Link is optional, so projects without a live site or repository can still be saved.
+
 ## Production CRUD
 CRUD works in production when the deployed site has the same required environment variables:
 
@@ -110,6 +125,10 @@ npm run preview
 - `npm run build`
 - `npm run preview`
 - `npm run lint`
+
+## Notes
+- If your existing Supabase `projects` table was created before gallery support was added, run the `gallery_images` migration from `SUPABASE_SETUP.md`.
+- Public project reads fall back gracefully for older tables, but multiple detail images require the `gallery_images` column to persist properly.
 
 ## EmailJS Setup
 Update the EmailJS identifiers in `src/pages/Contact.jsx`:
