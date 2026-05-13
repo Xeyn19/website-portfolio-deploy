@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate:icons": "node scripts/generate-react-icons-manifest.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

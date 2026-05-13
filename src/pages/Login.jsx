@@ -76,7 +76,7 @@ const Login = () => {
             ) : isAdmin ? (
               <div className="mt-6">
                 <p className={`text-sm leading-6 ${classes.text}`}>
-                  Logged in as {userEmail}. You can manage projects now.
+                  Logged in as {userEmail}. You can manage projects and skills now.
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link
@@ -84,6 +84,12 @@ const Login = () => {
                     className={`inline-flex justify-center rounded-full px-5 py-2.5 text-sm font-medium transition ${classes.buttonPrimary}`}
                   >
                     Open Projects
+                  </Link>
+                  <Link
+                    to="/skills"
+                    className={`inline-flex justify-center rounded-full px-5 py-2.5 text-sm font-medium transition ${classes.buttonGhost}`}
+                  >
+                    Open Skills
                   </Link>
                   <button
                     type="button"

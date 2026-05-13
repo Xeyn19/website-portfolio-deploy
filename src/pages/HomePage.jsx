@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
 import ElectricBorder from '../components/ElectricBorder'
 import Spinner from '../components/Spinner'
+import StoredReactIcon from '../components/StoredReactIcon'
 import { siteContent } from '../data/siteContent'
+import useAdminAuth from '../hooks/useAdminAuth'
 import usePageLoader from '../hooks/usePageLoader'
 import usePortfolioHomeData from '../hooks/usePortfolioHomeData'
 import useSiteTheme from '../hooks/useSiteTheme'
 import {
   getProjectExternalLinks,
+  getSkillVisual,
   getTechnologyVisual,
   summarizeProjectDescription,
 } from '../lib/projectContent'
@@ -98,6 +101,7 @@ const getCertificateVisual = (certificate = {}) => {
 const HomePage = () => {
   const loading = usePageLoader()
   const { classes, isDark } = useSiteTheme()
+  const { isAdmin, loading: authLoading } = useAdminAuth()
   const { hero, about, experience, education, certificates, testimonials, contact, footerQuote } = siteContent
   const { projects, skills } = usePortfolioHomeData()
   const shouldReduceMotion = useReducedMotion()
@@ -138,6 +142,7 @@ const HomePage = () => {
   const activeTestimonial = testimonials[selectedTestimonialIndex] ?? testimonials[0] ?? null
   const totalTestimonials = testimonials.length
   const sectionReveal = getScrollRevealProps(shouldReduceMotion)
+  const homeActionButtonClass = `inline-flex min-h-10 items-center justify-center px-4 py-2 text-[12px] font-medium transition ${controlRadius} ${classes.buttonPrimary} ${focusRingClass}`
   const heroMeta = [
     {
       label: 'Education',
@@ -496,22 +501,33 @@ const HomePage = () => {
             className="scroll-mt-32"
             {...sectionReveal}
           >
-            <ElectricBorder
-              accent="cyan"
-              className={sectionRadius}
-              contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
-            >
-              <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
-                Tech-Stack
-              </h2>
+              <ElectricBorder
+                accent="cyan"
+                className={sectionRadius}
+                contentClassName={`${sectionRadius} p-5 sm:p-6 ${classes.shell}`}
+              >
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <h2 className={`text-[1.55rem] font-semibold tracking-tight sm:text-[1.75rem] ${classes.heading}`}>
+                  Tech-Stack
+                </h2>
+                <div className="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap sm:justify-end">
+                  <Link to="/skills" className={`w-full sm:w-auto ${homeActionButtonClass}`}>
+                    View
+                  </Link>
+                  {!authLoading && isAdmin ? (
+                    <Link to="/skills" className={`w-full sm:w-auto ${homeActionButtonClass}`}>
+                      Add Skill
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
 
               <div className="mt-6 space-y-4 overflow-hidden">
                 {[firstRowSkills, secondRowSkills].map((rowItems, rowIndex) => (
                   <div key={`tech-row-${rowIndex}`} className="overflow-hidden">
-                    <div className={`marquee-track ${rowIndex === 1 ? 'marquee-track-reverse' : ''}`}>
-                      {[...rowItems, ...rowItems].map((skill, index) => {
-                        const techVisual = getTechnologyVisual(skill.techname)
-                        const TechIcon = techVisual.Icon
+                      <div className={`marquee-track ${rowIndex === 1 ? 'marquee-track-reverse' : ''}`}>
+                        {[...rowItems, ...rowItems].map((skill, index) => {
+                          const techVisual = getSkillVisual(skill)
 
                         return (
                           <ElectricBorder
@@ -521,13 +537,17 @@ const HomePage = () => {
                             className={`mx-2 ${cardRadius}`}
                             contentClassName={`inline-flex min-w-[172px] items-center gap-3 px-4 py-3 ${cardRadius} ${classes.surfaceMuted}`}
                           >
-                            <span
-                              className={`flex h-9 w-9 shrink-0 items-center justify-center ring-1 ring-inset ${controlRadius} ${
-                                isDark ? 'bg-slate-950/80 ring-white/10' : 'bg-white ring-slate-200/90'
-                              }`}
-                            >
-                              <TechIcon className={`h-4 w-4 ${techVisual.iconClass}`} />
-                            </span>
+                              <span
+                                className={`flex h-9 w-9 shrink-0 items-center justify-center ring-1 ring-inset ${controlRadius} ${
+                                  isDark ? 'bg-slate-950/80 ring-white/10' : 'bg-white ring-slate-200/90'
+                                }`}
+                              >
+                                <StoredReactIcon
+                                  iconId={techVisual.iconId}
+                                  fallbackIcon={techVisual.Icon}
+                                  className={`h-4 w-4 ${techVisual.iconClass}`}
+                                />
+                              </span>
                             <span className={`text-[13.5px] font-medium ${classes.heading}`}>{skill.techname}</span>
                           </ElectricBorder>
                         )
@@ -558,8 +578,15 @@ const HomePage = () => {
                     Selected front-end and full-stack work.
                   </p>
                 </div>
-                <div className={`self-start rounded-full px-3 py-1.5 text-[12px] font-medium ${classes.surfaceMuted} ${classes.heading}`}>
-                  {visibleProjects.length} / {projects.length} {selectedProjectFilter.label}
+                <div className="flex flex-col gap-3 self-start sm:items-end">
+                  <div className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${classes.surfaceMuted} ${classes.heading}`}>
+                    {visibleProjects.length} / {projects.length} {selectedProjectFilter.label}
+                  </div>
+                  {!authLoading && isAdmin ? (
+                    <Link to="/projects" className={`w-full sm:w-auto ${homeActionButtonClass}`}>
+                      Add Project
+                    </Link>
+                  ) : null}
                 </div>
               </div>
 

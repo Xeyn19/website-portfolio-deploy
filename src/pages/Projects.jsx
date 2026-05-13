@@ -364,6 +364,12 @@ const Projects = () => {
                   >
                     Add Project
                   </button>
+                  <Link
+                    to="/skills"
+                    className={`w-full sm:w-auto ${ghostButtonClass}`}
+                  >
+                    Manage Skills
+                  </Link>
                   <button
                     type="button"
                     onClick={handleAdminLogout}

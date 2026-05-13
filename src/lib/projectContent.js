@@ -1,4 +1,5 @@
 import fallbackProjects from '../assets/data.json'
+import fallbackSkills from '../assets/techdata.json'
 import { LuCode, LuLayoutTemplate } from 'react-icons/lu'
 import {
   SiBootstrap,
@@ -21,6 +22,11 @@ import {
   SiTypescript,
   SiVercel,
 } from 'react-icons/si'
+import {
+  getReactIconPackClass,
+  normalizeStoredSkillIconValue,
+  parseStoredReactIconId,
+} from './reactIconsLibrary'
 
 const TECH_LABELS_BY_ASSET = {
   '/css.png': 'CSS',
@@ -164,6 +170,13 @@ export const normalizeTechnologyValue = (value = '') => {
   return looksLikeAssetPath(trimmedValue) ? normalizeAssetPath(trimmedValue) : trimmedValue
 }
 
+export const normalizeSkill = (skill = {}) => ({
+  ...skill,
+  image: normalizeAssetPath(skill.image),
+  techlink: skill.techlink ?? '',
+  iconKey: normalizeStoredSkillIconValue(skill.iconKey ?? skill.icon_key ?? ''),
+})
+
 export const slugifyProjectTitle = (value = '') =>
   value
     .toString()
@@ -213,6 +226,21 @@ export const sortProjects = (projects) =>
   })
 
 export const getFallbackProjects = () => sortProjects(fallbackProjects).map(normalizeProject)
+export const getFallbackSkills = () => fallbackSkills.map(normalizeSkill)
+
+// Legacy compatibility exports for hot-reload sessions that still request the old
+// curated picker API. The new picker uses the generated react-icons manifest.
+export const skillIconChoices = []
+export const getSkillIconChoice = (value = '') => ({
+  key: normalizeStoredSkillIconValue(value),
+  label: value || 'Code / Other',
+})
+export const findSkillIconMatches = () => ({
+  bestMatch: null,
+  exactMatch: null,
+  hasExactMatch: false,
+  matches: [],
+})
 
 export const summarizeProjectDescription = (description = '', maxLength = 170) => {
   const normalizedDescription = description.toString().replace(/\s+/g, ' ').trim()
@@ -264,8 +292,8 @@ export const getTechnologyKey = (technology = '') => {
   return TECHNOLOGY_KEY_ALIASES[normalizedKey] ?? normalizedKey
 }
 
-export const getTechnologyVisual = (technology = '') => {
-  const label = mapTechnologyToLabel(technology)
+export const getTechnologyVisual = (technology = '', labelOverride = '') => {
+  const label = labelOverride || mapTechnologyToLabel(technology)
   const key = getTechnologyKey(technology)
 
   if (['html', 'html5'].includes(key)) {
@@ -349,6 +377,26 @@ export const getTechnologyVisual = (technology = '') => {
   }
 
   return { label, Icon: LuCode, iconClass: 'text-slate-300' }
+}
+
+export const getSkillVisual = (skill = {}) => {
+  const skillLabel = skill.techname ?? ''
+  const normalizedIconValue = normalizeStoredSkillIconValue(skill.iconKey ?? skill.icon_key ?? skillLabel)
+  const storedReactIcon = parseStoredReactIconId(normalizedIconValue)
+
+  if (storedReactIcon) {
+    return {
+      Icon: LuCode,
+      iconClass: getReactIconPackClass(storedReactIcon.pack),
+      iconId: storedReactIcon.id,
+      label: skillLabel || storedReactIcon.iconName,
+    }
+  }
+
+  return {
+    ...getTechnologyVisual(normalizedIconValue || skillLabel, skillLabel),
+    iconId: '',
+  }
 }
 
 const isRepositoryUrl = (value = '') => /github\.com|gitlab\.com|bitbucket\.org/i.test(value)

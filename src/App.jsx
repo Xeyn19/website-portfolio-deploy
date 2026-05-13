@@ -7,12 +7,14 @@ import HomePage from './pages/HomePage'
 import ProjectsLayout from './layout/ProjectsLayout'
 import ContactLayout from './layout/ContactLayout'
 import Page404 from './components/Page404'
+import AdminOnlyRoute from './components/AdminOnlyRoute'
 import ThemeProvider from './context/ThemeProvider'
 import Spinner from './components/Spinner'
 
 const About = lazy(() => import('./pages/About'))
 const Projects = lazy(() => import('./pages/Projects'))
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const Skills = lazy(() => import('./pages/Skills'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Certificates = lazy(() => import('./pages/Certificates'))
 const Login = lazy(() => import('./pages/Login'))
@@ -31,8 +33,12 @@ const App = () => {
         <Route path='*' element={<Page404 />} /> 
           <Route index element={<HomePage />}/> 
           <Route path='about' element={withSuspense(About)} />
+          <Route path='skills' element={withSuspense(Skills)} />
           <Route path='projects' element={<ProjectsLayout />}>
-            <Route index element ={withSuspense(Projects)}/> 
+            <Route
+              index
+              element={<AdminOnlyRoute>{withSuspense(Projects)}</AdminOnlyRoute>}
+            />
             <Route path=':slug' element={withSuspense(ProjectDetail)}/>
           </Route>
           <Route path='contact' element={<ContactLayout />}>

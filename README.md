@@ -27,13 +27,21 @@ Projects and skills are loaded from Supabase tables:
 
 Local JSON files in `src/assets/` are the original source data/reference files.
 
-Images and icons are not stored in Supabase. They stay in the Vite `public` folder, while Supabase stores only path strings such as `/project1.png` or `/html.png`.
+Project images are not stored in Supabase. They stay in the Vite `public` folder, while Supabase stores only path strings such as `/project1.png`.
+
+Skills now render with `react-icons` through a stored `icon_key` value. The legacy `image` field is still written for compatibility with older data and schema constraints.
 
 Projects support:
 - a required main detail image
 - optional additional detail images through `gallery_images`
 - tech stack values stored as a `text[]` array
 - optional external link values for live sites or repositories
+
+Skills support:
+- a required `techname`
+- optional `experience`
+- optional `techlink`
+- a required `icon_key` selected from supported `react-icons`
 
 ## Supabase Setup
 Create a local `.env.local` file with your own Supabase values:
@@ -88,6 +96,11 @@ Project admin form notes:
 - Tech stack is selected from one multi-select list based on your portfolio skills/current project data.
 - Link is optional, so projects without a live site or repository can still be saved.
 
+Skill admin form notes:
+- Skills are managed from `/skills`.
+- New skills store a supported `react-icons` key in `icon_key`.
+- The app still writes a legacy placeholder value to `image` so existing `NOT NULL` schemas continue to accept inserts.
+
 ## Production CRUD
 CRUD works in production when the deployed site has the same required environment variables:
 
@@ -128,6 +141,7 @@ npm run preview
 
 ## Notes
 - If your existing Supabase `projects` table was created before gallery support was added, run the `gallery_images` migration from `SUPABASE_SETUP.md`.
+- If your existing Supabase `skills` table was created before `react-icons` support was added, run the `icon_key` migration from `SUPABASE_SETUP.md`.
 - Public project reads fall back gracefully for older tables, but multiple detail images require the `gallery_images` column to persist properly.
 
 ## EmailJS Setup

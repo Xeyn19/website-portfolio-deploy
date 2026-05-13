@@ -1,22 +1,20 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { getTawkRouteContext } from '../data/tawkChatbotContent'
-import useAdminAuth from '../hooks/useAdminAuth'
 
 const TAWK_SCRIPT_ID = 'tawk-chat-widget-script'
 const TAWK_SRC = 'https://embed.tawk.to/6a002f832bb6c91c30a83ab4/1jo8bj731'
 
 const TawkChatWidget = () => {
   const { pathname, hash } = useLocation()
-  const { isAdmin, loading } = useAdminAuth()
   const latestShouldShowRef = useRef(false)
   const lastContextKeyRef = useRef('')
   const lastTagKeyRef = useRef('')
   const widgetReadyRef = useRef(false)
 
-  const isProjectsIndex = pathname === '/projects'
+  const isAdminPortfolioIndex = pathname === '/projects'
   const isLoginPage = pathname === '/login'
-  const shouldShowChat = !isLoginPage && !(isProjectsIndex && (loading || isAdmin))
+  const shouldShowChat = !isLoginPage && !isAdminPortfolioIndex
 
   latestShouldShowRef.current = shouldShowChat
 

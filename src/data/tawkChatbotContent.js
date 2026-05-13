@@ -46,7 +46,7 @@ export const tawkHomepageSectionLinks = {
 
 export const tawkRouteLinks = {
   about: '/about',
-  projects: '/projects',
+  projects: '/#projects',
   certificates: '/certificates',
   contact: '/contact',
   github: 'https://github.com/Xeyn19',
@@ -145,7 +145,7 @@ Useful Internal Links
 - Education section: /#education
 - Contact section: /#contact
 - About page: /about
-- Projects page: /projects
+- Projects section: /#projects
 - Certificates page: /certificates
 - Contact page: /contact`
 
@@ -219,7 +219,7 @@ export const tawkShortcutDefinitions = [
     title: 'Projects & Certificates',
     aiQuestions: ['projects and certificates', 'projects', 'certificates', 'portfolio work', 'show projects'],
     suggestedMessages: ['Featured Projects', 'Certificates', 'GitHub Profile', 'Main Menu'],
-    message: `Edgar's portfolio includes business websites, dashboards, admin tools, and full-stack applications. He also holds certificates covering HTML, CSS, JavaScript, and web development fundamentals.\n\nBrowse the [Projects page](${tawkRouteLinks.projects}) or the [Certificates page](${tawkRouteLinks.certificates}).`,
+    message: `Edgar's portfolio includes business websites, dashboards, admin tools, and full-stack applications. He also holds certificates covering HTML, CSS, JavaScript, and web development fundamentals.\n\nBrowse the [Projects section](${tawkRouteLinks.projects}) or the [Certificates page](${tawkRouteLinks.certificates}).`,
   },
   {
     id: 'contact-hire',
@@ -264,7 +264,7 @@ export const tawkShortcutDefinitions = [
     title: 'Featured Projects',
     aiQuestions: ['featured projects', 'best projects', 'top projects', 'portfolio highlights', 'show featured projects'],
     suggestedMessages: ['Projects & Certificates', 'GitHub Profile', 'Contact / Hire Edgar', 'Main Menu'],
-    message: `Here are strong portfolio highlights:\n${featuredProjectsSummary}\n\nBrowse all work on the [Projects page](${tawkRouteLinks.projects}).`,
+    message: `Here are strong portfolio highlights:\n${featuredProjectsSummary}\n\nBrowse all work in the [Projects section](${tawkRouteLinks.projects}).`,
   },
   {
     id: 'certificates',

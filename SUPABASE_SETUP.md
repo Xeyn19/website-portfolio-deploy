@@ -79,6 +79,7 @@ create table if not exists public.skills (
   techname text not null,
   experience text,
   techlink text,
+  icon_key text,
   image text not null,
   created_at timestamptz not null default now()
 );
@@ -197,6 +198,7 @@ Field mapping for `skills`:
 - `techname` -> `techname`
 - `experience` -> `experience`
 - `techlink` -> `techlink`
+- `icon_key` -> `icon_key`
 - `image` -> `image`
 
 Do not paste full production row values into this README. Keep the inserted content in Supabase.
@@ -245,17 +247,24 @@ The Skills page reads from `public.skills`.
 ```js
 const { data, error } = await supabase
   .from('skills')
-  .select('id, source_id, techname, experience, techlink, image')
+  .select('id, source_id, techname, experience, techlink, image, icon_key')
   .order('id', { ascending: true })
 ```
 
 Admin users can also create, update, and delete rows from `public.skills`.
 
+If the `skills` table already exists, add the icon field with:
+
+```sql
+alter table public.skills
+add column if not exists icon_key text;
+```
+
 ## Images
 
-Images and icons are not uploaded to Supabase Storage in this setup.
+Project images are not uploaded to Supabase Storage in this setup.
 
-Keep the files in the Vite `public` folder. Store only the path string in Supabase.
+Keep the files in the Vite `public` folder. Store only the path string in Supabase for project images.
 
 Example path format:
 
@@ -269,6 +278,8 @@ React can render those paths normally:
 ```jsx
 <img src={project.image} alt={project.title} />
 ```
+
+Skills render with `react-icons` by using `icon_key`. The app still writes a legacy placeholder path such as `/technology-icon.svg` to the `image` field so existing `NOT NULL` schemas can accept new inserts.
 
 ## Verification
 
@@ -284,6 +295,7 @@ Check:
 - Skills page loads data from Supabase.
 - Project filters still work.
 - Images and icons still load from local public paths.
+- Run the `icon_key` migration before using the new Skills admin form.
 - Visiting `/login` opens the admin login modal.
 - Admin login works for the configured `VITE_ADMIN_EMAIL`.
 - Add, edit, and delete work for both projects and skills.
