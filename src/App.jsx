@@ -29,8 +29,9 @@ const App = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
+      <>
+        <Route path='*' element={<Page404 />} />
         <Route path='/' element={<MainLayout />}>
-        <Route path='*' element={<Page404 />} /> 
           <Route index element={<HomePage />}/> 
           <Route path='about' element={withSuspense(About)} />
           <Route path='skills' element={withSuspense(Skills)} />
@@ -49,6 +50,7 @@ const App = () => {
             <Route index element ={withSuspense(Certificates)}/> 
           </Route>
         </Route>
+      </>
     )
   )
   return (
