@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion as Motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -7,7 +7,7 @@ import StoredReactIcon from '../components/StoredReactIcon'
 import useAdminAuth from '../hooks/useAdminAuth'
 import useSiteTheme from '../hooks/useSiteTheme'
 import useSkillsData from '../hooks/useSkillsData'
-import { searchReactIcons, getReactIconManifestEntry } from '../lib/reactIconsSearch'
+import { getReactIconManifestEntry, resolveSkillIconFromName, searchReactIcons } from '../lib/reactIconsSearch'
 import { normalizeStoredSkillIconValue } from '../lib/reactIconsLibrary'
 import { supabase } from '../lib/supabaseClient'
 import { getSkillVisual } from '../lib/projectContent'
@@ -50,6 +50,7 @@ const Skills = () => {
   const [isSkillModalOpen, setIsSkillModalOpen] = useState(false)
   const [editingSkill, setEditingSkill] = useState(null)
   const [skillForm, setSkillForm] = useState(emptySkillForm)
+  const [iconSelectionSource, setIconSelectionSource] = useState('auto')
   const [iconSearch, setIconSearch] = useState('')
   const [deleteTarget, setDeleteTarget] = useState(null)
   const [actionError, setActionError] = useState('')
@@ -63,8 +64,10 @@ const Skills = () => {
   const cardReveal = getScrollRevealProps(shouldReduceMotion, {
     viewport: { amount: 0.12 },
   })
+  const createSkillIconResolution = useMemo(() => resolveSkillIconFromName(skillForm.techname), [skillForm.techname])
+  const activeIconSearch = useMemo(() => iconSearch.trim() || skillForm.techname.trim(), [iconSearch, skillForm.techname])
   const selectedManifestEntry = useMemo(() => getReactIconManifestEntry(skillForm.iconKey), [skillForm.iconKey])
-  const iconSearchResults = useMemo(() => searchReactIcons(iconSearch, { limit: 72 }), [iconSearch])
+  const iconSearchResults = useMemo(() => searchReactIcons(activeIconSearch, { limit: 72 }), [activeIconSearch])
   const previewSkill = useMemo(
     () => ({
       techname:
@@ -76,10 +79,65 @@ const Skills = () => {
     }),
     [selectedManifestEntry, skillForm.iconKey, skillForm.techname],
   )
+  const iconPickerStatus = useMemo(() => {
+    if (editingSkill) {
+      return 'Editing preserves the saved icon until you choose a different one below.'
+    }
+
+    if (iconSelectionSource === 'manual') {
+      return 'Manual override active. Skill-name changes will not replace this icon.'
+    }
+
+    if (createSkillIconResolution.isStrongMatch && createSkillIconResolution.entry) {
+      return 'Auto-selected from the skill name. You can still replace it below.'
+    }
+
+    if (skillForm.techname.trim()) {
+      return 'No strong match found from the skill name yet. Choose an icon below to continue.'
+    }
+
+    return 'Type a skill name to auto-select the closest strong installed react-icons match.'
+  }, [createSkillIconResolution.entry, createSkillIconResolution.isStrongMatch, editingSkill, iconSelectionSource, skillForm.techname])
+  const previewDetail = useMemo(() => {
+    if (editingSkill) {
+      if (selectedManifestEntry) {
+        return `${selectedManifestEntry.label} - ${selectedManifestEntry.packLabel}`
+      }
+
+      return skillForm.iconKey ? `Saved icon - ${skillForm.iconKey}` : 'No icon selected yet'
+    }
+
+    if (iconSelectionSource === 'manual') {
+      if (selectedManifestEntry) {
+        return `Manual selection - ${selectedManifestEntry.label} - ${selectedManifestEntry.packLabel}`
+      }
+
+      return 'Choose an icon to continue'
+    }
+
+    if (createSkillIconResolution.isStrongMatch && selectedManifestEntry) {
+      return `Auto-selected - ${selectedManifestEntry.label} - ${selectedManifestEntry.packLabel}`
+    }
+
+    if (createSkillIconResolution.matchType === 'weak' && createSkillIconResolution.entry) {
+      return `Closest result - ${createSkillIconResolution.entry.label} - choose manually if you want it`
+    }
+
+    return 'No strong icon selected yet'
+  }, [
+    createSkillIconResolution.entry,
+    createSkillIconResolution.isStrongMatch,
+    createSkillIconResolution.matchType,
+    editingSkill,
+    iconSelectionSource,
+    selectedManifestEntry,
+    skillForm.iconKey,
+  ])
 
   const openCreateSkill = () => {
     setEditingSkill(null)
     setSkillForm(emptySkillForm)
+    setIconSelectionSource('auto')
     setIconSearch('')
     setActionError('')
     setIsSkillModalOpen(true)
@@ -88,22 +146,27 @@ const Skills = () => {
   const openEditSkill = (skill) => {
     setEditingSkill(skill)
     setSkillForm(toSkillForm(skill))
+    setIconSelectionSource('manual')
     setIconSearch('')
     setActionError('')
     setIsSkillModalOpen(true)
   }
 
-  const closeSkillModal = (force = false) => {
-    if (saving && !force) {
-      return
-    }
+  const closeSkillModal = useCallback(
+    (force = false) => {
+      if (saving && !force) {
+        return
+      }
 
-    setIsSkillModalOpen(false)
-    setEditingSkill(null)
-    setSkillForm(emptySkillForm)
-    setIconSearch('')
-    setActionError('')
-  }
+      setIsSkillModalOpen(false)
+      setEditingSkill(null)
+      setSkillForm(emptySkillForm)
+      setIconSelectionSource('auto')
+      setIconSearch('')
+      setActionError('')
+    },
+    [saving],
+  )
 
   const handleSkillChange = (event) => {
     const { name, value } = event.target
@@ -111,8 +174,25 @@ const Skills = () => {
   }
 
   const handleSkillIconSelect = (iconKey) => {
+    setIconSelectionSource('manual')
     setSkillForm((currentForm) => ({ ...currentForm, iconKey }))
   }
+
+  useEffect(() => {
+    if (!isSkillModalOpen || editingSkill || iconSelectionSource !== 'auto') {
+      return
+    }
+
+    const nextIconKey = createSkillIconResolution.isStrongMatch ? createSkillIconResolution.entry?.id ?? '' : ''
+
+    setSkillForm((currentForm) => {
+      if (currentForm.iconKey === nextIconKey) {
+        return currentForm
+      }
+
+      return { ...currentForm, iconKey: nextIconKey }
+    })
+  }, [createSkillIconResolution, editingSkill, iconSelectionSource, isSkillModalOpen])
 
   useEffect(() => {
     if (!isSkillModalOpen && !deleteTarget) {
@@ -135,7 +215,7 @@ const Skills = () => {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [deleteTarget, isSkillModalOpen, saving])
+  }, [closeSkillModal, deleteTarget, isSkillModalOpen, saving])
 
   const handleAdminLogout = async () => {
     const { error } = await signOut()
@@ -153,9 +233,19 @@ const Skills = () => {
 
     const payload = buildSkillPayload(skillForm, editingSkill)
 
-    if (!payload.techname || !payload.icon_key) {
-      setActionError('Skill name and icon are required.')
-      toast.error('Skill name and icon are required.')
+    if (!payload.techname) {
+      setActionError('Skill name is required.')
+      toast.error('Skill name is required.')
+      return
+    }
+
+    if (!payload.icon_key) {
+      const iconError = editingSkill
+        ? 'Skill icon is required.'
+        : 'No strong icon match was selected. Choose an icon before saving.'
+
+      setActionError(iconError)
+      toast.error(iconError)
       return
     }
 
@@ -368,8 +458,8 @@ const Skills = () => {
                     {editingSkill ? editingSkill.techname : 'Add Skill'}
                   </h2>
                   <p id="skill-modal-description" className={`mt-2 text-sm leading-6 ${classes.textMuted}`}>
-                    Choose a supported `react-icons` visual, then save the skill details. A legacy placeholder image
-                    path is stored automatically for Supabase compatibility.
+                    Enter a skill name to auto-select a supported `react-icons` visual. You can still replace it
+                    manually below. A legacy placeholder image path is stored automatically for Supabase compatibility.
                   </p>
                 </div>
                 <button type="button" onClick={closeSkillModal} className={`w-full sm:w-auto ${ghostButtonClass}`}>
@@ -396,13 +486,7 @@ const Skills = () => {
                         </span>
                         <div className="min-w-0">
                           <p className={`text-[1rem] font-semibold ${classes.heading}`}>{previewSkill.techname}</p>
-                          <p className={`mt-1 text-sm ${classes.textMuted}`}>
-                            {selectedManifestEntry
-                              ? `${selectedManifestEntry.label} • ${selectedManifestEntry.packLabel}`
-                              : skillForm.iconKey
-                                ? `Legacy preset • ${skillForm.iconKey}`
-                                : 'No icon selected yet'}
-                          </p>
+                          <p className={`mt-1 text-sm ${classes.textMuted}`}>{previewDetail}</p>
                         </div>
                       </>
                     )
@@ -440,8 +524,8 @@ const Skills = () => {
                       <div>
                         <p className="text-sm font-medium">Icon Picker</p>
                         <p className={`mt-2 text-xs leading-5 ${classes.textMuted}`}>
-                          Search installed `react-icons` packs directly. Example: `mysql workbench` will surface the
-                          closest library icon match, such as MySQL.
+                          Search installed `react-icons` packs directly. Typing the skill name also drives the
+                          automatic match and the default results shown here.
                         </p>
                       </div>
                       <div
@@ -452,6 +536,8 @@ const Skills = () => {
                         {selectedManifestEntry ? selectedManifestEntry.id : skillForm.iconKey || 'None'}
                       </div>
                     </div>
+
+                    <p className={`mt-4 text-xs leading-5 ${classes.textMuted}`}>{iconPickerStatus}</p>
 
                     <label className={`mt-4 block text-sm font-medium ${classes.text}`}>
                       Search Icons
@@ -464,11 +550,11 @@ const Skills = () => {
                       />
                     </label>
 
-                    {iconSearch.trim() ? (
+                    {activeIconSearch ? (
                       <div className={`mt-3 rounded-2xl p-3 text-sm ${classes.surface}`}>
                         {!iconSearchResults.matches.length ? (
                           <p className={classes.textMuted}>
-                            No installed `react-icons` match for "{iconSearch.trim()}". Try a broader technology or
+                            No installed `react-icons` match for "{activeIconSearch}". Try a broader technology or
                             brand term.
                           </p>
                         ) : iconSearchResults.hasExactMatch ? (
@@ -477,7 +563,7 @@ const Skills = () => {
                           </p>
                         ) : (
                           <p className={classes.textMuted}>
-                            No exact installed icon match for "{iconSearch.trim()}". Closest library result:
+                            No exact installed icon match for "{activeIconSearch}". Closest library result:
                             {' '}
                             <span className={classes.heading}>
                               {iconSearchResults.bestMatch?.label || 'No nearby icon found'}
@@ -513,7 +599,9 @@ const Skills = () => {
                             </span>
                             <span className="min-w-0 flex-1">
                               <span className="block truncate font-medium">{choice.label}</span>
-                              <span className={`mt-1 block truncate text-[11px] uppercase tracking-[0.12em] ${classes.textMuted}`}>
+                              <span
+                                className={`mt-1 block truncate text-[11px] uppercase tracking-[0.12em] ${classes.textMuted}`}
+                              >
                                 {choice.packLabel}
                               </span>
                             </span>
@@ -523,7 +611,7 @@ const Skills = () => {
                     </div>
 
                     <p className={`mt-3 text-xs leading-5 ${classes.textMuted}`}>
-                      {iconSearch.trim()
+                      {activeIconSearch
                         ? `Showing ${iconSearchResults.matches.length} of ${iconSearchResults.total} library match${iconSearchResults.total === 1 ? '' : 'es'}.`
                         : `Showing ${iconSearchResults.matches.length} starter results from the installed react-icons packs. Search to narrow the full library.`}
                     </p>
