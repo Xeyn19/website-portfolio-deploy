@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Change Descriptions"
+  short_description: "Draft commit and PR text in one response"
+  default_prompt: "Use $draft-git-change-descriptions to give me a commit message, PR title, and PR description together from my current changes."
