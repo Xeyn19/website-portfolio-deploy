@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion as Motion, useReducedMotion } from 'framer-motion'
 import { useParams } from 'react-router-dom'
 import PageBackLink from '../components/PageBackLink'
@@ -7,6 +7,7 @@ import { projectCaseStudies } from '../data/projectCaseStudies'
 import useProjectsData from '../hooks/useProjectsData'
 import { getProjectExternalLinks, getTechnologyVisual } from '../lib/projectContent'
 import { getScrollRevealProps } from '../lib/scrollMotion'
+import { getSiteAssetHref } from '../lib/siteAssets'
 import useSiteTheme from '../hooks/useSiteTheme'
 
 const fallbackSections = (project) => ({
@@ -37,6 +38,10 @@ const ProjectDetail = () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const project = projects.find((entry) => entry.slug === slug)
 
+  useEffect(() => {
+    setActiveSlide(0)
+  }, [slug])
+
   if (!project) {
     return <Page404 />
   }
@@ -49,9 +54,9 @@ const ProjectDetail = () => {
   const technologies = (project.technologies ?? []).map((technology) => getTechnologyVisual(technology))
   const { liveLink, repoLink } = getProjectExternalLinks(project, caseStudy)
   const projectMeta = [project.category, project.date].filter(Boolean)
-  const imageSlides = [project.image, ...(project.galleryImages ?? []), ...(detail.galleryImages ?? [])].filter(
-    (image, index, collection) => Boolean(image) && collection.indexOf(image) === index,
-  )
+  const imageSlides = [project.image, ...(project.galleryImages ?? []), ...(detail.galleryImages ?? [])]
+    .filter((image, index, collection) => Boolean(image) && collection.indexOf(image) === index)
+    .map((image) => getSiteAssetHref(image))
   const hasMultipleSlides = imageSlides.length > 1
   const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70'
   const actionButtonClass = `inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition ${classes.buttonGhost} ${focusRingClass}`
@@ -81,7 +86,7 @@ const ProjectDetail = () => {
     <div className="relative overflow-hidden px-4 pb-14 pt-24 sm:px-6 sm:pt-28 lg:pb-20">
       <div className={`pointer-events-none absolute inset-0 -z-20 ${classes.pageBackground}`} />
 
-      <main className="mx-auto max-w-[1080px]">
+      <main className="mx-auto max-w-[980px]">
         <PageBackLink to="/#projects" label="Back to projects" currentLabel={project.title} />
 
         <Motion.section
