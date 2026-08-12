@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, startTransition, useEffect, useState } from 'react'
+import React, { Suspense, lazy, startTransition, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
@@ -122,10 +122,13 @@ const HomePage = () => {
   const marqueeSkills = buildMarqueeItems(orderedTechStack)
   const firstRowSkills = marqueeSkills.filter((_, index) => index % 2 === 0)
   const secondRowSkills = marqueeSkills.filter((_, index) => index % 2 === 1)
-  const heroRotatingTitles =
-    Array.isArray(hero.rotatingTitles) && hero.rotatingTitles.length > 0
-      ? hero.rotatingTitles
-      : [hero.title]
+  const heroRotatingTitles = useMemo(
+    () =>
+      Array.isArray(hero.rotatingTitles) && hero.rotatingTitles.length > 0
+        ? hero.rotatingTitles
+        : [hero.title],
+    [hero.rotatingTitles, hero.title],
+  )
   const visibleProjects = projects.filter((project) => {
     return normalizeCategory(project.category) === selectedProjectCategory
   })

@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { ThemeContext } from '../context/ThemeProvider'
+import { ThemeContext } from '../context/ThemeContext'
 
 const useSiteTheme = () => {
   const { theme, handleTheme, isThemeSwitching } = useContext(ThemeContext)
