@@ -1,4 +1,4 @@
-import React, { startTransition, useEffect, useState } from 'react'
+import React, { startTransition, useCallback, useEffect, useState } from 'react'
 import { motion as Motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageBackLink from '../components/PageBackLink'
@@ -149,7 +149,7 @@ const Projects = () => {
     setIsProjectModalOpen(true)
   }
 
-  const closeProjectModal = (force = false) => {
+  const closeProjectModal = useCallback((force = false) => {
     if (saving && !force) {
       return
     }
@@ -158,7 +158,7 @@ const Projects = () => {
     setEditingProject(null)
     setProjectForm(emptyProjectForm)
     setActionError('')
-  }
+  }, [saving])
 
   const handleProjectChange = (event) => {
     const { name, value } = event.target
@@ -236,7 +236,7 @@ const Projects = () => {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [deleteTarget, isProjectModalOpen, saving])
+  }, [closeProjectModal, deleteTarget, isProjectModalOpen, saving])
 
   const handleAdminLogout = async () => {
     const { error } = await signOut()

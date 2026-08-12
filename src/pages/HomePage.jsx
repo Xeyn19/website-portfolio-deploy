@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, startTransition, useEffect, useState } from 'react'
+import React, { Suspense, lazy, startTransition, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { LuAward, LuBookOpen, LuCode } from 'react-icons/lu'
@@ -17,6 +17,7 @@ import {
   summarizeProjectDescription,
 } from '../lib/projectContent'
 import { getScrollRevealProps } from '../lib/scrollMotion'
+import { resumePdfHref } from '../lib/siteAssets'
 
 const GitHubContributionCalendar = lazy(() => import('../components/GitHubContributionCalendar'))
 const preferredTechStackOrder = [
@@ -122,16 +123,18 @@ const HomePage = () => {
   const marqueeSkills = buildMarqueeItems(orderedTechStack)
   const firstRowSkills = marqueeSkills.filter((_, index) => index % 2 === 0)
   const secondRowSkills = marqueeSkills.filter((_, index) => index % 2 === 1)
-  const heroRotatingTitles =
-    Array.isArray(hero.rotatingTitles) && hero.rotatingTitles.length > 0
-      ? hero.rotatingTitles
-      : [hero.title]
+  const heroRotatingTitles = useMemo(
+    () =>
+      Array.isArray(hero.rotatingTitles) && hero.rotatingTitles.length > 0
+        ? hero.rotatingTitles
+        : [hero.title],
+    [hero.rotatingTitles, hero.title],
+  )
   const visibleProjects = projects.filter((project) => {
     return normalizeCategory(project.category) === selectedProjectCategory
   })
   const githubProfileLink =
     hero.socialLinks.find((item) => item.label === 'GitHub')?.href ?? 'https://github.com/Xeyn19'
-  const resumePdfHref = '/Resume%20-%20updated_1.pdf'
   const activeHeroTitle = heroRotatingTitles[activeHeroTitleIndex] ?? hero.title
   const projectCategoryCounts = {
     'full-stack': projects.filter((project) => normalizeCategory(project.category) === 'full-stack').length,

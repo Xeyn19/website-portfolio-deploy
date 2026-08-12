@@ -1,6 +1,6 @@
-import React, { createContext, startTransition, useEffect, useRef, useState } from 'react'
+import React, { startTransition, useEffect, useRef, useState } from 'react'
+import { ThemeContext } from './ThemeContext'
 
-export const ThemeContext = createContext();
 const ThemeProvider = ({children}) => {
     const [theme, setTheme] = useState(() => {
         if (typeof window === 'undefined') {

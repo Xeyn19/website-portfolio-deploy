@@ -165,7 +165,7 @@ const GitHubContributionCalendar = ({
         setContributions(payload.contributions)
         setDataSource(payload.source)
         setError('')
-      } catch (fetchError) {
+      } catch {
         if (isCancelled || controller.signal.aborted) {
           return
         }
