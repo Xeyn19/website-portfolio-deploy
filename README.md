@@ -1,151 +1,185 @@
-# Portfolio Website
+# Edgar Orosa Portfolio
 
-A modern personal portfolio built with React, Vite, and Tailwind CSS.
+A responsive full-stack developer portfolio built with React, Vite, and Tailwind CSS. It presents professional experience, technical skills, certificates, education, project case studies, and a downloadable resume in a light/dark interface.
 
-## Highlights
-- Project gallery with category filters and newest-first sorting
-- Full-Stack projects shown by default on the public project views
-- Admin CRUD for projects and skills through Supabase Auth
-- Project detail pages with carousel-ready multiple screenshots
-- Motion-driven sections using Framer Motion
-- Light/dark theme styling
-- Contact form powered by EmailJS with basic rate limiting
-- Fully responsive layout
+## Features
+
+- Responsive single-page portfolio with section navigation
+- Dedicated project case-study pages with multi-image carousels
+- Base-path-aware project images and resume links for production hosting
+- Supabase-backed project and skill data with local JSON fallbacks
+- Admin-only project and skill management through Supabase Auth
+- Searchable `react-icons` skill picker and stored icon metadata
+- GitHub contribution calendar powered by a server-side GraphQL endpoint
+- EmailJS contact form with client-side daily rate limiting
+- Context-aware Tawk.to chat widget
+- Motion effects with reduced-motion support
+- Light and dark themes
 
 ## Tech Stack
-- React 19
-- Vite 6
-- Tailwind CSS 4 + DaisyUI
-- Framer Motion
-- EmailJS
-- Supabase
 
-## Project Data
-Projects and skills are loaded from Supabase tables:
-- `projects`
-- `skills`
-
-Local JSON files in `src/assets/` are the original source data/reference files.
-
-Project images are not stored in Supabase. They stay in the Vite `public` folder, while Supabase stores only path strings such as `/project1.png`.
-
-Skills now render with `react-icons` through a stored `icon_key` value. The legacy `image` field is still written for compatibility with older data and schema constraints.
-
-Projects support:
-- a required main detail image
-- optional additional detail images through `gallery_images`
-- tech stack values stored as a `text[]` array
-- optional external link values for live sites or repositories
-
-Skills support:
-- a required `techname`
-- optional `experience`
-- optional `techlink`
-- a required `icon_key` selected from supported `react-icons`
-
-## Supabase Setup
-Create a local `.env.local` file with your own Supabase values:
-
-```env
-VITE_SUPABASE_URL=your-supabase-project-url
-VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
-VITE_ADMIN_EMAIL=your-admin-email@example.com
-GITHUB_CLASSIC_TOKEN=your-github-classic-token-with-read-user
-```
-
-Do not commit real Supabase credentials or secret keys.
-
-See `SUPABASE_SETUP.md` for the full setup and connection guide.
-
-## GitHub Contributions Setup
-The homepage contribution calendar uses a server-side GitHub GraphQL request so it can stay closer to your real GitHub profile activity.
-
-Preferred local and production setup:
-
-```env
-GITHUB_CLASSIC_TOKEN=your-github-classic-token-with-read-user
-```
-
-Optional fallback variable:
-
-```env
-GITHUB_READ_TOKEN=your-optional-github-read-token
-```
-
-Notes:
-- `GITHUB_CLASSIC_TOKEN` is preferred over `GITHUB_READ_TOKEN`.
-- Use a classic personal access token with the `read:user` scope if you want private contribution counts to be included.
-- Do not prefix these variables with `VITE_`. They must stay server-side only.
-- In production, add the same variable in your hosting provider environment settings and redeploy.
-- On localhost, restart `npm run dev` after changing `.env.local` so the Vite dev API middleware picks up the new token.
-
-The local dev server now serves `/api/github-contributions`, and production uses the Vercel function in `api/github-contributions.js`.
-
-## Admin CRUD
-Projects and skills support admin-only create, edit, and delete controls.
-
-To use CRUD:
-- Create an admin user in Supabase Auth.
-- Set `VITE_ADMIN_EMAIL` in `.env.local` to that admin user's email.
-- Add the admin-only write policies from `SUPABASE_SETUP.md`.
-- Visit `/login` directly in the browser to open the admin login modal.
-
-Project admin form notes:
-- The main image field is for the first image shown on the project detail page.
-- Additional project screenshots are optional and feed the detail-page carousel.
-- Tech stack is selected from one multi-select list based on your portfolio skills/current project data.
-- Link is optional, so projects without a live site or repository can still be saved.
-
-Skill admin form notes:
-- Skills are managed from `/skills`.
-- New skills store a supported `react-icons` key in `icon_key`.
-- The app still writes a legacy placeholder value to `image` so existing `NOT NULL` schemas continue to accept inserts.
-
-## Production CRUD
-CRUD works in production when the deployed site has the same required environment variables:
-
-```env
-VITE_SUPABASE_URL=your-supabase-project-url
-VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
-VITE_ADMIN_EMAIL=your-admin-email@example.com
-GITHUB_CLASSIC_TOKEN=your-github-classic-token-with-read-user
-```
-
-Add these in the hosting provider dashboard, such as Vercel or Netlify. The local `.env.local` file is only used on your computer.
-
-Production also requires:
-- The admin user exists in Supabase Auth.
-- RLS policies allow public reads and admin writes.
-- The deployment supports React Router fallback so `/login` loads the React app instead of a 404 page.
-- If you want the GitHub contribution calendar to match your profile more closely, the deployment must include `GITHUB_CLASSIC_TOKEN`.
-
-Never add the Supabase secret key to frontend production environment variables.
+| Area | Technologies |
+| --- | --- |
+| Frontend | React 19, React Router, Vite 6 |
+| Styling | Tailwind CSS 4, DaisyUI, Material UI |
+| Animation | Framer Motion |
+| Data and authentication | Supabase |
+| Contact and chat | EmailJS, Tawk.to |
+| Icons | React Icons |
+| Deployment | Vercel-compatible serverless API and SPA rewrites |
 
 ## Getting Started
+
+### 1. Install dependencies
+
 ```bash
 npm install
+```
+
+### 2. Configure the environment
+
+Copy `.env.example` to `.env.local`, then replace the placeholder values:
+
+```env
+VITE_SUPABASE_URL=your-supabase-project-url
+VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+VITE_ADMIN_EMAIL=your-admin-email@example.com
+GITHUB_CLASSIC_TOKEN=your-github-classic-token
+```
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_SUPABASE_URL` | Public URL for the Supabase project |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Publishable browser key used for public reads and authentication |
+| `VITE_ADMIN_EMAIL` | Email allowed to access admin project and skill controls |
+| `GITHUB_CLASSIC_TOKEN` | Server-only token used by the contribution API; `read:user` can include private contribution counts |
+| `GITHUB_READ_TOKEN` | Optional fallback when `GITHUB_CLASSIC_TOKEN` is not set |
+| `VITE_BASE_PATH` | Optional production asset base; defaults to `/website-portfolio-deploy` |
+
+Never prefix GitHub tokens with `VITE_`, expose a Supabase secret key to the frontend, or commit real credentials.
+
+### 3. Start development
+
+```bash
 npm run dev
 ```
 
-## Build And Preview
-```bash
-npm run build
-npm run preview
+Vite runs at `http://localhost:3000` by default. Restart the server after changing environment variables.
+
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite development server |
+| `npm run build` | Create the production build in `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint across the project |
+| `npm run test:unit` | Run the Node unit-test suite |
+| `npm run generate:icons` | Regenerate the searchable React Icons manifest |
+
+## Application Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Public portfolio homepage |
+| `/projects/:slug` | Public project case study and screenshot gallery |
+| `/login` | Supabase admin login |
+| `/projects` | Admin project management |
+| `/skills` | Skill management interface |
+| `/contact` | Dedicated contact page |
+| `/certificates` | Dedicated certificates page |
+
+Homepage navigation uses section hashes such as `/#experience`, `/#projects`, and `/#contact`.
+
+## Project and Skill Data
+
+The app reads live content from the following Supabase tables:
+
+- `projects`
+- `skills`
+
+When live data is unavailable, the app falls back to the reference files in `src/assets/`.
+
+Project records support a main `image`, optional `gallery_images`, a `technologies` text array, and an optional external `link`. Image files remain in `public/`; Supabase stores paths such as `/ipay1.png` rather than uploaded image data.
+
+Skill records use an `icon_key` for React Icons. A legacy `image` value is still maintained for compatibility with older schemas.
+
+See [SUPABASE_SETUP.md](SUPABASE_SETUP.md) for table definitions, migrations, authentication, and Row Level Security policies. Existing databases may need the documented `gallery_images` and `icon_key` migrations.
+
+## Admin Access
+
+1. Create the admin account in Supabase Auth.
+2. Set `VITE_ADMIN_EMAIL` to the same account email.
+3. Apply the admin-only write policies from `SUPABASE_SETUP.md`.
+4. Open `/login` and authenticate.
+
+Public visitors can read portfolio content, while create, update, and delete operations remain restricted to the configured admin.
+
+## Static Assets and Resume
+
+Static screenshots, icons, portraits, and PDFs live in `public/`. Project galleries use `object-contain` so complete screenshots remain visible across desktop and mobile layouts.
+
+The homepage and footer Resume links both serve:
+
+```text
+public/resume-updated.pdf
 ```
 
-## Scripts
-- `npm run dev`
-- `npm run build`
-- `npm run preview`
-- `npm run lint`
+Local asset URLs are resolved against Vite's `import.meta.env.BASE_URL`, allowing them to work under a subdirectory deployment.
 
-## Notes
-- If your existing Supabase `projects` table was created before gallery support was added, run the `gallery_images` migration from `SUPABASE_SETUP.md`.
-- If your existing Supabase `skills` table was created before `react-icons` support was added, run the `icon_key` migration from `SUPABASE_SETUP.md`.
-- Public project reads fall back gracefully for older tables, but multiple detail images require the `gallery_images` column to persist properly.
+## Integrations
 
-## EmailJS Setup
-Update the EmailJS identifiers in `src/pages/Contact.jsx`:
-- Service ID
-- Template ID
-- Public key
+### GitHub contributions
+
+Development requests to `/api/github-contributions` are handled by Vite middleware. Production uses the serverless handler in `api/github-contributions.js`. Add the GitHub token to the hosting provider's server environment and redeploy.
+
+### EmailJS
+
+The contact form integration is configured in `src/pages/Contact.jsx`. Update its EmailJS service ID, template ID, and public key when connecting another EmailJS account.
+
+### Tawk.to
+
+The chat widget is implemented in `src/components/TawkChatWidget.jsx`, with page-specific context in `src/data/tawkChatbotContent.js`.
+
+## Production Deployment
+
+`vercel.json` includes an SPA rewrite for non-API routes. Configure the same Supabase, admin, and GitHub environment variables in the deployment dashboard.
+
+The production build defaults to `/website-portfolio-deploy` as its base path. For a root-domain deployment, set:
+
+```env
+VITE_BASE_PATH=/
+```
+
+For a subdirectory deployment, use its pathname instead, for example `/website-portfolio-deploy/`.
+
+Before deploying, run:
+
+```bash
+npm run lint
+npm run build
+```
+
+## Project Structure
+
+```text
+api/                  Serverless API handlers
+public/               Static images and resume PDFs
+scripts/              Development and manifest utilities
+src/
+  assets/             Local fallback JSON data
+  components/         Shared interface components
+  context/            React providers
+  data/               Case studies and generated data
+  hooks/              Data, authentication, and theme hooks
+  layout/             Route layouts
+  lib/                Content normalization and utilities
+  pages/              Homepage, detail pages, and admin screens
+```
+
+## Security Notes
+
+- Keep real credentials in `.env.local`; it is ignored by Git.
+- Use only the Supabase publishable key in browser code.
+- Keep GitHub tokens server-side.
+- Protect write operations with Supabase RLS instead of relying only on hidden frontend controls.
