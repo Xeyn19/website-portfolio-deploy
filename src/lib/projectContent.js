@@ -57,12 +57,38 @@ const PROJECT_OVERRIDE_ALIASES = {
 }
 
 const PROJECT_OVERRIDES = {
+  'ipay-international-website': {
+    image: '/ipay1.png',
+    galleryImages: [
+      '/ipay2.png',
+      '/ipay3.png',
+      '/ipay4.png',
+      '/ipay5.png',
+      '/ipay6.png',
+      '/ipay7.png',
+      '/ipay8.png',
+    ],
+  },
+  'ui-ux-landing-page': {
+    image: '/tutoy1.png',
+    galleryImages: [
+      '/tutoy2.png',
+      '/tutoy3.png',
+      '/tutoy4.png',
+      '/tutoy5.png',
+      '/tutoy6.png',
+    ],
+  },
   'daily-monitoring-page-x-meta-system': {
     slug: 'daily-monitoring-page-x-meta-system',
     title: 'Play Monitoring Page - X-Meta Backend System',
     description:
       'I developed a secured and responsive Daily Play Monitoring dashboard for the X-Meta Backend System that helps users analyze device play statistics through 1-day, weekly, monthly, and custom date-range reporting. The module includes validated inputs, permission-controlled access, asynchronous API fetching, URL state persistence, responsive device-type filters, active filter indicators, summary statistics, a report overview panel, and a dynamic data table for cron-backed historical records. I also integrated automated user guide PDF synchronization, copy-to-clipboard utilities, polished loading, error, and empty states, plus monthly Chart.js analytics with visual range summaries and daily record trend charts to improve usability, reporting accuracy, and operational visibility.',
     image: '/playmonitoring1 (2).png',
+  },
+  'users-management-page-x-meta-system': {
+    image: '/userm1.png',
+    galleryImages: ['/userm2.png', '/userm3.png'],
   },
 }
 
@@ -184,34 +210,31 @@ export const slugifyProjectTitle = (value = '') =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 
-export const normalizeProject = (project) => ({
-  ...project,
-  ...(() => {
-    const providedSlug = project.slug?.toString().trim().toLowerCase()
-    const titleSlug = slugifyProjectTitle(project.title)
-    const resolvedSlug =
-      PROJECT_OVERRIDE_ALIASES[providedSlug] ??
-      PROJECT_OVERRIDE_ALIASES[titleSlug] ??
-      providedSlug ??
-      titleSlug
-    const projectOverride = PROJECT_OVERRIDES[resolvedSlug] ?? {}
+export const normalizeProject = (project) => {
+  const providedSlug = project.slug?.toString().trim().toLowerCase()
+  const titleSlug = slugifyProjectTitle(project.title)
+  const resolvedSlug =
+    PROJECT_OVERRIDE_ALIASES[providedSlug] ??
+    PROJECT_OVERRIDE_ALIASES[titleSlug] ??
+    providedSlug ??
+    titleSlug
+  const projectOverride = PROJECT_OVERRIDES[resolvedSlug] ?? {}
+  const galleryImages = projectOverride.galleryImages ?? project.galleryImages ?? project.gallery_images
 
-    return {
-      ...projectOverride,
-      slug: projectOverride.slug ?? resolvedSlug,
-      image: normalizeAssetPath(projectOverride.image ?? project.image),
-    }
-  })(),
-  link: project.link ?? '',
-  technologies: Array.isArray(project.technologies)
-    ? project.technologies.map((technology) => normalizeTechnologyValue(technology)).filter(Boolean)
-    : [],
-  galleryImages: Array.isArray(project.galleryImages ?? project.gallery_images)
-    ? (project.galleryImages ?? project.gallery_images)
-        .map((image) => normalizeAssetPath(image))
-        .filter(Boolean)
-    : [],
-})
+  return {
+    ...project,
+    ...projectOverride,
+    slug: projectOverride.slug ?? resolvedSlug,
+    image: normalizeAssetPath(projectOverride.image ?? project.image),
+    link: project.link ?? '',
+    technologies: Array.isArray(project.technologies)
+      ? project.technologies.map((technology) => normalizeTechnologyValue(technology)).filter(Boolean)
+      : [],
+    galleryImages: Array.isArray(galleryImages)
+      ? galleryImages.map((image) => normalizeAssetPath(image)).filter(Boolean)
+      : [],
+  }
+}
 
 export const sortProjects = (projects) =>
   [...projects].sort((left, right) => {
