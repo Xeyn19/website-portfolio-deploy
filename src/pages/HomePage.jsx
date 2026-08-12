@@ -17,6 +17,7 @@ import {
   summarizeProjectDescription,
 } from '../lib/projectContent'
 import { getScrollRevealProps } from '../lib/scrollMotion'
+import { resumePdfHref } from '../lib/siteAssets'
 
 const GitHubContributionCalendar = lazy(() => import('../components/GitHubContributionCalendar'))
 const preferredTechStackOrder = [
@@ -134,7 +135,6 @@ const HomePage = () => {
   })
   const githubProfileLink =
     hero.socialLinks.find((item) => item.label === 'GitHub')?.href ?? 'https://github.com/Xeyn19'
-  const resumePdfHref = '/Resume%20-%20updated_1.pdf'
   const activeHeroTitle = heroRotatingTitles[activeHeroTitleIndex] ?? hero.title
   const projectCategoryCounts = {
     'full-stack': projects.filter((project) => normalizeCategory(project.category) === 'full-stack').length,

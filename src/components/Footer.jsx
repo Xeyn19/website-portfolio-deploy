@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Email from '/email.png'
 import Phone from '/phone-call.png'
 import useSiteTheme from '../hooks/useSiteTheme'
+import { resumePdfHref } from '../lib/siteAssets'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -45,7 +46,7 @@ const Footer = () => {
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {[
-                { href: '/Resume%20-%20updated_1.pdf', label: 'Resume PDF', external: true },
+                { href: resumePdfHref, label: 'Resume PDF', external: true },
                 { to: '/contact', label: 'Contact' },
               ].map((item) =>
                 item.external ? (
