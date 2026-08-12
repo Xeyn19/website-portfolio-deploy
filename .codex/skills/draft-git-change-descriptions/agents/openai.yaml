@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Change Descriptions"
+  short_description: "Draft commit and PR text from Git changes"
+  default_prompt: "Use $draft-git-change-descriptions to draft a commit message, PR title, and PR description from my current branch changes."
