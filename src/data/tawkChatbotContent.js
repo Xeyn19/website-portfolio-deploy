@@ -96,15 +96,21 @@ Tech Stack
 - ${techStack.join(', ')}
 
 Experience
-- Role: Full Stack Developer Intern
-- Company: X-META Technologies Inc.
-- Dates: Feb 2026 - May 2026
-- Duration: 3 months
+- Role: Full Stack Web Developer
+- Company: X-Meta Technologies, Inc.
+- Dates: June 2026 - Present
 - Highlights:
-  - Built the iPay International website with Next.js and Supabase, including admin and analytics tools.
-  - Enhanced internal business systems using PHP, JavaScript, HTML, Bootstrap, and MySQL.
-  - Automated monitoring, dashboard, and reporting workflows for offline devices.
-  - Improved security, performance, and user management modules.
+  - Developing XMetaPay, a payment platform for X-Meta Technologies.
+  - Maintaining and administering the company's 371 Admin, CDB, and X Power systems.
+
+- Role: Full Stack Web Developer Intern
+- Company: X-Meta Technologies, Inc.
+- Dates: Feb 2026 - May 2026
+- Highlights:
+  - Developed scalable features for the iPay International website using Next.js and Supabase, including an admin dashboard, data analytics, and request proposal features.
+  - Built and enhanced the X-Meta System (371 backend) using PHP, JavaScript, HTML, Bootstrap, and MySQL.
+  - Automated manual processes including program plays monitoring, daily dashboards, and email reporting for offline devices.
+  - Improved backend security and system performance, and developed user management and dashboard modules.
 
 Education
 - BS in Information Systems
@@ -168,9 +174,9 @@ export const tawkFaqEntries = [
     answer: `Edgar works with ${techStack.join(', ')}.`,
   },
   {
-    question: 'What experience does Edgar have at X-META?',
+    question: 'What experience does Edgar have at X-Meta?',
     answer:
-      'Edgar worked as a Full Stack Developer Intern at X-META Technologies Inc. from February 2026 to May 2026, building the iPay International website and improving internal systems, dashboards, automation, and user management tools.',
+      "Edgar has worked as a Full Stack Web Developer at X-Meta Technologies, Inc. since June 2026, developing XMetaPay and maintaining the company's 371 Admin, CDB, and X Power systems. He previously worked there as a Full Stack Web Developer Intern from February 2026 to May 2026, contributing to iPay International and the X-Meta System.",
   },
   {
     question: "What are Edgar's featured projects?",
@@ -204,15 +210,15 @@ export const tawkShortcutDefinitions = [
     id: 'about-edgar',
     title: 'About Edgar',
     aiQuestions: ['about edgar', 'who is edgar', 'tell me about edgar', 'background', 'about him'],
-    suggestedMessages: ['Experience at X-META', 'Education', 'Testimonials', 'Main Menu'],
+    suggestedMessages: ['Experience at X-Meta', 'Education', 'Testimonials', 'Main Menu'],
     message: `Edgar Orosa is a full-stack developer based in Las Pinas City, Philippines. He builds practical web apps, internal tools, and modern business websites, and he is open to opportunities.\n\nLearn more on the [About page](${tawkRouteLinks.about}) or jump to the [About section](${tawkHomepageSectionLinks.about}).`,
   },
   {
     id: 'skills-experience',
     title: 'Skills & Experience',
     aiQuestions: ['skills and experience', 'skills', 'experience', 'tech stack', 'what is his stack'],
-    suggestedMessages: ['Tech Stack', 'X-META Experience', 'Featured Projects', 'Main Menu'],
-    message: `Edgar works across frontend and full-stack development, with strong focus on ${techStack.slice(0, 6).join(', ')}. His recent hands-on experience includes production-focused internship work at X-META Technologies Inc.\n\nSee the [Skills section](${tawkHomepageSectionLinks.skills}) or the [Experience section](${tawkHomepageSectionLinks.experience}).`,
+    suggestedMessages: ['Tech Stack', 'X-Meta Experience', 'Featured Projects', 'Main Menu'],
+    message: `Edgar works across frontend and full-stack development, with strong focus on ${techStack.slice(0, 6).join(', ')}. He currently works as a Full Stack Web Developer at X-Meta Technologies, Inc., after completing a Full Stack Developer internship there.\n\nSee the [Skills section](${tawkHomepageSectionLinks.skills}) or the [Experience section](${tawkHomepageSectionLinks.experience}).`,
   },
   {
     id: 'projects-certificates',
@@ -230,11 +236,11 @@ export const tawkShortcutDefinitions = [
   },
   {
     id: 'xmeta-experience',
-    title: 'X-META Experience',
-    aiQuestions: ['experience at x-meta', 'x-meta experience', 'internship', 'full stack developer intern', 'xmeta'],
+    title: 'X-Meta Experience',
+    aiQuestions: ['experience at x-meta', 'x-meta experience', 'current role', 'internship', 'full stack developer', 'xmeta'],
     suggestedMessages: ['Tech Stack', 'Featured Projects', 'Contact / Hire Edgar', 'Main Menu'],
     message:
-      "Edgar worked as a Full Stack Developer Intern at X-META Technologies Inc. from February 2026 to May 2026. He built the iPay International website with Next.js and Supabase, improved internal business systems with PHP and MySQL, automated reporting workflows, and enhanced security and user-management features.\n\nSee the [Experience section](/#experience).",
+      "Edgar currently works as a Full Stack Web Developer at X-Meta Technologies, Inc., a role he began in June 2026. He develops XMetaPay and maintains the company's 371 Admin, CDB, and X Power systems. Before that, he worked there as a Full Stack Web Developer Intern from February 2026 to May 2026, contributing to iPay International, backend systems, automation, security, user management, and dashboards.\n\nSee the [Experience section](/#experience).",
   },
   {
     id: 'education',
@@ -248,7 +254,7 @@ export const tawkShortcutDefinitions = [
     id: 'testimonials',
     title: 'Testimonials',
     aiQuestions: ['testimonials', 'recommendations', 'what do people say about edgar', 'feedback', 'references'],
-    suggestedMessages: ['About Edgar', 'Experience at X-META', 'Contact / Hire Edgar', 'Main Menu'],
+    suggestedMessages: ['About Edgar', 'Experience at X-Meta', 'Contact / Hire Edgar', 'Main Menu'],
     message:
       "Edgar's portfolio includes testimonials from Keith Dwarren Vergara, Sai Molales, and Natalie Julio at X-Meta Technologies, Inc., highlighting his dependable execution, practical solutions, UI quality, and professionalism.\n\nSee the [Testimonials section](/#testimonials).",
   },
@@ -256,7 +262,7 @@ export const tawkShortcutDefinitions = [
     id: 'tech-stack',
     title: 'Tech Stack',
     aiQuestions: ['tech stack', 'technologies', 'tools', 'frameworks', 'what technologies does he use'],
-    suggestedMessages: ['X-META Experience', 'Featured Projects', 'Contact / Hire Edgar', 'Main Menu'],
+    suggestedMessages: ['X-Meta Experience', 'Featured Projects', 'Contact / Hire Edgar', 'Main Menu'],
     message: `Edgar's main stack includes ${techStack.join(', ')}. He builds responsive interfaces, production-ready business websites, and practical internal tools.\n\nSee the [Skills section](${tawkHomepageSectionLinks.skills}).`,
   },
   {
