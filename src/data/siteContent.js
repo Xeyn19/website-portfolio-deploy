@@ -38,15 +38,24 @@ const socialLinks = [
 
 const experienceItems = [
   {
-    role: 'Full Stack Developer Intern',
-    company: 'X-META Technologies Inc.',
-    dateRange: 'Feb 2026 - May 2026',
-    durationLabel: '3 months',
+    role: 'Full Stack Web Developer',
+    company: 'X-Meta Technologies, Inc.',
+    dateRange: 'June 2026 - Present',
     bullets: [
-      'Built the iPay International website with Next.js and Supabase, including admin and analytics tools.',
-      'Enhanced internal business systems using PHP, JavaScript, HTML, Bootstrap, and MySQL.',
-      'Automated monitoring, dashboard, and reporting workflows for offline devices.',
-      'Improved security, performance, and user management modules.',
+      'Developing XMetaPay, a payment platform for X-Meta Technologies.',
+      "Maintaining and administering the company's 371 Admin, CDB, and X Power systems.",
+    ],
+    stackTags: [],
+  },
+  {
+    role: 'Full Stack Web Developer Intern',
+    company: 'X-Meta Technologies, Inc.',
+    dateRange: 'Feb 2026 - May 2026',
+    bullets: [
+      'Developed scalable features for the iPay International website using Next.js and Supabase, including an admin dashboard, data analytics, and request proposal features.',
+      'Built and enhanced the X-Meta System (371 backend) using PHP, JavaScript, HTML, Bootstrap, and MySQL.',
+      'Automated manual processes including program plays monitoring, daily dashboards, and email reporting for offline devices.',
+      'Improved backend security and system performance, and developed user management and dashboard modules.',
     ],
     stackTags: [
       'Next.js',

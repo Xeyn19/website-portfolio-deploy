@@ -460,9 +460,11 @@ const HomePage = () => {
                       </div>
                       <div className="flex flex-wrap items-center gap-2 text-[13px] sm:text-sm">
                         <span className={classes.textMuted}>{item.dateRange}</span>
-                        <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${classes.badgeMuted}`}>
-                          {item.durationLabel}
-                        </span>
+                        {item.durationLabel ? (
+                          <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${classes.badgeMuted}`}>
+                            {item.durationLabel}
+                          </span>
+                        ) : null}
                       </div>
                     </div>
 
@@ -477,22 +479,24 @@ const HomePage = () => {
                       ))}
                     </ul>
 
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {item.stackTags.map((tag) => {
-                        const technology = getTechnologyVisual(tag)
-                        const TechIcon = technology.Icon
+                    {item.stackTags.length > 0 ? (
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {item.stackTags.map((tag) => {
+                          const technology = getTechnologyVisual(tag)
+                          const TechIcon = technology.Icon
 
-                        return (
-                          <span
-                            key={`${item.role}-${technology.label}`}
-                            className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
-                          >
-                            <TechIcon className={`h-3.5 w-3.5 ${technology.iconClass}`} />
-                            <span>{technology.label}</span>
-                          </span>
-                        )
-                      })}
-                    </div>
+                          return (
+                            <span
+                              key={`${item.role}-${technology.label}`}
+                              className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ${classes.badgeMuted}`}
+                            >
+                              <TechIcon className={`h-3.5 w-3.5 ${technology.iconClass}`} />
+                              <span>{technology.label}</span>
+                            </span>
+                          )
+                        })}
+                      </div>
+                    ) : null}
                   </ElectricBorder>
                 ))}
               </div>
