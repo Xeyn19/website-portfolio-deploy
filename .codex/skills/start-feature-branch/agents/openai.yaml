@@ -1,0 +1,4 @@
+interface:
+  display_name: "Start Feature Branch"
+  short_description: "Create a feature branch from main before edits"
+  default_prompt: "Use $start-feature-branch to create a branch from main for the feature we discussed, then implement it."
