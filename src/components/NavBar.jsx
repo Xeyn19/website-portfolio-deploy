@@ -187,7 +187,7 @@ const NavBar = () => {
               className={`hidden h-12 w-12 items-center justify-center rounded-full text-sm font-semibold lg:inline-flex ${classes.surfaceMuted} ${classes.heading}`}
               aria-label="Scroll to top"
             >
-              EO
+              EG
             </button>
 
             <nav className={`hidden items-center gap-1 rounded-full px-1.5 py-1 lg:flex ${classes.surfaceMuted}`}>

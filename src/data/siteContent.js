@@ -40,10 +40,14 @@ const experienceItems = [
   {
     role: 'Full Stack Web Developer',
     company: 'X-Meta Technologies, Inc.',
-    dateRange: 'June 2026 - Present',
+    dateRange: 'June 2026 - December 2026',
+    employmentType: 'Full-time',
+    workArrangement: 'On-site',
     bullets: [
       'Developing XMetaPay, a payment platform for X-Meta Technologies.',
       "Maintaining and administering the company's 371 Admin, CDB, and X Power systems.",
+      'Automated ERAP reporting workflows in 371 Admin, including Ads Play Monitoring, Ads Charge Monitoring, PB, SOA, combined PB and Ads, and Bottomline Statement reports.',
+      'Improved the Campaign pages in 371 Admin and added Ads Charge Notes, Play Plan Monitoring, User Management, and Role Management features.',
     ],
     stackTags: [],
   },
@@ -51,6 +55,8 @@ const experienceItems = [
     role: 'Full Stack Web Developer Intern',
     company: 'X-Meta Technologies, Inc.',
     dateRange: 'Feb 2026 - May 2026',
+    employmentType: 'Full-time',
+    workArrangement: 'On-site',
     bullets: [
       'Developed scalable features for the iPay International website using Next.js and Supabase, including an admin dashboard, data analytics, and request proposal features.',
       'Built and enhanced the X-Meta System (371 backend) using PHP, JavaScript, HTML, Bootstrap, and MySQL.',
