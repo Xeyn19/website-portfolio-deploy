@@ -98,14 +98,18 @@ Tech Stack
 Experience
 - Role: Full Stack Web Developer
 - Company: X-Meta Technologies, Inc.
-- Dates: June 2026 - Present
+- Dates: June 2026 - December 2026
+- Employment: Full-time, On-site
 - Highlights:
   - Developing XMetaPay, a payment platform for X-Meta Technologies.
   - Maintaining and administering the company's 371 Admin, CDB, and X Power systems.
+  - Automated ERAP reporting workflows in 371 Admin, including Ads Play Monitoring, Ads Charge Monitoring, PB, SOA, combined PB and Ads, and Bottomline Statement reports.
+  - Improved the Campaign pages in 371 Admin and added Ads Charge Notes, Play Plan Monitoring, User Management, and Role Management features.
 
 - Role: Full Stack Web Developer Intern
 - Company: X-Meta Technologies, Inc.
 - Dates: Feb 2026 - May 2026
+- Employment: Full-time, On-site
 - Highlights:
   - Developed scalable features for the iPay International website using Next.js and Supabase, including an admin dashboard, data analytics, and request proposal features.
   - Built and enhanced the X-Meta System (371 backend) using PHP, JavaScript, HTML, Bootstrap, and MySQL.
@@ -176,7 +180,7 @@ export const tawkFaqEntries = [
   {
     question: 'What experience does Edgar have at X-Meta?',
     answer:
-      "Edgar has worked as a Full Stack Web Developer at X-Meta Technologies, Inc. since June 2026, developing XMetaPay and maintaining the company's 371 Admin, CDB, and X Power systems. He previously worked there as a Full Stack Web Developer Intern from February 2026 to May 2026, contributing to iPay International and the X-Meta System.",
+      "Edgar worked full-time and on-site as a Full Stack Web Developer at X-Meta Technologies, Inc. from June 2026 to December 2026, developing XMetaPay, maintaining the company's systems, automating ERAP reports, improving Campaign pages, and adding monitoring and access-management features in 371 Admin. He previously worked there full-time and on-site as a Full Stack Web Developer Intern from February 2026 to May 2026, contributing to iPay International and the X-Meta System.",
   },
   {
     question: "What are Edgar's featured projects?",
@@ -218,7 +222,7 @@ export const tawkShortcutDefinitions = [
     title: 'Skills & Experience',
     aiQuestions: ['skills and experience', 'skills', 'experience', 'tech stack', 'what is his stack'],
     suggestedMessages: ['Tech Stack', 'X-Meta Experience', 'Featured Projects', 'Main Menu'],
-    message: `Edgar works across frontend and full-stack development, with strong focus on ${techStack.slice(0, 6).join(', ')}. He currently works as a Full Stack Web Developer at X-Meta Technologies, Inc., after completing a Full Stack Developer internship there.\n\nSee the [Skills section](${tawkHomepageSectionLinks.skills}) or the [Experience section](${tawkHomepageSectionLinks.experience}).`,
+    message: `Edgar works across frontend and full-stack development, with strong focus on ${techStack.slice(0, 6).join(', ')}. He worked full-time and on-site as a Full Stack Web Developer at X-Meta Technologies, Inc. from June to December 2026, after completing a full-time, on-site Full Stack Developer internship there.\n\nSee the [Skills section](${tawkHomepageSectionLinks.skills}) or the [Experience section](${tawkHomepageSectionLinks.experience}).`,
   },
   {
     id: 'projects-certificates',
@@ -240,7 +244,7 @@ export const tawkShortcutDefinitions = [
     aiQuestions: ['experience at x-meta', 'x-meta experience', 'current role', 'internship', 'full stack developer', 'xmeta'],
     suggestedMessages: ['Tech Stack', 'Featured Projects', 'Contact / Hire Edgar', 'Main Menu'],
     message:
-      "Edgar currently works as a Full Stack Web Developer at X-Meta Technologies, Inc., a role he began in June 2026. He develops XMetaPay and maintains the company's 371 Admin, CDB, and X Power systems. Before that, he worked there as a Full Stack Web Developer Intern from February 2026 to May 2026, contributing to iPay International, backend systems, automation, security, user management, and dashboards.\n\nSee the [Experience section](/#experience).",
+      "Edgar worked full-time and on-site as a Full Stack Web Developer at X-Meta Technologies, Inc. from June to December 2026. He developed XMetaPay; maintained the company's 371 Admin, CDB, and X Power systems; automated ERAP reports; improved Campaign pages; and added Ads Charge Notes, Play Plan Monitoring, User Management, and Role Management in 371 Admin. Before that, he worked there full-time and on-site as a Full Stack Web Developer Intern from February 2026 to May 2026, contributing to iPay International, backend systems, automation, security, user management, and dashboards.\n\nSee the [Experience section](/#experience).",
   },
   {
     id: 'education',

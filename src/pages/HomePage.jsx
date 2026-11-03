@@ -460,6 +460,14 @@ const HomePage = () => {
                       </div>
                       <div className="flex flex-wrap items-center gap-2 text-[13px] sm:text-sm">
                         <span className={classes.textMuted}>{item.dateRange}</span>
+                        {[item.employmentType, item.workArrangement].filter(Boolean).map((detail) => (
+                          <span
+                            key={`${item.role}-${detail}`}
+                            className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] sm:px-3 sm:text-[11px] ${classes.badgeMuted}`}
+                          >
+                            {detail}
+                          </span>
+                        ))}
                         {item.durationLabel ? (
                           <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${classes.badgeMuted}`}>
                             {item.durationLabel}
